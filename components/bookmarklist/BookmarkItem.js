@@ -5,10 +5,14 @@ import BookmarkForm from "../BookmarkForm";
 import { useData } from "@/hooks/useData";
 import { useDrag } from "react-dnd";
 import Link from "next/link";
-
+import { dropItemTypes } from "@/dropItemTypes";
 const BookmarkItem = ({ name, id, isAdded, setIsAdded, category, url , icon }) => {
+
+
+
+  //////
   const [{ isDragging }, drag] = useDrag({
-    type: "any",
+    type:dropItemTypes.BOOKMARK,
     item: {
       name,
       id,

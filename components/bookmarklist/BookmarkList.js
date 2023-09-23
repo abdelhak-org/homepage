@@ -6,10 +6,13 @@ import { BsDoorClosed } from "react-icons/bs";
 import { useTheme } from "@/hooks/useTheme";
 import BookmarkForm from "../BookmarkForm";
 import { useDrop, useDrag } from "react-dnd";
-import { ItemTypes } from "@/ItemTypes";
+import { dropItemTypes } from "@/dropItemTypes";
+import { useData } from "@/hooks/useData";
+
 /// create bookmarklist
 const BookmarkList = ({ data, listCategory, id }) => {
-  // import required states
+  const {moveBookmark} = useData()
+  // import required states 
   const [isOpen, setIsOpen] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [isCLose, setIsClose] = useState(true);
@@ -18,19 +21,14 @@ const BookmarkList = ({ data, listCategory, id }) => {
 
   //create drop hook
   const [isOver, drop] = useDrop(() => ({
-    accept: "any",
-    drop: (item) => addItemToContainer(item.id),
+    accept: dropItemTypes.BOOKMARK,
+    drop: (item) =>  moveBookmark(item.id , listCategory),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
   }));
   
-  const addItemToContainer = (id) => {
-    const dragedItem = data.filter((item) => id === item.id)[0];
-    dragedItem.category = listCategory;
-    console.log(data)
-  };
-  useEffect(()=>{},[addItemToContainer,data])
+  
   return (
     <div
       ref={drop}

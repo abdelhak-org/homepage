@@ -12,7 +12,7 @@ const BookmarkForm = ( { setIsAdded, isAdded, listId } ) => {
     listId: listId,
     url: "",
   } );
-  const [isConfirmed, setIConfirmed] = useState( true );
+  const [isSubmited, setISubmited] = useState( true );
 
   const handleSubmit = ( e ) => {
     e.preventDefault();

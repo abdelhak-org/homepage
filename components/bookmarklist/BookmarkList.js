@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import BookmarkItem from "./BookmarkItem";
 import { FiSettings } from "react-icons/fi";
 import { BsDoorClosed } from "react-icons/bs";
@@ -10,14 +10,14 @@ import { useDataContext } from "@/context/data/DataContext";
 import { useUiContext } from "@/context/ui/UiConext";
 
 
-const BookmarkList = ( { data, listCategory, listId } ) => {
+const BookmarkList = ( { listId } ) => {
 
   const [isOpen, setIsOpen] = useState( false );
   const [isAdded, setIsAdded] = useState( false );
-  const [isCLose, setIsClose] = useState( true );
+  const [collapsed, setCollapsed] = useState( false );
   const { actions: uiActions } = useUiContext();
 
-  const { actions } = useDataContext()
+  const { actions, bookmarksData } = useDataContext()
 
   const [isOver, drop] = useDrop( () => ( {
     accept: dropItemTypes.BOOKMARK,
@@ -26,6 +26,9 @@ const BookmarkList = ( { data, listCategory, listId } ) => {
       isOver: !!monitor.isOver(),
     } ),
   } ) );
+
+  const bookmarksToShow = bookmarksData
+    .filter( ( bookmark ) => bookmark.listId === listId )
 
   return (
     <div
@@ -39,26 +42,11 @@ const BookmarkList = ( { data, listCategory, listId } ) => {
       >
         {listCategory}
       </h6>
-      {isCLose && (
+
+      {!collapsed && (
         <>
           <ul>
-            {data
-              .filter(
-                ( item ) =>
-                  item.listId === listId
-              )
-              .map( ( item ) => {
-                return (
-                  <BookmarkItem
-                    id={item.id}
-                    key={item.id}
-                    name={item.name}
-                    listId={item.listId}
-                    url={item.url}
-                    icon={item.icon}
-                  />
-                );
-              } )}
+            {bookmarksToShow}
           </ul>
           {!isAdded ? (
             <button
@@ -75,47 +63,9 @@ const BookmarkList = ( { data, listCategory, listId } ) => {
             />
           )}
 
-          <p
-            onClick={() => setIsOpen( !isOpen )}
-            className="absolute top-0 right-0 pr-2 text-2xl  z-50 cursor-pointer"
-          >
-            {!isOpen ? (
-              <FiSettings className="text-xl my-2" />
-            ) : (
-              <BsDoorClosed className="text-xl my-2" />
-            )}
-          </p>
 
-          {isOpen && (
-            <div className=" absolute w-16 h-full top-0 pt-8  right-0 bg-yellow-200">
-              <label>
-                <select
-                  onChange={( e ) => uiActions.ChangeBookmarkColor( e.target.value )}
-                  className="w-full cursor-pointer outline-none"
-                >
-                  <option value="">Color</option>
 
-                  <option value={"#333"} className="bg-[#333]"></option>
-                  <option value={"#fff"} className="bg-white">
-                  </option>
-                  <option value={"#071952"} className="bg-[#071952]"></option>
-                  <option value={"#004225"} className=" bg-[#004225]"> </option>
-                </select>
-              </label>
-
-              <label>
-                <select
-                  onChange={( e ) => uiActions.ChangeBookFontSize( e.target.value )}
-                  className="w-full cursor-pointer outline-none"
-                >
-                  <option value="">Size</option>
-                  <option value={"8px"}>sm</option>
-                  <option value={"14px"}>lg</option>
-                  <option value={"18px"}>xl</option>
-                </select>
-              </label>
-            </div>
-          )}
+          <OptionsMenu />
         </>
       )}
     </div>

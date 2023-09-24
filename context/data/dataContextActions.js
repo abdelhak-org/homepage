@@ -23,4 +23,4 @@ export const dataActions = ( dispatch ) => ( {
 } )
 
 
-const deleteAction = ( id ) => ( { type: dataActionTypes.DELETE_BOOKMARK, payload: id } )
+export const deleteAction = ( id ) => ( { type: dataActionTypes.DELETE_BOOKMARK, payload: id } )

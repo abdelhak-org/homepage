@@ -13,6 +13,7 @@ export function DataContextProvider( { children } ) {
   const value = useMemo( () => ( {
     listsData: state.listsData,
     bookmarksData: state.bookmarksData,
+    dispatch: dispatch,
     actions: dataActions( dispatch )
   } ), [state.listsData, state.bookmarksData] );
 
@@ -23,3 +24,7 @@ export function DataContextProvider( { children } ) {
     </DataContext.Provider>
   );
 }
+
+
+const { dispatch } = useDataContext()
+

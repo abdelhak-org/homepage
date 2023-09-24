@@ -18,5 +18,9 @@ export const dataActions = ( dispatch ) => ( {
     if ( newList.listName === "" ) return;
     dispatch( { type: dataActionTypes.ADD_NEW_LIST, payload: newList } )
   }
+
+
 } )
 
+
+const deleteAction = ( id ) => ( { type: dataActionTypes.DELETE_BOOKMARK, payload: id } )

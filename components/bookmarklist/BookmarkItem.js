@@ -6,7 +6,7 @@ import { useData } from "@/hooks/useData";
 import { useDrag } from "react-dnd";
 import Link from "next/link";
 import { dropItemTypes } from "@/dropItemTypes";
-const BookmarkItem = ({ name, id, isAdded, setIsAdded, category, url , icon }) => {
+const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url , icon }) => {
 
 
 
@@ -16,7 +16,7 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, category, url , icon }) =
     item: {
       name,
       id,
-      category,
+      listId,
       url,
     },
     collect: (monitor) => ({
@@ -51,7 +51,7 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, category, url , icon }) =
           x
         </span>
       </li>
-      {isAdded && <BookmarkForm setIsAdded={setIsAdded} />}
+      {isAdded && <BookmarkForm setIsAdded={setIsAdded} listId={listId}/>}
     </>
   );
 };

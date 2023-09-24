@@ -10,7 +10,7 @@ import { dropItemTypes } from "@/dropItemTypes";
 import { useData } from "@/hooks/useData";
 
 /// create bookmarklist
-const BookmarkList = ({ data, listCategory, id }) => {
+const BookmarkList = ({ data, listCategory,listId }) => {
   const {moveBookmark} = useData()
   // import required states 
   const [isOpen, setIsOpen] = useState(false);
@@ -22,19 +22,19 @@ const BookmarkList = ({ data, listCategory, id }) => {
   //create drop hook
   const [isOver, drop] = useDrop(() => ({
     accept: dropItemTypes.BOOKMARK,
-    drop: (item) =>  moveBookmark(item.id , listCategory),
+    drop: (item) =>  moveBookmark(item.id , listId),
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
+      isOver: !!monitor.isOver(),
     }),
   }));
-  
   
   return (
     <div
       ref={drop}
       className="w-60 h-fit border m-8 border-blue-200 bg-slate-50 rounded-md relative "
-    >
+      >
       <h6
+      
         onClick={() => setIsClose(!isCLose)}
         className="w-full my-2 text-center shadow-md capitalize font-script font-bold text-xl cursor-pointer"
       >
@@ -46,7 +46,7 @@ const BookmarkList = ({ data, listCategory, id }) => {
             {data
               .filter(
                 (item) =>
-                  item.category.toLowerCase().trim()=== listCategory.toLowerCase().trim()
+                  item.listId=== listId
               )
               .map((item) => {
                 return (
@@ -54,7 +54,7 @@ const BookmarkList = ({ data, listCategory, id }) => {
                     id={item.id}
                     key={item.id}
                     name={item.name}
-                    category={item.category}
+                    listId={item.listId}
                     url={item.url}
                     icon={item.icon}
                   />
@@ -72,7 +72,7 @@ const BookmarkList = ({ data, listCategory, id }) => {
             <BookmarkForm
               isAdded={isAdded}
               setIsAdded={setIsAdded}
-              category={listCategory}
+              listId={listId}
             />
           )}
 
@@ -95,7 +95,8 @@ const BookmarkList = ({ data, listCategory, id }) => {
                   className="w-full cursor-pointer outline-none"
                 >
                   <option value="">Color</option>
-                  <option value={"#333"} className="bg-[#333]"></option>
+                
+                     <option value={"#333"} className="bg-[#333]"></option>
                   <option value={"#fff"} className="bg-white">
                   </option>
                   <option value={"#071952"} className="bg-[#071952]"></option>

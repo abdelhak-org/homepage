@@ -2,14 +2,13 @@
 
 import React, { useState } from "react";
  import { useData } from "@/hooks/useData";
-const BookmarkForm = ({setIsAdded , isAdded ,category  }) => {
+const BookmarkForm = ({setIsAdded , isAdded ,listId  }) => {
 const {addBookmark} = useData();
   const [bookmark, setBookmark] = useState({
     name: "",
     id: Math.random(),
-    category:category,
+    listId:listId,
     url:"",
-    deleted: "false",
   });
   const [isConfirmed, setIConfirmed] = useState(true);
   const handleSubmit = (e) => {

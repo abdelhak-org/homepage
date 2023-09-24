@@ -1,96 +1,110 @@
 import { createContext, useReducer } from "react";
 
 // basic data
-const initialState = {
-  globalData: [
+
+const dataList =[
+  { listId :100 ,
+    listName  :"browsers", 
+  },
+  { listId :101 ,
+    listName  :" social Media", 
+  },
+  { listId :102 ,
+    listName  :"Contact", 
+  },
+
+]
+/// bookmarK list
+const globalData= [
     {
       id: 1,
+      listId :100 ,
       category: "browsers",
       name: "CHROME",
-      deleted: false,
       url: "https://www.google.de/",
     },
     {
       id: 2,
+      listId :100 ,
       category: "browsers",
       name: "FIREFOX",
-      deleted: false,
+
       url: "https://www.google.de/",
     },
     {
       id: 3,
+      listId :100 ,
       category: "browsers",
       name: "EXPLORER",
-      deleted: false,
       url: "https://www.google.de/",
     },
     {
       id: 4,
+      listId :100 ,
       category: "browsers",
       name: "EDGE",
-      deleted: false,
       url: "https://www.google.de/",
     },
 
     {
       id: 5,
+      listId :101 ,
       category: "social media",
       name: "FACEBOOK",
-      deleted: false,
       url: "https://www.facebook.com/",
     },
     {
       id: 6,
+      listId :101 ,
       category: "social media",
       name: "instagram",
-      deleted: false,
       url: "https://www.instagram.com/",
     },
     {
       id: 7,
+      listId :101 ,
       category: "social media",
       name: "TIKTOK",
-      deleted: false,
       url: "https://www.tiktok.com/explore",
     },
     {
       id: 8,
+      listId :101 ,
       category: "social media",
       name: "WECHAT",
-      deleted: false,
       url: "https://www.wechat.com/",
     },
 
     {
       id: 9,
+      listId :102 ,
       category: "contact",
       name: "GMAIL",
-      deleted: false,
       url: "https://mail.google.com/",
     },
     {
       id: 10,
+      listId :102 ,
       category: "contact",
       name: "YAHOO",
-      deleted: false,
       url: "https://www.yahoo.com/",
     },
     {
       id: 11,
+      listId :102 ,
       category: "contact",
       name: "HOTMAIL",
-      deleted: false,
       url: "https://www.microsoft.com/",
     },
     {
       id: 12,
+      listId :102 ,
       category: "contact",
       name: "BING",
-      deleted: false,
       url: "https://www.bing.com/",
     },
-  ],
-};
+  ]
+
 
 // Reducer Function
 const DataReducer = (state, action) => {
@@ -109,10 +123,13 @@ const DataReducer = (state, action) => {
       return {
         ...state,
         globalData: state.globalData.map((bookmark) =>
-         bookmark.id === action.payload.id ? { ...bookmark, category: action.payload.newCategory } : bookmark
+          bookmark.id === action.payload.id
+            ? { ...bookmark, listId: action.payload.listId }
+            : bookmark
         ),
       };
-
+      case "ADD_NEW_LIST" : 
+      return {...state ,dataList:[...state.dataList , action.payload] }
     default:
       return state;
   }
@@ -123,7 +140,7 @@ export const DataContext = createContext();
 
 // create Provider
 export function DataContextProvider({ children }) {
-  const [state, dispatch] = useReducer(DataReducer, initialState);
+  const [state, dispatch] = useReducer(DataReducer, {globalData,dataList });
 
   // function to ADD NEW ELEMENT
   const addBookmark = (item) => {
@@ -137,12 +154,29 @@ export function DataContextProvider({ children }) {
   };
   // handling localStorage
 
-  const moveBookmark = (id, newCategory) => {
-    dispatch({ type: "MOVE_BOOKMARK", payload: { id, newCategory } });
+  const moveBookmark = (id, listId) => {
+    dispatch({ type: "MOVE_BOOKMARK", payload: { id, listId } });
   };
+  /// create new list 
+  const addNewList = (newList)=>{
+    if (newList.listName === "") return;
+
+    dispatch({type:"ADD_NEW_LIST" , payload : newList })
+  }
+  console.log("category =>" , state.dataList)
+  console.log("data=>" , state.globalData)
+
   return (
     <DataContext.Provider
-      value={{ bookmarklist: state.globalData, addBookmark, deleteBookmark , moveBookmark }}
+      value={{
+        bookmarklist: state.globalData,
+        categoryList : state.dataList, 
+        addBookmark,
+        deleteBookmark,
+        moveBookmark,
+        addNewList
+        
+      }}
     >
       {children}
     </DataContext.Provider>

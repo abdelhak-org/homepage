@@ -1,0 +1,6 @@
+export const dataActionTypes = {
+    ADD_BOOKMARK: "ADD_BOOKMARK",
+    DELETE_BOOKMARK: "DELETE_BOOKMARK",
+    MOVE_BOOKMARK: "MOVE_BOOKMARK",
+    ADD_NEW_LIST: "ADD_NEW_LIST"
+}

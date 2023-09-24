@@ -1,21 +1,24 @@
 "use client";
 
 import React, { useState } from "react";
- import { useData } from "@/hooks/useData";
-const BookmarkForm = ({setIsAdded , isAdded ,listId  }) => {
-const {addBookmark} = useData();
-  const [bookmark, setBookmark] = useState({
+import { useDataContext } from "@/context/data/DataContext";
+import { generateUniqueId } from "@/utils/generateUniqueId";
+
+const BookmarkForm = ( { setIsAdded, isAdded, listId } ) => {
+  const { actions } = useDataContext();
+  const [bookmark, setBookmark] = useState( {
     name: "",
-    id: Math.random(),
-    listId:listId,
-    url:"",
-  });
-  const [isConfirmed, setIConfirmed] = useState(true);
-  const handleSubmit = (e) => {
+    id: generateUniqueId(),
+    listId: listId,
+    url: "",
+  } );
+  const [isConfirmed, setIConfirmed] = useState( true );
+
+  const handleSubmit = ( e ) => {
     e.preventDefault();
-    setIConfirmed(!isConfirmed)
-    setIsAdded(!isAdded)
-    addBookmark(bookmark)
+    setIConfirmed( !isConfirmed )
+    setIsAdded( !isAdded )
+    actions.addBookmark( bookmark )
 
   };
 
@@ -30,8 +33,8 @@ const {addBookmark} = useData();
             <span> Name:</span>
             <input
               className="w-full py-1 px-2 text-sm border border-dotted rounded-sm outline-none "
-              onChange={(e) =>
-                setBookmark({ ...bookmark, name: e.target.value })
+              onChange={( e ) =>
+                setBookmark( { ...bookmark, name: e.target.value } )
               }
               value={bookmark.name}
               type="text"
@@ -42,8 +45,8 @@ const {addBookmark} = useData();
             <span> URL:</span>
             <input
               className="w-full py-1 px-2 text-sm border border-dotted rounded-sm outline-none "
-              onChange={(e) =>
-                setBookmark({ ...bookmark, url: e.target.value })
+              onChange={( e ) =>
+                setBookmark( { ...bookmark, url: e.target.value } )
               }
               value={bookmark.url}
               type="text"

@@ -1,41 +1,40 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import BookmarkItem from "./BookmarkItem";
 import { FiSettings } from "react-icons/fi";
 import { BsDoorClosed } from "react-icons/bs";
-import { useTheme } from "@/hooks/useTheme";
 import BookmarkForm from "../BookmarkForm";
-import { useDrop, useDrag } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
-import { useData } from "@/hooks/useData";
+import { useDataContext } from "@/context/data/DataContext";
+import { useUiContext } from "@/context/ui/UiConext";
 
-/// create bookmarklist
-const BookmarkList = ({ data, listCategory,listId }) => {
-  const {moveBookmark} = useData()
-  // import required states 
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
-  const [isCLose, setIsClose] = useState(true);
-  const { ChangeBookmarkColor, ChangeBookFontSize } = useTheme();
-  // use the main container as draged element
 
-  //create drop hook
-  const [isOver, drop] = useDrop(() => ({
+const BookmarkList = ( { data, listCategory, listId } ) => {
+
+  const [isOpen, setIsOpen] = useState( false );
+  const [isAdded, setIsAdded] = useState( false );
+  const [isCLose, setIsClose] = useState( true );
+  const { actions: uiActions } = useUiContext();
+
+  const { actions } = useDataContext()
+
+  const [isOver, drop] = useDrop( () => ( {
     accept: dropItemTypes.BOOKMARK,
-    drop: (item) =>  moveBookmark(item.id , listId),
-    collect: (monitor) => ({
+    drop: ( item ) => actions.moveBookmark( item.id, listId ),
+    collect: ( monitor ) => ( {
       isOver: !!monitor.isOver(),
-    }),
-  }));
-  
+    } ),
+  } ) );
+
   return (
     <div
       ref={drop}
       className="w-60 h-fit border m-8 border-blue-200 bg-slate-50 rounded-md relative "
-      >
+    >
       <h6
-      
-        onClick={() => setIsClose(!isCLose)}
+
+        onClick={() => setIsClose( !isCLose )}
         className="w-full my-2 text-center shadow-md capitalize font-script font-bold text-xl cursor-pointer"
       >
         {listCategory}
@@ -45,10 +44,10 @@ const BookmarkList = ({ data, listCategory,listId }) => {
           <ul>
             {data
               .filter(
-                (item) =>
-                  item.listId=== listId
+                ( item ) =>
+                  item.listId === listId
               )
-              .map((item) => {
+              .map( ( item ) => {
                 return (
                   <BookmarkItem
                     id={item.id}
@@ -59,11 +58,11 @@ const BookmarkList = ({ data, listCategory,listId }) => {
                     icon={item.icon}
                   />
                 );
-              })}
+              } )}
           </ul>
           {!isAdded ? (
             <button
-              onClick={() => setIsAdded(!isAdded)}
+              onClick={() => setIsAdded( !isAdded )}
               className="px-4 py-2 border block mx-auto border-dashed "
             >
               add
@@ -77,7 +76,7 @@ const BookmarkList = ({ data, listCategory,listId }) => {
           )}
 
           <p
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen( !isOpen )}
             className="absolute top-0 right-0 pr-2 text-2xl  z-50 cursor-pointer"
           >
             {!isOpen ? (
@@ -91,12 +90,12 @@ const BookmarkList = ({ data, listCategory,listId }) => {
             <div className=" absolute w-16 h-full top-0 pt-8  right-0 bg-yellow-200">
               <label>
                 <select
-                  onChange={(e) => ChangeBookmarkColor(e.target.value)}
+                  onChange={( e ) => uiActions.ChangeBookmarkColor( e.target.value )}
                   className="w-full cursor-pointer outline-none"
                 >
                   <option value="">Color</option>
-                
-                     <option value={"#333"} className="bg-[#333]"></option>
+
+                  <option value={"#333"} className="bg-[#333]"></option>
                   <option value={"#fff"} className="bg-white">
                   </option>
                   <option value={"#071952"} className="bg-[#071952]"></option>
@@ -106,7 +105,7 @@ const BookmarkList = ({ data, listCategory,listId }) => {
 
               <label>
                 <select
-                  onChange={(e) => ChangeBookFontSize(e.target.value)}
+                  onChange={( e ) => uiActions.ChangeBookFontSize( e.target.value )}
                   className="w-full cursor-pointer outline-none"
                 >
                   <option value="">Size</option>

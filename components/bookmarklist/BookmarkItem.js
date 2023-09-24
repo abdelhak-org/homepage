@@ -1,31 +1,26 @@
 "use client";
 
-import { useTheme } from "@/hooks/useTheme";
 import BookmarkForm from "../BookmarkForm";
-import { useData } from "@/hooks/useData";
 import { useDrag } from "react-dnd";
 import Link from "next/link";
 import { dropItemTypes } from "@/dropItemTypes";
-const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url , icon }) => {
+import { useUiContext } from "@/context/ui/UiConext";
+import { useDataContext } from "@/context/data/DataContext";
 
-
-
-  //////
-  const [{ isDragging }, drag] = useDrag({
-    type:dropItemTypes.BOOKMARK,
+const BookmarkItem = ( { name, id, isAdded, setIsAdded, listId, url, icon } ) => {
+  const [{ isDragging }, drag] = useDrag( {
+    type: dropItemTypes.BOOKMARK,
     item: {
       name,
       id,
       listId,
       url,
     },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  });
+    collect: ( monitor ) => ( { isDragging: !!monitor.isDragging() } ),
+  } );
 
-  const { bookmarkColor, fontS } = useTheme();
-  const { deleteBookmark } = useData();
+  const { bookmarkColor, fontS } = useUiContext();
+  const { actions } = useDataContext();
 
   return (
     <>
@@ -41,17 +36,16 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url , icon }) => 
       >
         <span className="mr-1" > {icon} </span>
         <Link href={url} target="_blank">
-      
           {name}
         </Link>
         <span
-          onClick={() => deleteBookmark(id)}
+          onClick={() => actions.deleteBookmark( id )}
           className="absolute -top-2 right-0 p-1 text-pink"
         >
           x
         </span>
       </li>
-      {isAdded && <BookmarkForm setIsAdded={setIsAdded} listId={listId}/>}
+      {isAdded && <BookmarkForm setIsAdded={setIsAdded} listId={listId} />}
     </>
   );
 };

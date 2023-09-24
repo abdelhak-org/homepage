@@ -12,7 +12,7 @@ import { useUiContext } from "@/context/ui/UiConext";
 
 const BookmarkList = ( { listId } ) => {
 
-  const [isOpen, setIsOpen] = useState( false );
+
   const [isAdded, setIsAdded] = useState( false );
   const [collapsed, setCollapsed] = useState( false );
   const { actions: uiActions } = useUiContext();

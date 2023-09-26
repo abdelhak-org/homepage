@@ -3,26 +3,25 @@
 import React, { useState } from "react";
 
 import { useDataContext } from "@/context/data/DataContext";
-const BookmarkForm = ({setIsAdded , isAdded ,listId  }) => {
-const {dataActions} = useDataContext();
+const BookmarkForm = ({ setShowForm, showForm, listId }) => {
+  const { dataActions } = useDataContext();
   const [bookmark, setBookmark] = useState({
     name: "",
     id: Math.random(),
-    listId:listId,
-    url:"",
+    listId: listId,
+    url: "",
   });
-  const [isConfirmed, setIConfirmed] = useState(true);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIConfirmed(!isConfirmed)
-    setIsAdded(!isAdded)
-    dataActions.addBookmark(bookmark)
-
+    setShowForm(!showForm);
+    dataActions.addBookmark(bookmark);
+    setBookmark({ name: "", id: Math.random(), listId: listId, url: "" });
   };
 
   return (
     <>
-      {isConfirmed && (
+      {showForm && (
         <form
           onSubmit={handleSubmit}
           className="w-full p-2 border border-gray rounded-sm border-dashed"

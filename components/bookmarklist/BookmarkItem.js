@@ -1,18 +1,17 @@
 "use client";
 
-import { useTheme } from "@/hooks/useTheme";
 import BookmarkForm from "../BookmarkForm";
-import { useData } from "@/hooks/useData";
 import { useDrag } from "react-dnd";
 import Link from "next/link";
 import { dropItemTypes } from "@/dropItemTypes";
-const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url , icon }) => {
-
-
-
+import { useUiContext } from "@/context/ui/UiContext";
+import { useDataContext } from "@/context/data/DataContext";
+const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url, icon }) => {
+  const { uiData } = useUiContext();
+  const {} = useDataContext()
   //////
   const [{ isDragging }, drag] = useDrag({
-    type:dropItemTypes.BOOKMARK,
+    type: dropItemTypes.BOOKMARK,
     item: {
       name,
       id,
@@ -24,34 +23,32 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url , icon }) => 
     }),
   });
 
-  const { bookmarkColor, fontS } = useTheme();
-  const { deleteBookmark } = useData();
+  const { dataActions } = useDataContext();
 
   return (
     <>
       <li
         ref={drag}
         style={{
-          background: bookmarkColor,
-          fontSize: fontS,
+          background: uiData.bookmarkColor,
+          fontSize: uiData.fontS,
           opacity: isDragging ? 0.5 : 1,
         }}
         className="px-4 py-2 w-fit flex items-center
         border border-dashed m-2 font-josefin   border-blue-200 relative "
       >
-        <span className="mr-1" > {icon} </span>
+        <span className="mr-1"> {icon} </span>
         <Link href={url} target="_blank">
-      
           {name}
         </Link>
         <span
-          onClick={() => deleteBookmark(id)}
+          onClick={() => dataActions.deleteBookmark(id)}
           className="absolute -top-2 right-0 p-1 text-pink"
         >
           x
         </span>
       </li>
-      {isAdded && <BookmarkForm setIsAdded={setIsAdded} listId={listId}/>}
+      {isAdded && <BookmarkForm setIsAdded={setIsAdded} listId={listId} />}
     </>
   );
 };

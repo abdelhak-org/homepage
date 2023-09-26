@@ -3,38 +3,36 @@ import { useEffect, useRef, useState } from "react";
 import BookmarkItem from "./BookmarkItem";
 import { FiSettings } from "react-icons/fi";
 import { BsDoorClosed } from "react-icons/bs";
-import { useTheme } from "@/hooks/useTheme";
 import BookmarkForm from "../BookmarkForm";
 import { useDrop, useDrag } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
-import { useData } from "@/hooks/useData";
+import { useUiContext } from "@/context/ui/UiContext";
+import  {useDataContext} from "@/context/data/DataContext"
 
-/// create bookmarklist
-const BookmarkList = ({ data, listCategory,listId }) => {
-  const {moveBookmark} = useData()
-  // import required states 
+////
+const BookmarkList = ({ data, listCategory, listId }) => {
+  const { dataActions } = useDataContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [isCLose, setIsClose] = useState(true);
-  const { ChangeBookmarkColor, ChangeBookFontSize } = useTheme();
-  // use the main container as draged element
+  const { actions, uiData } = useUiContext();
+  const { ChangeBookmarkColor, ChangeBookFontSize } = actions;
 
   //create drop hook
   const [isOver, drop] = useDrop(() => ({
     accept: dropItemTypes.BOOKMARK,
-    drop: (item) =>  moveBookmark(item.id , listId),
+    drop: (item) => dataActions.moveBookmark(item.id, listId),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
-  
+
   return (
     <div
       ref={drop}
       className="w-60 h-fit border m-8 border-blue-200 bg-slate-50 rounded-md relative "
-      >
+    >
       <h6
-      
         onClick={() => setIsClose(!isCLose)}
         className="w-full my-2 text-center shadow-md capitalize font-script font-bold text-xl cursor-pointer"
       >
@@ -44,10 +42,7 @@ const BookmarkList = ({ data, listCategory,listId }) => {
         <>
           <ul>
             {data
-              .filter(
-                (item) =>
-                  item.listId=== listId
-              )
+              .filter((item) => item.listId === listId)
               .map((item) => {
                 return (
                   <BookmarkItem
@@ -95,12 +90,13 @@ const BookmarkList = ({ data, listCategory,listId }) => {
                   className="w-full cursor-pointer outline-none"
                 >
                   <option value="">Color</option>
-                
-                     <option value={"#333"} className="bg-[#333]"></option>
-                  <option value={"#fff"} className="bg-white">
-                  </option>
+
+                  <option value={"#333"} className="bg-[#333]"></option>
+                  <option value={"#fff"} className="bg-white"></option>
                   <option value={"#071952"} className="bg-[#071952]"></option>
-                  <option value={"#004225"} className=" bg-[#004225]"> </option>
+                  <option value={"#004225"} className=" bg-[#004225]">
+                    {" "}
+                  </option>
                 </select>
               </label>
 

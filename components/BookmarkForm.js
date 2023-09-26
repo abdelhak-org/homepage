@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
- import { useData } from "@/hooks/useData";
+
+import { useDataContext } from "@/context/data/DataContext";
 const BookmarkForm = ({setIsAdded , isAdded ,listId  }) => {
-const {addBookmark} = useData();
+const {dataActions} = useDataContext();
   const [bookmark, setBookmark] = useState({
     name: "",
     id: Math.random(),
@@ -15,7 +16,7 @@ const {addBookmark} = useData();
     e.preventDefault();
     setIConfirmed(!isConfirmed)
     setIsAdded(!isAdded)
-    addBookmark(bookmark)
+    dataActions.addBookmark(bookmark)
 
   };
 

@@ -1,34 +1,43 @@
 "use client";
 import { useState } from "react";
 import BookmarkList from "@/components/bookmarklist/BookmarkList";
-import { useTheme } from "@/hooks/useTheme";
-import { useData } from "@/hooks/useData";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import NewListForm from "@/components/NewListForm";
-
+import { useUiContext } from "@/context/ui/UiContext";
+import { useDataContext } from "@/context/data/DataContext";
 export default function Home() {
+
   const [showListForm, setShowListForm] = useState(false);
-  const { color } = useTheme();
-  const { bookmarklist, categoryList, addNewList } = useData();
+
+  const { uiData } =useUiContext();
+  const { bookmarksData,listsData,  addNewList } = useDataContext();
+
 
   return (
     <DndProvider backend={HTML5Backend}>
       <main
         style={{
-          background: color,
+          background: uiData.bgColor,
         }}
-        className={` w-screen flex-col md:max-w-[1534px] md:flex-row min-h-screen bg-yellow-500  flex items-center justify-around flex-wrap`}
+        className={` w-screen flex-col md:max-w-[1534px] md:flex-row min-h-screen   flex items-center justify-around flex-wrap`}
       >
-        {categoryList.map((list) => {
+
+        {listsData.map((list) => {
           return (
             <BookmarkList
-              data={bookmarklist}
+              data={bookmarksData}
               listCategory={list.listName}
               listId={list.listId}
               key={list.listId}
             />
           );
+
+
+
+
+
+          
         })}
         {showListForm && (
           <NewListForm

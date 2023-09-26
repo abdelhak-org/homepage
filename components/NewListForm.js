@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-
+import { useDataContext } from "@/context/data/DataContext";
 const NewListForm = ({ addNewList, showListForm, setShowListForm }) => {
+  const {dataActions} = useDataContext()
   const [newList, setNewList] = useState({
     listName: "",
     listId: Math.random(),
@@ -9,7 +10,7 @@ const NewListForm = ({ addNewList, showListForm, setShowListForm }) => {
 
   const submitHandle = (e) => {
     e.preventDefault();
-    addNewList(newList);
+    dataActions.addNewList(newList);
     setShowListForm(!showListForm)
   };
 

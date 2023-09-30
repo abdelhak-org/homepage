@@ -2,7 +2,7 @@ import Link from "next/link";
 const NavBar = () => {
   return (
     <div
-      className="w-screen h-screen md:max-w-[1534px]  px-4 flex flex-col  justify-center md:justify-between items-center md:flex-row font-josefin   bg-gray text-white
+      className="w-screen h-screen md:max-w-[1534px] mx-auto  px-4 flex flex-col  justify-center md:justify-between items-center md:flex-row font-josefin   bg-gray text-white
      text-xl font-semibold md:h-[55px] md:flex-wrap"
     >
       <Link href="/">

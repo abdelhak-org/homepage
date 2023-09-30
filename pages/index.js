@@ -20,7 +20,7 @@ export default function Home() {
         style={{
           background: uiData.bgColor,
         }}
-        className={` w-screen flex-col md:max-w-[1534px] md:flex-row min-h-screen   flex items-center justify-around flex-wrap`}
+        className={` w-screen border  border-dashed flex-col md:max-w-[1534px] md:flex-row min-h-screen mx-auto  flex items-center justify-around flex-wrap`}
       >
 
         {listsData.map((list) => {

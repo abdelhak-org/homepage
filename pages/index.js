@@ -7,22 +7,20 @@ import NewListForm from "@/components/NewListForm";
 import { useUiContext } from "@/context/ui/UiContext";
 import { useDataContext } from "@/context/data/DataContext";
 export default function Home() {
-
   const [showListForm, setShowListForm] = useState(false);
-
-  const { uiData } =useUiContext();
-  const { bookmarksData,listsData,  addNewList } = useDataContext();
-
-
+  
+  const { uiData } = useUiContext();
+  const { bookmarksData, listsData, addNewList } = useDataContext();
+  
   return (
     <DndProvider backend={HTML5Backend}>
       <main
         style={{
           background: uiData.bgColor,
         }}
-        className={` w-screen border  border-dashed flex-col md:max-w-[1534px] md:flex-row min-h-screen mx-auto  flex items-center justify-around flex-wrap`}
-      >
-
+        className={` w-screen border  border-dashed flex-col md:max-w-[1534px] md:flex-row min-h-screen mx-auto 
+        flex items-center justify-around flex-wrap`}
+        >
         {listsData.map((list) => {
           return (
             <BookmarkList
@@ -32,12 +30,6 @@ export default function Home() {
               key={list.listId}
             />
           );
-
-
-
-
-
-          
         })}
         {showListForm && (
           <NewListForm
@@ -50,7 +42,8 @@ export default function Home() {
         {!showListForm && (
           <button
             onClick={() => setShowListForm(!showListForm)}
-            className="px-4 py-2 border rounded-md border-dotted text-white font-josefin bg-green   mb-4"
+            className="px-4 py-2 border rounded-md border-dotted text-white 
+            font-josefin bg-green   mb-4"
           >
             ADD NEW LIST
           </button>

@@ -1,24 +1,35 @@
 {
   "name": "homepage",
   "version": "0.1.0",
-  "private": true,
+  "private" :true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": " jest --watch"
   },
   "dependencies": {
     "autoprefixer": "10.4.15",
     "immutability": "^1.0.2",
     "immutability-helper": "^3.1.1",
-    "next": "13.4.19",
+    "next": "^13.5.4",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
-    "tailwindcss": "3.3.3"
+    "tailwindcss": "3.3.3",
+    "ts-jest": "^29.1.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.1.2",
+    "@testing-library/react": "14.0.0",
+    "@testing-library/user-event": "14.4.3",
+    "@types/jest": "29.5.5",
+    "@types/react": "18.2.21",
+    "jest": "29.6.4",
+    "jest-environment-jsdom": "29.6.4"
   }
 }

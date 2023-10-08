@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useUiContext } from "@/context/ui/UiContext";
 import { FiSettings } from "react-icons/fi";
-import { BsDoorClosed } from "react-icons/bs";
-import Menu from "../Menu";
 export default function OptionsMenu() {
   const [showOptions, setShowOptions] = useState();
   const [isOpen, setIsOpen] = useState(true);

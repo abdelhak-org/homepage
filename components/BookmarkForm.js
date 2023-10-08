@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
+    
 import { useDataContext } from "@/context/data/DataContext";
 const BookmarkForm = ({ setShowForm, showForm, listId }) => {
   const { dataActions } = useDataContext();
@@ -11,14 +11,14 @@ const BookmarkForm = ({ setShowForm, showForm, listId }) => {
     listId: listId,
     url: "",
   });
-
+      
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowForm(!showForm);
     dataActions.addBookmark(bookmark);
     setBookmark({ name: "", id: Math.random(), listId: listId, url: "" });
   };
-
+      
   return (
     <>
       {showForm && (

@@ -5,7 +5,7 @@ export const listsData = [
 ];
 
 /// bookmarK list
-export const bookmarksData  = [
+export const bookmarksData = [
   {
     id: 1,
     listId: 100,

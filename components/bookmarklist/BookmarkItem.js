@@ -6,11 +6,9 @@ import Link from "next/link";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useUiContext } from "@/context/ui/UiContext";
 import { useDataContext } from "@/context/data/DataContext";
-const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url, icon }) => {
-  const { uiData } = useUiContext();
-  const {} = useDataContext()
-  //////
-  const [{ isDragging }, drag] = useDrag({
+const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url }) => {
+    
+  const [{isDragging}, drag] = useDrag({
     type: dropItemTypes.BOOKMARK,
     item: {
       name,
@@ -22,6 +20,9 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url, icon }) => {
       isDragging: !!monitor.isDragging(),
     }),
   });
+
+  const { uiData } = useUiContext();
+  const {} = useDataContext();
 
   const { dataActions } = useDataContext();
 
@@ -37,7 +38,6 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url, icon }) => {
         className="px-4 py-2 w-fit flex items-center
         border border-dashed m-2 font-josefin   border-blue-200 relative "
       >
-        <span className="mr-1"> {icon} </span>
         <Link href={url} target="_blank">
           {name}
         </Link>

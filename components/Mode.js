@@ -7,15 +7,16 @@ const Mode = () => {
 
   return (
     <div
-      role="mode"
+      data-testid="mode_container"
       style={{
         background: uiData.bgColor,
       }}
-      className="w-screen md:max-w-[1534px]   h-16 flex justify-end items-center mx-auto pr-8 px-4 cursor-pointer "
+      className="w-screen md:max-w-[1534px]   h-16 flex justify-end items-center mx-auto 
+      pr-8 px-4 cursor-pointer "
     >
       {colors.map((color, index) => {
         return (
-          <div
+          <div role="button"
             key={index}
             onClick={() => actions.ChangeBgColor(color)}
             style={{ background: color }}

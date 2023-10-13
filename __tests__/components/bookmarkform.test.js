@@ -9,9 +9,10 @@ describe("BookmarkForm", () => {
     expect(labelElement).not.toBeInTheDocument();
   });
 
-  it("has Submit button ", () => {
+  it("renders Submit button ", () => {
     render(<BookmarkForm />, { wrapper: DataContextProvider });
     const buttonElement = screen.queryByRole("button");
     expect(buttonElement).not.toBeInTheDocument();
   });
+   
 });

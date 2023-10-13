@@ -6,11 +6,12 @@ import { useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useDataContext } from "@/context/data/DataContext";
 import OptionsMenu from "./OptionsMenu";
+import { BsFillTabletLandscapeFill } from "react-icons/bs";
 
 const BookmarkList = ({ listCategory, listId }) => {
   const { dataActions, bookmarksData } = useDataContext();
   const [showForm, setShowForm] = useState(false);
-  const [collapse, setCollapse] = useState(false);
+  const [collapse, setCollapse] = useState(true);
 
   const [isOver, drop] = useDrop(() => ({
     accept: dropItemTypes.BOOKMARK,

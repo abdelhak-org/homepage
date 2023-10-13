@@ -23,7 +23,6 @@ export function UiProvider({ children }) {
     bookmarkColor: "yellow",
     fontS: null,
   });
-  console.log("state bgcolor", state.bgColor);
   const value = {
     uiData: { ...state },
     actions: uiActions(dispatch),

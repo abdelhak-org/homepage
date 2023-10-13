@@ -7,8 +7,7 @@ import { dropItemTypes } from "@/dropItemTypes";
 import { useUiContext } from "@/context/ui/UiContext";
 import { useDataContext } from "@/context/data/DataContext";
 const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url }) => {
-    
-  const [{isDragging}, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     type: dropItemTypes.BOOKMARK,
     item: {
       name,
@@ -22,7 +21,6 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url }) => {
   });
 
   const { uiData } = useUiContext();
-  const {} = useDataContext();
 
   const { dataActions } = useDataContext();
 

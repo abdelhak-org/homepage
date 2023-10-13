@@ -7,14 +7,15 @@ const Mode = () => {
 
   return (
     <div
-      data-testid="mode_container"
+      data-testid = "mode_container"
       style={{
         background: uiData.bgColor,
       }}
       className="w-screen md:max-w-[1534px]   h-16 flex justify-end items-center mx-auto 
       pr-8 px-4 cursor-pointer "
     >
-      {colors.map((color, index) => {
+      {
+      colors.map((color, index) => {
         return (
           <div role="button"
             key={index}
@@ -23,7 +24,8 @@ const Mode = () => {
             className=" w-8 h-8 rounded-full mx-2 border shadow-md"
           ></div>
         );
-      })}
+      })
+      }
     </div>
   );
 };

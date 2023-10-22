@@ -27,6 +27,7 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url }) => {
   return (
     <>
       <li
+      data-testid = "test"
         ref={drag}
         style={{
           background: uiData.bookmarkColor,
@@ -36,9 +37,7 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url }) => {
         className="px-4 py-2 w-fit flex items-center
         border border-dashed m-2 font-josefin   border-blue-200 relative "
       >
-        <Link href={url} target="_blank">
           {name}
-        </Link>
         <span
           onClick={() => dataActions.deleteBookmark(id)}
           className="absolute -top-2 right-0 p-1 text-pink"

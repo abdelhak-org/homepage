@@ -1,9 +1,13 @@
-import { render ,} from "@testing-library/react";
+import { render } from "@testing-library/react";
 
 import { UiProvider } from "@/context/ui/UiContext";
-
+import { DataContextProvider } from "@/context/data/DataContext";
 const AllTheProviders = ({ children }) => {
-  return ( <UiProvider>{children}</UiProvider> )
+  return (
+    <DataContextProvider>
+      <UiProvider>{children}</UiProvider>
+    </DataContextProvider>
+  );
 };
 
 const customRender = (ui, options) =>

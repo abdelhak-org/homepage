@@ -3,7 +3,7 @@
 import React, { useState } from "react";
     
 import { useDataContext } from "@/context/data/DataContext";
-const BookmarkForm = ({ setShowForm, showForm, listId }) => {
+const BookmarkForm = ({  listId  , setShowForm}) => {
   const { dataActions } = useDataContext();
   const [bookmark, setBookmark] = useState({
     name: "",
@@ -14,15 +14,15 @@ const BookmarkForm = ({ setShowForm, showForm, listId }) => {
       
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowForm(!showForm);
     dataActions.addBookmark(bookmark);
     setBookmark({ name: "", id: Math.random(), listId: listId, url: "" });
+    setShowForm(false)
   };
       
   return (
     <>
-      {showForm && (
         <form
+          data-testid="bookmark-form-test"
           onSubmit={handleSubmit}
           className="w-full p-2 border border-gray rounded-sm border-dashed"
         >
@@ -57,7 +57,6 @@ const BookmarkForm = ({ setShowForm, showForm, listId }) => {
             Confirm
           </button>
         </form>
-      )}
     </>
   );
 };

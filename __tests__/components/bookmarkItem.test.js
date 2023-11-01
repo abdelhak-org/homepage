@@ -1,27 +1,35 @@
+import { customRender, screen } from "../../test_utils/Test-utils";
 import BookmarkItem from "@/components/bookmarklist/BookmarkItem";
-import { render, screen } from "@testing-library/react";
-
-import TestUtils from "react-dom/test-utils";
-import expect from "expect";
+//import TestUtils from "react-dom/test-utils";
+import userEvent from "@testing-library/user-event";
+jest.mock("react-dnd", () => {
+  return {
+    useDrag: () => [{ isDrgging: true }, null],
+  };
+});
 describe("BookmarkItem", () => {
-  test("dnd", () => {
-    const OriginalBox = BookmarkItem.DecoratedComponent;
-
-    // Stub the React DnD connector functions with an identity function
-    const identity = (el) => el;
-
-    // Render with one set of props and test
-    let root = TestUtils.renderIntoDocument(
-      <OriginalBox name="Gamil" connectDragSource={identity} />
+  test("item render props.name ", () => {
+    customRender(
+      <BookmarkItem
+        name="gmail"
+        id="1"
+        isAdded={true}
+        setIsAdded={jest.fn()}
+        listId={100}
+      />
     );
-    let link = TestUtils.findRenderedDOMComponentWithTag(root, "li");
-    expect(link.props.style.opacity).toEqual(1);
-
-    // Render with another set of props and test
-    root = TestUtils.renderIntoDocument(
-      <OriginalBox name="test" connectDragSource={identity} isDragging />
-    );
-    div = TestUtils.findRenderedDOMComponentWithTag(root, "div");
-    expect(div.props.name).toMatch("Gmail");
+    const linkElement = screen.getByTestId("bookmark-item-test");
+    expect(linkElement).toBeInTheDocument();
+    expect(linkElement).toHaveTextContent("gmail");;
   });
+  
+  test("it render span with textContent x" ,()=>{
+    customRender(<BookmarkItem  name="gmail"
+    id="1"
+    isAdded={true}
+    setIsAdded={jest.fn()}
+    listId={100}/>);
+    expect(screen.getByTestId('bookmark-item-span-test')).toBeInTheDocument();
+  }) ;
+  
 });

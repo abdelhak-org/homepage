@@ -6,7 +6,6 @@ import { useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useDataContext } from "@/context/data/DataContext";
 import OptionsMenu from "./OptionsMenu";
-import { BsFillTabletLandscapeFill } from "react-icons/bs";
 
 const BookmarkList = ({ listCategory, listId }) => {
   const { dataActions, bookmarksData } = useDataContext();
@@ -52,16 +51,18 @@ const BookmarkList = ({ listCategory, listId }) => {
               })}
           </ul>
           <button
-            onClick={() => setShowForm(!showForm)}
+            onClick={() => setShowForm(true)}
             className="px-4 py-2 border block mx-auto border-dashed "
           >
             add
           </button>
-          <BookmarkForm
-            showForm={showForm}
-            setShowForm={setShowForm}
-            listId={listId}
-          />
+          {
+            showForm ?
+            <BookmarkForm
+              setShowForm={setShowForm}
+              listId={listId}
+            />:""
+          }
           <OptionsMenu />
         </>
       )}

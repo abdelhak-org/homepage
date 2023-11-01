@@ -1,13 +1,11 @@
 "use client";
 
-import BookmarkForm from "../BookmarkForm";
 import { useDrag } from "react-dnd";
-import Link from "next/link";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useUiContext } from "@/context/ui/UiContext";
 import { useDataContext } from "@/context/data/DataContext";
-const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url }) => {
-  const [{ isDragging }, drag] = useDrag({
+const BookmarkItem = ({ name, id, listId, url }) => {
+  const [{ isDragging },drag ] = useDrag({
     type: dropItemTypes.BOOKMARK,
     item: {
       name,
@@ -19,35 +17,37 @@ const BookmarkItem = ({ name, id, isAdded, setIsAdded, listId, url }) => {
       isDragging: !!monitor.isDragging(),
     }),
   });
-
   const { uiData } = useUiContext();
-
   const { dataActions } = useDataContext();
+  const style = {
+    background: uiData.bookmarkColor,
+    fontSize: uiData.fontS,
+    opacity: isDragging ? 0.5 : 1,
+  }
 
   return (
     <>
       <li
-      data-testid = "test"
+        data-testid = "bookmark-item-test"
         ref={drag}
-        style={{
-          background: uiData.bookmarkColor,
-          fontSize: uiData.fontS,
-          opacity: isDragging ? 0.5 : 1,
-        }}
+        style={style}
         className="px-4 py-2 w-fit flex items-center
         border border-dashed m-2 font-josefin   border-blue-200 relative "
       >
+        
           {name}
         <span
+          data-testid = "bookmark-item-span-test"
           onClick={() => dataActions.deleteBookmark(id)}
           className="absolute -top-2 right-0 p-1 text-pink"
         >
           x
         </span>
       </li>
-      {isAdded && <BookmarkForm setIsAdded={setIsAdded} listId={listId} />}
     </>
   );
 };
 
 export default BookmarkItem;
+
+

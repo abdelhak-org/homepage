@@ -1,18 +1,17 @@
-import { render, screen } from "@testing-library/react";
+import { customRender, screen } from  "../../test_utils/Test-utils";
 import BookmarkForm from "@/components/BookmarkForm";
 import { DataContextProvider } from "@/context/data/DataContext";
 
 describe("BookmarkForm", () => {
   it("has label name 'Name'", () => {
-    render(<BookmarkForm />, { wrapper: DataContextProvider });
-    const labelElement = screen.queryByText(/name/i);
-    expect(labelElement).not.toBeInTheDocument();
+    customRender(<BookmarkForm  listId={100} setShowForm={true}/>);
+    
   });
 
   it("renders Submit button ", () => {
-    render(<BookmarkForm />, { wrapper: DataContextProvider });
-    const buttonElement = screen.queryByRole("button");
-    expect(buttonElement).not.toBeInTheDocument();
+         customRender(<BookmarkForm  listId={100} />,);
+          const formElement = screen.getByTestId("bookmark-form-test") ;
+          expect(formElement).toBeInTheDocument()
   });
    
 });

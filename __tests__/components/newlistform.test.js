@@ -1,21 +1,18 @@
-import {screen , render} from "@testing-library/react";
+import { customRender , screen } from "@/test_utils/Test-utils";
 import NewListForm from "@/components/NewListForm";
 import { useDataContext } from "@/context/data/DataContext";
-import userEvent from "@testing-library/user-event";
 describe("NewListForm Component" , ()=>{
 
- test("NewListForm does not renders in The Document", ()=>{
-    render(<NewListForm />, {wrapper:useDataContext} )
-   const formElement = screen.queryByRole("form");
-   expect(formElement).not.toBeInTheDocument() ;
- })
- test("button does not renders in The Document", ()=>{
-    render(<NewListForm />, {wrapper:useDataContext} )
-   const buttonElement = screen.queryByRole("button");
-   expect(buttonElement).not.toBeInTheDocument() ;
+ test("NewListForm  renders in The Document ", ()=>{
+    customRender(<NewListForm showListForm= {true}  setShowListForm={jest.fn()} /> )
+   const formElement = screen.getByTestId('formlist-testid');
+   expect(formElement).toBeInTheDocument() ;
  })
 
-
-
-
+test("it renders label 'Name '" ,()=>{
+  customRender(<NewListForm showListForm= {true}  setShowListForm={jest.fn()} />)
+  const labelName = screen.getByLabelText('Name');
+  expect(labelName).toBeInTheDocument();
+  
+})
 })

@@ -56,13 +56,11 @@ const BookmarkList = ({ listCategory, listId }) => {
           >
             add
           </button>
-          {
-            showForm ?
-            <BookmarkForm
-              setShowForm={setShowForm}
-              listId={listId}
-            />:""
-          }
+          {showForm ? (
+            <BookmarkForm setShowForm={setShowForm} listId={listId} />
+          ) : (
+            ""
+          )}
           <OptionsMenu />
         </>
       )}

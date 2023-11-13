@@ -1,7 +1,7 @@
 
 const Layout = ({children}) => {
   return (
-    <div className='w-screen h-screen mx-auto bg-slate-300'>
+    <div className='max-w-[1534px] min-h-screen mx-auto '>
       {children}
     </div>
   )

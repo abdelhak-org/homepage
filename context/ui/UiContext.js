@@ -19,8 +19,9 @@ export const UiContext = createContext();
 
 export function UiProvider({ children }) {
   const [state, dispatch] = useReducer(uiReducer, {
-    bgColor: "#fff",
-    bookmarkColor: "yellow",
+    bgColor: "#143F6B",
+    bookmarkColor: "#00FFC6",
+    textColor :"#fff",
     fontS: null,
   });
   const value = {

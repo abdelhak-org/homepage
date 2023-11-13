@@ -1,11 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Josefin+Sans:wght@300;400;500&family=Roboto:ital,wght@0,300;0,400;1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Josefin+Sans:wght@300;400;500&family=Roboto:ital,wght@0,300;0,400;1,500&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*{
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px;
-    transition:0.2s;
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  transition: 0.2s;
+}
+
+.main_container {
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(13, 101, 145, 1) 71%,
+    rgba(0, 212, 255, 1) 100%
+  );
 }

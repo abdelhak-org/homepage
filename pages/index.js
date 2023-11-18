@@ -9,8 +9,8 @@ import { useUiContext } from "@/context/ui/UiContext";
 import { useDataContext } from "@/context/data/DataContext";
 
 export default function Home() {
-  const [showListForm, setShowListForm] = useState(false);
-  const { uiData } = useUiContext();
+ // const [showListForm, setShowListForm] = useState(false);
+  //const { uiData } = useUiContext();
   const { bookmarksData, listsData, addNewList } = useDataContext();
   ////
 
@@ -34,7 +34,14 @@ export default function Home() {
             />
           );
         })}
-        {showListForm && (
+      
+      </main>
+    </DndProvider>
+  );
+}
+
+/*
+  {showListForm && (
           <NewListForm
             addNewList={addNewList}
             setShowListForm={setShowListForm}
@@ -51,7 +58,4 @@ export default function Home() {
             ADD NEW LIST
           </button>
         )}
-      </main>
-    </DndProvider>
-  );
-}
+        */

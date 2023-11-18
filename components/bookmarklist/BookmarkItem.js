@@ -4,7 +4,8 @@ import { useDrag } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useUiContext } from "@/context/ui/UiContext";
 import { useDataContext } from "@/context/data/DataContext";
-const BookmarkItem = ({ name, id, listId, url }) => {
+import {motion} from "framer-motion"
+const BookmarkItem = ({ name, id, listId, url , itemVariants }) => {
   const [{ isDragging },drag ] = useDrag({
     type: dropItemTypes.BOOKMARK,
     item: {
@@ -27,9 +28,12 @@ const BookmarkItem = ({ name, id, listId, url }) => {
 
   return (
     <>
-      <li
+      <motion.li
         data-testid = "bookmark-item-test"
         ref={drag}
+         variants={itemVariants}
+         initial="hidden"
+         animate="visible"
         style={style}
         className="px-4 py-2 w-fit flex items-center
         border border-dashed m-2 font-josefin   border-blue-200 relative "
@@ -43,7 +47,7 @@ const BookmarkItem = ({ name, id, listId, url }) => {
         >
           x
         </span>
-      </li>
+      </motion.li>
     </>
   );
 };

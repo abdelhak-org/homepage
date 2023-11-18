@@ -6,6 +6,26 @@ import { useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useDataContext } from "@/context/data/DataContext";
 import OptionsMenu from "./OptionsMenu";
+import { motion } from "framer-motion";
+const container = {
+  hidden: { opacity: 0.5, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.5,
+      staggerChildren: 0.5,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 const BookmarkList = ({ listCategory, listId }) => {
   const { dataActions, bookmarksData } = useDataContext();
@@ -20,9 +40,7 @@ const BookmarkList = ({ listCategory, listId }) => {
     }),
   }));
 
-///
-
-
+  ///
 
   return (
     <div
@@ -39,7 +57,7 @@ const BookmarkList = ({ listCategory, listId }) => {
 
       {collapse && (
         <>
-          <ul>
+          <motion.ul className="" variants={container} initial="hidden" animate="visible">
             {bookmarksData
               .filter((item) => item.listId === listId)
               .map((item) => {
@@ -50,10 +68,11 @@ const BookmarkList = ({ listCategory, listId }) => {
                     name={item.name}
                     listId={item.listId}
                     url={item.url}
+                    itemsVariants={item}
                   />
                 );
               })}
-          </ul>
+          </motion.ul>
           <button
             onClick={() => setShowForm(true)}
             className="px-4 py-2 border block mx-auto border-dashed "

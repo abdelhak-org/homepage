@@ -7,6 +7,7 @@ import { DataContextProvider } from '@/context/data/DataContext'
 import { UiProvider } from '@/context/ui/UiContext'
 import Mode from '@/components/Mode'
 import AboutMe from '@/components/AboutMe'
+import Footer from '@/components/Footer';
 export default function App({ Component, pageProps }) {
   return(
     <DndProvider backend={HTML5Backend}>
@@ -18,8 +19,9 @@ export default function App({ Component, pageProps }) {
       <AboutMe/>
       <DataContextProvider>
       <Component {...pageProps} />
-
+       
       </DataContextProvider>
+      <Footer/>
 
     </Layout>
       </UiProvider>

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import BookmarkItem from "./BookmarkItem";
 import BookmarkForm from "../BookmarkForm";
-import { useDrop } from "react-dnd";
+import { useDrop , useDrag} from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useDataContext } from "@/context/data/DataContext";
 import OptionsMenu from "./OptionsMenu";
@@ -27,7 +27,16 @@ const item = {
   },
 };
 
-const BookmarkList = ({ listCategory, listId }) => {
+const style = {
+  position: 'absolute',
+  
+  padding: '0.5rem 1rem',
+  cursor: 'move',
+}
+
+
+
+const BookmarkList = ({ listCategory, listId , id , top , left }) => {
   const { dataActions, bookmarksData } = useDataContext();
   const [showForm, setShowForm] = useState(false);
   const [collapse, setCollapse] = useState(true);
@@ -42,10 +51,30 @@ const BookmarkList = ({ listCategory, listId }) => {
 
   ///
 
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type:"box",
+      item: { id, left, top },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    }),
+    [id, left, top],
+  )
+ 
+
+
   return (
     <div
-      ref={drop}
-      className="w-60 h-fit border m-8 border-blue-200 bg-slate-50 rounded-md relative "
+    //ref={drag}
+      ref = {(node)=> drag(drop(node))}
+      className="w-60 h-fit border m-8 border-blue-200 bg-slate-50 rounded-md absolute  "
+      style={{
+     
+      top,
+      left
+    
+      }}
     >
       <h6
         data-testid="header_6"

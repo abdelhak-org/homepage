@@ -18,7 +18,7 @@ const NewListForm = ({ showListForm, setShowListForm }) => {
     <form
       data-testid='formlist-testid'  
       onSubmit={submitHandle}
-      className="w-60 h-40 border border-dashed rounded "
+      className="w-60 h-40 border border-dashed rounded fixed bottom-2 right-2 "
     >
       <label role="label" htmlFor="name_input">
         Name

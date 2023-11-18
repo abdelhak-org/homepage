@@ -1,8 +1,8 @@
-export const listsData = [
-  { listId: 100, listName: "browsers" },
-  { listId: 101, listName: " social Media" },
-  { listId: 102, listName: "Contact" },
-];
+export const listsData = {
+ a: { listId: 100, listName: "browsers" , top:100 ,left :100 },
+ b : { listId: 101, listName: " social Media"  , top:100 , left :500},
+  c: { listId: 102, listName: "Contact" , top :100 , left : 800},
+};
 
 /// bookmarK list
 export const bookmarksData = [

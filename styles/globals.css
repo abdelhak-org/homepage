@@ -9,7 +9,13 @@
   margin: 0px;
   transition: 0.2s;
 }
+.bookmarklist_container {
+  resize:both;
+  max-width:600px ;
+  overflow:auto;
 
+ 
+}
 .main_container {
   background: linear-gradient(
     45deg,

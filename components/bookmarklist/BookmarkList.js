@@ -7,7 +7,7 @@ import { dropItemTypes } from "@/dropItemTypes";
 import { useDataContext } from "@/context/data/DataContext";
 import OptionsMenu from "./OptionsMenu";
 import { motion } from "framer-motion";
-const container = {
+const container = { 
   hidden: { opacity: 0.5, scale: 0 },
   visible: {
     opacity: 1,
@@ -68,7 +68,7 @@ const BookmarkList = ({ listCategory, listId , id , top , left }) => {
     <div
     //ref={drag}
       ref = {(node)=> drag(drop(node))}
-      className="w-60 h-fit border m-8 border-blue-200 bg-slate-50 rounded-md absolute  "
+      className="min-w-[260px] bookmarklist_container  h-fit border m-8 border-blue-200 bg-slate-50 rounded-md absolute  "
       style={{
      
       top,

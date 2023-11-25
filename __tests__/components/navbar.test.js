@@ -1,5 +1,5 @@
 import { render, screen , cleanup } from "@testing-library/react";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/NavBar";  
 
 describe("Navbar", () => {
   afterAll(()=> cleanup())

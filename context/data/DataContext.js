@@ -10,9 +10,11 @@ export const DataContext = createContext();
 export function DataContextProvider( { children } ) {
   const [state, dispatch] = useReducer( dataReducer, { listsData, bookmarksData } );
   
+
+
   const value = useMemo(()=> ({
     listsData: state.listsData  ,
-    bookmarksData: state.bookmarksData,
+    bookmarksData: state.bookmarksData ,
     dispatch: dispatch,
     dataActions: dataActions( dispatch )
   }),[state.listsData, state.bookmarksData ]);

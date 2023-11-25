@@ -6,7 +6,7 @@ import BookmarkList from "@/components/bookmarklist/BookmarkList";
 import NewListForm from "@/components/NewListForm";
 import { useUiContext } from "@/context/ui/UiContext";
 import { useDataContext } from "@/context/data/DataContext";
-
+import Link from "next/link";
 
 
 
@@ -52,10 +52,9 @@ export default function Home() {
         background: uiData.bgColor,
       }}
       className={`main_container w-screen  relative flex gap-5  flex-col md:max-w-[1534px] md:flex-row min-h-screen mx-auto 
-           items-center justify-around flex-wrap relative`}
+           items-center justify-around flex-wrap `}
     >
       { boxes.map((box, index) => {
-        console.log(box)
         const { listName, listId, top, left } = box
         return (
           <BookmarkList

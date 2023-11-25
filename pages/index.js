@@ -16,7 +16,7 @@ export default function Home() {
   const { bookmarksData, listsData, addNewList } = useDataContext();
   ////
   const [boxes, setBoxes] = useState(listsData);
-
+  console.log(boxes)
   const moveBox = useCallback(
     (id, left, top) => {
       setBoxes(
@@ -52,18 +52,18 @@ export default function Home() {
         background: uiData.bgColor,
       }}
       className={`main_container w-screen  relative flex gap-5  flex-col md:max-w-[1534px] md:flex-row min-h-screen mx-auto 
-           items-center justify-around flex-wrap`}
+           items-center justify-around flex-wrap relative`}
     >
-      {Object.keys(boxes).map((key, index) => {
-        console.log(boxes[key]);
-        const { listName, listId, top, left } = boxes[key];
+      { boxes.map((box, index) => {
+        console.log(box)
+        const { listName, listId, top, left } = box
         return (
           <BookmarkList
             listCategory={listName}
             listId={listId}
-            key={key}
+            key={index}
             index={index}
-            id={key}
+            id={index}
             top={top}
             left={left}
           />
@@ -80,8 +80,8 @@ export default function Home() {
         {!showListForm && (
           <button
             onClick={() => setShowListForm(!showListForm)}
-            className="px-4 py-2 border rounded-md border-dotted text-white 
-            font-josefin bg-green   mb-4 fixed right-0 bottom-0"
+            className="px-4 py-2 border rounded-md border-dotted text-white absolute
+            font-josefin bg-green   mb-4  right-2 top-20" 
           >
             ADD NEW LIST
           </button>

@@ -1,7 +1,14 @@
 import React from "react";
-
+import {useUiContext} from "../context/ui/UiContext"
 const Footer = () => {
-return <div className="max-width-[1534px] h-12 bg-purple text-center"></div>;
+    const {uiData} = useUiContext()
+return (
+<div
+
+className="max-width-[1534px] py-4  text-center  text-green-light bg-green ">
+    Bookmarks Page 
+</div>
+);
 };
 
 export default Footer;

@@ -29,10 +29,11 @@ module.exports = {
     'pink': '#FF3FA4',
     'orange': '#FFB000',
     'green': '#016A70',
+    'green-light':'#9AD0C2' ,
     'yellow': '#F8FF95',
     'gray-dark': '#352F44',
     'gray': '#5C5470',
-    'gray-light': '#d3dce6',
+    'gray-light' :'#d3dce6',
     'white'  : '#fff',
   },
   // font family 

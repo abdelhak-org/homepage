@@ -21,7 +21,7 @@ export const dataReducer = ( state, action ) => {
                 ),
             };
         case dataActionTypes.ADD_NEW_LIST:
-            return { ...state, listsData: [...state.listsData, action.payload] }
+            return { ...state, listsData : [...state.listsData   , action.payload] }
         default:
             return state;
     }

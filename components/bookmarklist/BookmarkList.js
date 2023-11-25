@@ -12,7 +12,9 @@ const container = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: {
+    transition: 
+      {
+      duration:0.5 ,
       delayChildren: 0.5,
       staggerChildren: 0.5,
     },
@@ -62,7 +64,7 @@ const BookmarkList = ({ listCategory, listId , id , top , left }) => {
     [id, left, top],
   )
  
-
+  
 
   return (
     <div

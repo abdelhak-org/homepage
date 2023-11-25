@@ -34,6 +34,12 @@ const BookmarkItem = ({ name, id, listId, url , itemVariants }) => {
          variants={itemVariants}
          initial="hidden"
          animate="visible"
+         whileHover={{
+          scale:[1, 0.8 ,1],
+           transition:{
+            duration:0.2
+           }
+         }}
         style={style}
         className="px-4 py-2 w-fit flex items-center
         border border-dashed m-2 font-josefin   border-blue-200 relative "

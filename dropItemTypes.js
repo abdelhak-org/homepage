@@ -1,4 +1,5 @@
 export const dropItemTypes = {
-    BOOKMARK:"bookmark"
-  }
+    BOOKMARK: "bookmark",
+    LIST: "list"
+}
   

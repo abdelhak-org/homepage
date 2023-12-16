@@ -14,16 +14,16 @@ export default function App({ Component, pageProps }) {
 
 
       <UiProvider>
+      <DataContextProvider>
       <Layout>
       <NavBar/>
       <AboutMe/>
-      <DataContextProvider>
       <Component {...pageProps} />
        
-      </DataContextProvider>
       <Footer/>
 
     </Layout>
+      </DataContextProvider>
       </UiProvider>
     </DndProvider>
      )

@@ -11,7 +11,7 @@ export const dataActions = (dispatch) => ({
     },
 
     updateBookmark: ( newBookmark) => {
-        dispatch({type: dataActionTypes.DELETE_BOOKMARK, payload: newBookmark});
+        dispatch({type: dataActionTypes.UPDATE_BOOKMARK, payload: newBookmark});
     },
 
     moveBookmark: (id, listId) => {

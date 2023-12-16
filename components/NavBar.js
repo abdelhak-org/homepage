@@ -1,36 +1,24 @@
 import Link from "next/link";
-import {useUiContext} from "../context/ui/UiContext"
-import Mode from "./Mode";
+import { useUiContext } from "../context/ui/UiContext";
+import NewListHandle from "./NewListHandle";
+import { useState } from "react";
+import BookmarkListModal from "./Modal/BookmarkListModal";
 const NavBar = () => {
+  const [showModal , setShowModal] = useState(false)
   const { uiData } = useUiContext();
 
   return (
     <div
-      style={{
-        background:uiData.bgColor
-      }}
-      className="w-screen h-screen md:max-w-[1534px] mx-auto text-white  px-4 flex flex-col   justify-center md:justify-between items-center md:flex-row font-josefin  
+      className="w-screen h-screen md:max-w-[1534px] mx-auto   px-8 underline underline-offset-2 flex flex-col 
+        justify-center md:justify-between items-center md:flex-row font-roboto   
         text-lg font-light md:h-[55px] md:flex-wrap"
     >
-      <h3 className="font-script text-8xl mb-8 md:text-4xl md:m-0  ">
-        <Link href="/">HomePage</Link>
+      <h3 className="font-script text-8xl mb-8 md:text-4xl md:m-0 text-gray  font-bold ">
+        <Link href="/"> HomePage</Link>
       </h3>
-      <Mode/>
-
-      <ul>
-        <Link className="mx-3 font-josefin tracking-wider" href="#">
-          About
-        </Link>
-        <Link className="mx-3 font-josefin tracking-wider" href="/videos">
-          Videos
-        </Link>
-        <Link className="mx-3 font-josefin tracking-wider" href="/news">
-        News
-        </Link>
-
-      </ul>
+      { ! showModal ? <button onClick={()=> setShowModal(!showModal)}>Add Newlist</button> :<BookmarkListModal/> }
     </div>
-      );
+  );
 };
 
 export default NavBar;

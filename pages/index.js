@@ -3,7 +3,6 @@
 import React, {useState} from "react";
 import {useDrop} from "react-dnd";
 import BookmarkList from "@/components/bookmarklist/BookmarkList";
-import NewListForm from "@/components/NewListForm";
 import {useUiContext} from "@/context/ui/UiContext";
 import {useDataContext} from "@/context/data/DataContext";
 import {dropItemTypes} from "@/dropItemTypes";
@@ -11,7 +10,6 @@ import BookmarkItemModal from "@/components/Modal/BookmarkItemModal";
 
 
 export default function Home() {
-    const [showListForm, setShowListForm] = useState(false);
     const {uiData} = useUiContext();
     const {listsData, dataActions} = useDataContext();
 
@@ -38,8 +36,8 @@ export default function Home() {
 
                     background: uiData.bgColor,
                 }}
-                className={`main_container w-screen  relative flex gap-5  flex-col md:max-w-[1534px] md:flex-row min-h-screen mx-auto 
-           items-center justify-around flex-wrap `}
+                className={`main_container w-screen  grid grid-cols-4 relative gap-5   md:max-w-[1534px]  min-h-screen mx-auto 
+           `}
             >
                 {listsData.map((box, index) => {
                     const {listName, listId, top, left} = box
@@ -55,23 +53,7 @@ export default function Home() {
                         />
                     );
                 })}
-                {showListForm && (
-                    <NewListForm
-                        addNewList={dataActions.addNewList}
-                        setShowListForm={setShowListForm}
-                        showListForm={showListForm}
-                    />
-                )}
-
-                {!showListForm && (
-                    <button
-                        onClick={() => setShowListForm(!showListForm)}
-                        className="px-4 py-2 border rounded-md border-dotted text-white absolute
-            font-josefin bg-green   mb-4  right-2 top-20"
-                    >
-                        ADD NEW LIST
-                    </button>
-                )}
+           
             </div>
         </>
     );

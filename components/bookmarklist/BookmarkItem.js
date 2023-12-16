@@ -4,13 +4,12 @@ import {useDrag} from "react-dnd";
 import {dropItemTypes} from "@/dropItemTypes";
 import {useUiContext} from "@/context/ui/UiContext";
 import {useDataContext} from "@/context/data/DataContext";
-import {motion} from "framer-motion"
 import {TbPencil} from "react-icons/tb";
-import React, {useState} from "react";
 import BookmarkItemModal from "@/components/Modal/BookmarkItemModal";
+import { useState } from "react";
 
 const BookmarkItem = ({name, id, listId, url, itemVariants}) => {
-    const [openModal, setOpenModal] = useState(false)
+    const [toggle , setToggle ] = useState(false)
     const [{isDragging}, drag] = useDrag({
         type: dropItemTypes.BOOKMARK,
         item: {
@@ -24,10 +23,11 @@ const BookmarkItem = ({name, id, listId, url, itemVariants}) => {
         }),
     });
     const {uiData, actions: uiActions} = useUiContext();
-    const {dataActions} = useDataContext();
+   // const {dataActions} = useDataContext();
+
     const style = {
         fontSize: uiData.fontS,
-        opacity: isDragging ? 0.5 : 1,
+     //   opacity: isDragging ? 0.5 : 1,
     }
 
     const handleOpenModal = () => {
@@ -35,23 +35,25 @@ const BookmarkItem = ({name, id, listId, url, itemVariants}) => {
     }
     return (
         <>
-            <motion.li
+
+            <li
                 data-testid="bookmark-item-test"
                 ref={drag}
-                variants={itemVariants}
-                initial="hidden"
-                animate="visible"
+             
                 style={style}
-                className="relative flex justify-between items-center p-2  text-sm rounded-md border border-solid border-blue-200  "
+                className="relative flex justify-between items-center p-2  text-sm rounded-md border border-solid border-gray font-roboto  "
             >
                 <button>
                     <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
                          className="w-8 h-8"/>
                 </button>
                 <p>{name}</p>
-                <TbPencil onClick={handleOpenModal} className="w-4 h-4" color="white"/>
+                <TbPencil onClick={()=> setToggle(!toggle)} className="w-4 h-4 cursor-pointer" color="#333"/>
 
-            </motion.li>
+            </li>
+            {
+                toggle && <BookmarkItemModal id={id} setToggle={setToggle}/>
+            }
         </>
     );
 };

@@ -10,7 +10,6 @@ const uiReducer = (state, action) => {
         case "CHANGE_BOOKMARK_FONTSIZE":
             return {...state, fontS: action.payload};
         case "OPEN_BOOKMARK_MODAL":
-            console.log('####',action.payload)
             return {...state, modal: {name: MODALS.BOOKMARK, id: action.payload}};
         default:
             return state;
@@ -24,8 +23,8 @@ const MODALS = {
 
 export function UiProvider({children}) {
     const [state, dispatch] = useReducer(uiReducer, {
-        bgColor: "#143F6B",
-        bookmarkHeaderColor: "#00FFC6",
+        bgColor: "#fff",
+        bookmarkHeaderColor: "#eee",
         textColor: "#fff",
         fontS: null,
         modal: {

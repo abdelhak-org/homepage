@@ -3,7 +3,7 @@ import React from "react";
 const AboutMe = () => {
   return (
     <section className="aboutme_container relative
-    max-w-[1534px]  mx-auto h-fitborder py-8 tracking-wide bg-gray">
+    max-w-[1534px]  mx-auto h-fitborder py-8 tracking-wide bg-[#333]">
       <h2 className="font-bold text-white text-4xl text-center font-script">
         About us
       </h2>

@@ -7,26 +7,7 @@ import BookmarkItem from "./BookmarkItem";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useDataContext } from "@/context/data/DataContext";
 import OptionsMenu from "./OptionsMenu";
-
-const container = {
-  hidden: { opacity: 0.5, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.5,
-      staggerChildren: 0.5,
-    },
-  },
-};
-
-const item = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-};
+import SortedList from "./SortedList";
 
 const style = {
   position: "absolute",
@@ -35,16 +16,18 @@ const style = {
   cursor: "move",
 };
 
-const BookmarkList = ({ listCategory, listId, id, top, left }) => {
-  const { dataActions, bookmarksData } = useDataContext();
+const BookmarkList = ({ listCategory, listId, id, top, left  }) => {
+  const { dataActions, bookmarksData, listsData } = useDataContext();
   const { uiData } = useUiContext();
-
   const [showForm, setShowForm] = useState(false);
   const [collapse, setCollapse] = useState(true);
+  const items = bookmarksData.filter((item) => item.listId === listId);
 
   const [isOver, drop] = useDrop(() => ({
     accept: dropItemTypes.BOOKMARK,
-    drop: (item) => dataActions.moveBookmark(item.id, listId),
+    drop: (item) => {
+      dataActions.moveBookmark(item.id, listId);
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -86,27 +69,31 @@ const BookmarkList = ({ listCategory, listId, id, top, left }) => {
 
       {collapse && (
         <>
-          <motion.ul
+          <ul
             className="flex flex-col gap-2 py-2 px-2  "
             variants={container}
             initial="hidden"
             animate="visible"
+            ref={drop}
           >
-            {bookmarksData
-              .filter((item) => item.listId === listId)
-              .map((item) => {
-                return (
-                  <BookmarkItem
-                    id={item.id}
-                    key={item.id}
-                    name={item.name}
-                    listId={item.listId}
-                    url={item.url}
-                    itemsVariants={item}
-                  />
-                );
-              })}
-          </motion.ul>
+            
+{            //    <SortedList items ={items} listId={listId}/>
+}            
+   {items.map((item, index) => {
+              return (
+                <BookmarkItem
+                  id={item.id}
+                  index={index}
+                  key={item.id}
+                  name={item.name}
+                  listId={item.listId}
+                  url={item.url}
+                  itemsVariants={item}
+                />
+              );
+            })}
+            
+          </ul>
         </>
       )}
     </div>
@@ -115,7 +102,32 @@ const BookmarkList = ({ listCategory, listId, id, top, left }) => {
 
 export default BookmarkList;
 /*
+   {items.map((item, index) => {
+              return (
+                <BookmarkItem
+                  id={item.id}
+                  index={index}
+                  key={item.id}
+                  name={item.name}
+                  listId={item.listId}
+                  url={item.url}
+                  itemsVariants={item}
+                />
+              );
+            })}
 
+
+
+
+     <BookmarkItem
+                    id={item.id}
+                    index ={index}
+                    key={item.id}
+                    name={item.name}
+                    listId={item.listId}
+                    url={item.url}
+                    itemsVariants={item}
+                  />
     <button
                         onClick={() => setShowForm(true)}
                         className="px-4 py-2 border block mx-auto border-dashed "
@@ -131,3 +143,22 @@ export default BookmarkList;
 
 
 */
+const container = {
+  hidden: { opacity: 0.5, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.5,
+      staggerChildren: 0.5,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};

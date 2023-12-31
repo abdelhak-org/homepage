@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React from "react";
 import {useDrop} from "react-dnd";
 import BookmarkList from "@/components/bookmarklist/BookmarkList";
 import {useUiContext} from "@/context/ui/UiContext";
@@ -40,9 +40,10 @@ export default function Home() {
            `}
             >
                 {listsData.map((box, index) => {
-                    const {listName, listId, top, left} = box
+                    const {listName, listId, top, left , items} = box
                     return (
                         <BookmarkList
+                            listItems={items}
                             listCategory={listName}
                             listId={listId}
                             key={index}

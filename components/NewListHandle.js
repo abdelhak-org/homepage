@@ -19,7 +19,7 @@ const NewListHandle = () => {
         <button
           onClick={() => setShowListForm(!showListForm)}
           className="px-4 py-2 border rounded-md border-dotted text-white bg-blue font-bold 
-             font-roboto"
+          font-roboto"
         >
           ADD NEW LIST
         </button>

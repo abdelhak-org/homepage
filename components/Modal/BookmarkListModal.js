@@ -1,57 +1,37 @@
 import React, { useState } from "react";
 import { RiCloseCircleLine } from "react-icons/ri";
-import { BsHandIndexFill } from "react-icons/bs";
 import { useDataContext } from "@/context/data/DataContext";
 
 const BookmarkListModal = ({ setShowModal }) => {
-  const { dataActions, listsData, bookmarksData } = useDataContext();
+  const { dataActions, listsData  } = useDataContext();
   const [selectedListId, setSelectedListId] = useState("");
-  // handle bookmark
-  const [newBookmarkItem, setNewBookmarkItem] = useState({
-    id:bookmarksData.length +10,
-    listId: "",
-    category: "",
-    name: "",
-    url: "https://www.google.de/",
-  });
+  // handle bookmark List  
+
   
   const [newBookmarkList, setNewBookmarkList] = useState({
     listId:listsData.length + 1,
     listName: "",
-    top: 100,
-    left: 100,
+    items:[ ]
+  
   });
   
   const handleSave = (e) => {
     e.preventDefault();
     dataActions.addNewList(newBookmarkList);
-    dataActions.addBookmark(newBookmarkItem);
     setNewBookmarkList({
       listId: "",
       listName: "",
-      top: 100,
-      left: 100,
+      items:[] ,
     });
 
     setShowModal(false);
   };
 
-  const handleBookmarkItemChange = (e) => {
-    setNewBookmarkItem({
-      ...newBookmarkItem,
-      name: e.target.value,
-      listId: +selectedListId,
-    });
-  };
-
-  const deleteHandle = () => {
+ const deleteHandle = () => {
     if (!selectedListId) return;
     const item = listsData.find((item) => +item.listId === +selectedListId);
-    const bookmark = bookmarksData.find(
-      (item) => +item.listId === +selectedListId
-    );
+  
     dataActions.deleteList(item.listId);
-    dataActions.deleteBookmark(bookmark.id);
     setShowModal(false);
   };
 
@@ -79,6 +59,7 @@ const BookmarkListModal = ({ setShowModal }) => {
           {listsData.map((item, index) => (
             <option
               key={index}
+              categoryIndex ={index}
               value={item.listId}
               className="px-2 py-1 bg-white rounded-md hover:bg-yellow"
             >
@@ -105,7 +86,6 @@ const BookmarkListModal = ({ setShowModal }) => {
           selectedListId &&
           (
             <input
-            onChange={handleBookmarkItemChange}
             type="text"
             placeholder="New BookmarkItem"
             className="rounded-md px-2 py-1 outline-0"

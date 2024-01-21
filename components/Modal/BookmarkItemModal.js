@@ -2,22 +2,34 @@
 import { useEffect, useState } from "react";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { useDataContext } from "@/context/data/DataContext";
-import BookmarkList from "../bookmarklist/BookmarkList";
-function BookmarkItemModal({ id, setToggle }) {
-  const { dataActions, bookmarksData } = useDataContext();
-  const [newBookmark, setNewBookmark] = useState({});
-  useEffect(() => {
-    const bookmark = bookmarksData.find((item) => item.id === id);
-    setNewBookmark(bookmark);
-  }, []);
+function BookmarkItemModal({ listId ,id, setToggle }) {
 
-  const handleSave = () => {
-    dataActions.updateBookmark(newBookmark);
+  const { dataActions , listsData } = useDataContext();
+  const [bookmark, setbookmark] = useState({id :"" , name:"" , url:"" });
+
+  const [newBookmark, setNewBookmark] = useState({id:"" , name:"" , url:""});
+
+  
+  const handleSave = (e) => {
+    e.preventDefault()
+    dataActions.updateBookmark(listId,newBookmark);
     setToggle(false);
   };
-  const handleDelete = () => {
-    dataActions.deleteBookmark(id);
+  const handleDelete = (e) => {
+    e.preventDefault()
+    dataActions.deleteBookmark(listId ,  id);
+    setToggle(false)  ;   
+
+
   };
+  useEffect(()=>{
+    function rerenderItem(){
+      const list  = listsData.find(list => list.listId === listId );
+      const targetBookmark = list.items.find((item)=> item.id === id)
+      setNewBookmark(targetBookmark)
+    }
+   rerenderItem()
+  },[])
   return (
     <div className="fixed  top-0 left-0 w-full h-full z-30 flex items-center justify-center bg-black">
       <div className="flex relative flex-col bg-x  gap-3 px-4 pt-2 pb-4 z-40 rounded-md">

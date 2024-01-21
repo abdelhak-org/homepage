@@ -1,23 +1,25 @@
 import { dataActionTypes } from "./actionsTypes";
 
 export const dataActions = (dispatch) => ({
-  addBookmark: (item) => {
-    if (item.name === "" || item.url === "") return;
-    dispatch({ type: dataActionTypes.ADD_BOOKMARK, payload: item });
+  addBookmark: (item ,categoryIndex ) => {
+    //if (item.name === "" || item.url === "") return;
+    dispatch({ type: dataActionTypes.ADD_BOOKMARK, payload: { item ,categoryIndex } });
   },
 
-  deleteBookmark: (id) => {
-    dispatch({ type: dataActionTypes.DELETE_BOOKMARK, payload: id });
+  deleteBookmark: (listId ,id) => {
+    dispatch({ type: dataActionTypes.DELETE_BOOKMARK, payload: {listId ,id} });
   },
 
-  updateBookmark: (newBookmark) => {
-    dispatch({ type: dataActionTypes.UPDATE_BOOKMARK, payload: newBookmark });
+  updateBookmark: (listId,newBookmark) => {
+    dispatch({ type: dataActionTypes.UPDATE_BOOKMARK, payload: {listId , newBookmark} });
   },
 
-  moveBookmark: (id, listId) => {
-    dispatch({ type: dataActionTypes.MOVE_BOOKMARK, payload: { id, listId } });
+  moveBookmark: (item, listId) => {
+    dispatch({ type: dataActionTypes.MOVE_BOOKMARK, payload: {item,  listId } });
   },
-
+  moveCard :(fromIndex, toIndex)=>{
+      dispatch({ type:dataActionTypes.MOVE_CARD , payload:{fromIndex, toIndex}})
+  } ,
   addNewList: (newList) => {
     if (newList.listName === "") return;
     dispatch({ type: dataActionTypes.ADD_NEW_LIST, payload: newList });

@@ -6,5 +6,6 @@ export const dataActionTypes = {
     ADD_NEW_LIST: "ADD_NEW_LIST",
     DELETE_LIST :"DELETE_LIST"   ,
     MOVE_LIST: "MOVE_LIST",
-    MOVE_ITEM : "MOVE_ITEM"
+    MOVE_ITEM : "MOVE_ITEM",
+    MOVE_CARD :"MOVE_CARD"
 }

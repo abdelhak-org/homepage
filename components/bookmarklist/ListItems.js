@@ -26,7 +26,7 @@ const ListItems = ({items, listId }) => {
   // usedrop
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: dropItemTypes.BOOKMARK,
-    drop: (item) => dataActions.moveBookmark(item, listId),
+    drop: (item) => dataActions.moveBookmark(item, listId),// moveBookmark(item, listId),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),

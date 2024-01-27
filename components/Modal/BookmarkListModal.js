@@ -19,7 +19,7 @@ const BookmarkListModal = ({ setShowModal }) => {
   const handleSave = (e) => {
     e.preventDefault();
   
-   /// dataActions.addNewList(newBookmarkList);
+     dataActions.addNewList(newBookmarkList);
     dataActions.addBookmark(newBookmark , selectedListId)
     setNewBookmarkList({
       listId: "",

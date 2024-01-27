@@ -60,9 +60,8 @@ export const dataReducer = (state, action) => {
         }
       });
       
-      // Now, newDataList contains the updated state
+      // newDataList contains the updated state
       
-      //####
       return {
         ...state,
         listsData: state.listsData.map((list) =>
@@ -95,28 +94,22 @@ export const dataReducer = (state, action) => {
       };
 
     // adding a new list done
+
     case dataActionTypes.ADD_NEW_LIST:
-      return { ...state, listsData: [...state.listsData, action.payload] };
+      return { 
+        ...state,
+         listsData: [...state.listsData, action.payload] };
 
     // delete a list done
     case dataActionTypes.DELETE_LIST:
       return {
         ...state,
         listsData: state.listsData.filter(
-          (item) => item.listId !== action.payload
+          (list) => list.listId !== action.payload
         ),
       };
 
-    ///  
-    case dataActionTypes.MOVE_LIST:
-      return {
-        ...state,
-        listsData: state.listsData.map((list) => {
-          return list.listId === action.payload.listId
-            ? { ...list, top: action.payload.top, left: action.payload.left }
-            : list;
-        }),
-      };
+   
    
     default:
       return state;  

@@ -5,22 +5,22 @@ export let listsData = [
 
     items: [
       {
-        id: 1,
+        id: 11,
         name: "CHROME",
         url: "https://www.google.de/",
       },
       {
-        id: 2,
+        id: 12,
         name: "FIREFOX",
         url: "https://www.google.de/",
       },
       {
-        id: 3,
+        id: 13,
         name: "EXPLORER",
         url: "https://www.google.de/",
       },
       {
-        id: 4,
+        id: 14,
         name: "EDGE",
         url: "https://www.google.de/",
       },
@@ -31,22 +31,22 @@ export let listsData = [
     listName: " social Media",
     items: [
       {
-        id: 1,
+        id: 15,
         name: "FACEBOOK",
         url: "https://www.facebook.com/",
       },
       {
-        id: 2,
+        id: 16,
         name: "instagram",
         url: "https://www.instagram.com/",
       },
       {
-        id: 3,
+        id: 17,
         name: "TIKTOK",
         url: "https://www.tiktok.com/explore",
       },
       {
-        id: 4,
+        id: 18,
         name: "WECHAT",
         url: "https://www.wechat.com/",
       },
@@ -57,22 +57,22 @@ export let listsData = [
     listName: "Contact",
     items: [
       {
-        id: 1,
+        id: 19,
         name: "GMAIL",
         url: "https://mail.google.com/",
       },
       {
-        id: 2,
+        id: 20,
         name: "YAHOO",
         url: "https://www.yahoo.com/",
       },
       {
-        id: 3,
+        id: 21,
         name: "HOTMAIL",
         url: "https://www.microsoft.com/",
       },
       {
-        id: 4,
+        id: 22,
         name: "BING",
         url: "https://www.bing.com/",
       },

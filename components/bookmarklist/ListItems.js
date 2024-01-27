@@ -5,11 +5,12 @@ import BookmarkItem from "./BookmarkItem";
 import { dropItemTypes } from "@/dropItemTypes";
 import { useDataContext } from "@/context/data/DataContext";
 
-const ListItems = ({items, listId }) => {
+const ListItems = ({items, listId  ,listIndex   }) => {
   const { dataActions, listsData } = useDataContext();
   const [isPending , setIsPending] = useState(false)
   const [cards, setCards] = useState([]);
-  // HANDLE DRAG DROP
+  // HANDLE DRAG 
+  /*
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       setCards((prevCards) =>  
@@ -23,15 +24,7 @@ const ListItems = ({items, listId }) => {
     },
     [cards]
   );
-  // usedrop
-  const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: dropItemTypes.BOOKMARK,
-    drop: (item) => dataActions.moveBookmark(item, listId),// moveBookmark(item, listId),
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    }),
-  }));
+*/
   useEffect(()=>{
     setIsPending(true)
     const list = listsData.find((list) => list.listId === listId).items;
@@ -44,13 +37,12 @@ const ListItems = ({items, listId }) => {
     )
   }
   return (
-    <div ref={drop}>
+    <div >
       {cards.map((ele, index) => (
         <BookmarkItem
           item={ele}
           index={index}
           key={index}
-          moveCard={moveCard}
           listId={listId}
         />
       ))}

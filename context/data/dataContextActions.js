@@ -14,8 +14,8 @@ export const dataActions = (dispatch) => ({
     dispatch({ type: dataActionTypes.UPDATE_BOOKMARK, payload: {listId , newBookmark} });
   },
 
-  moveBookmark: (item, listId) => {
-    dispatch({ type: dataActionTypes.MOVE_BOOKMARK, payload: {item,  listId } });
+  moveBookmark: (item , targetListId , targetIndex) => {
+    dispatch({ type: dataActionTypes.MOVE_BOOKMARK, payload: {item, targetListId , targetIndex } });
   },
   moveCard :(fromIndex, toIndex)=>{
       dispatch({ type:dataActionTypes.MOVE_CARD , payload:{fromIndex, toIndex}})

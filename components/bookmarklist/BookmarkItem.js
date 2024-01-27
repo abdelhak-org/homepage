@@ -19,6 +19,7 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
     setToggle(!toggle);
   };
 
+  0
   const handleOpenModal = () => {
     uiActions.openModal(item.id);
   };
@@ -26,7 +27,7 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
   /// handle drag drop
   const [{ isDragging }, drag] = useDrag({
     type: dropItemTypes.BOOKMARK,
-    item: { item , index },
+    item: { item , index  , sourcelistId:listId },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -39,9 +40,13 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
         isOver: monitor.isOver(),
       };
     },
-    hover:(item, monitor)=> {
+    drop: (item , monitor) => {
+      console.log(monitor )
+    dataActions.moveBookmark(item ,listId , index)
+  },
+   /* hover:(item, monitor)=> {
       if (!ref.current) {
-        return;
+          return;
       }
       const dragIndex = item.index;
       const hoverIndex = index;
@@ -49,6 +54,7 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
       if (dragIndex === hoverIndex) {
         return;
       }
+      
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
@@ -66,6 +72,7 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
    
       item.index = hoverIndex;
     },
+    */
   });
 
   const style = {

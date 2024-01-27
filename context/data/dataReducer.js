@@ -3,72 +3,71 @@ import { dataActionTypes } from "./actionsTypes";
 
 export const dataReducer = (state, action) => {
   switch (action.type) {
-
-    // ADDING NEW BOOKMARK 
+    // ADDING NEW BOOKMARK
     case dataActionTypes.ADD_BOOKMARK:
-        try {
-          const newBookmarkList = state.listsData.map((list )=>{
-            if(list.listId === action.payload.selectedListId) {
-              return {
-                ...list, 
-                items:
-                [...list.items, action.payload.newItem]
-              }
-            }
-            return list
-         })
-         return {
-          ...state ,
-          listsData:newBookmarkList ,
+      try {
+        const newBookmarkList = state.listsData.map((list) => {
+          if (list.listId === action.payload.selectedListId) {
+            return {
+              ...list,
+              items: [...list.items, action.payload.newItem],
+            };
+          }
+          return list;
+        });
+        return {
+          ...state,
+          listsData: newBookmarkList,
         };
-        } catch (error) {
-          console.log(error.message)
-        }
-    
+      } catch (error) {
+        console.log(error.message);
+      }
 
     case dataActionTypes.DELETE_BOOKMARK:
-      return {     
+      return {
         ...state,
         listsData: state.listsData.map((list) => {
           if (list.listId === action.payload.listId) {
             return {
               ...list,
               items: list.items.filter((item) => item.id !== action.payload.id),
-            }
-
-
-            
+            };
           }
           return list;
         }),
       };
 
-    // MOVE BOOKMARK accepting{ item , listId}
+    // MOVE BOOKMARK accepting{ item , listId} {item:{index , item} , listId
 
     case dataActionTypes.MOVE_BOOKMARK:
-      const newDataList = state.listsData.map((list) => {
-        if (list.listId === action.payload.listId) {
-          const itemIndex = action.payload.item.index;
-          const itemId = list.items[itemIndex].id;
-      
+          const sourceListId = action.payload.item.sourcelistId ;
+          const targetListId = action.payload.targetListId ;
+          const item = action.payload.item.item ;
+          const targetIndex = action.payload.targetIndex ;
+          const sourceIndex = action.payload.item.index ;
+      // newDataList contains the updated state 
+      const newListData = state.listsData.map((list) => {
+        if (list.listId === sourceListId && sourceListId === targetListId) {
+          return list;
+        } else if (list.listId === sourceListId && sourceListId !== targetListId) {
+          const updatedItems = list.items.filter((ele) => ele.id !== item.id);
           return {
             ...list,
-            items: list.items.filter((item) => item.id !== itemId),
+            items: updatedItems,
+          };
+        } else if (list.listId === targetListId) {
+          return {
+            ...list,
+            items: [...list.items, { ...item }],
           };
         } else {
           return list;
         }
       });
       
-      // newDataList contains the updated state
-      
-      return {
+        return {
         ...state,
-        listsData: state.listsData.map((list) =>
-        list.listId === action.payload.listId
-          ? { ...list, items: [...list.items, action.payload.item.item] }
-          : list
-      ),
+        listsData:newListData,
       };
 
     // update bookmark done
@@ -83,9 +82,8 @@ export const dataReducer = (state, action) => {
                 : item
             ),
           };
-        } 
-          return list;
-        
+        }
+        return list;
       });
 
       return {
@@ -96,9 +94,10 @@ export const dataReducer = (state, action) => {
     // adding a new list done
 
     case dataActionTypes.ADD_NEW_LIST:
-      return { 
+      return {
         ...state,
-         listsData: [...state.listsData, action.payload] };
+        listsData: [...state.listsData, action.payload],
+      };
 
     // delete a list done
     case dataActionTypes.DELETE_LIST:
@@ -109,9 +108,7 @@ export const dataReducer = (state, action) => {
         ),
       };
 
-   
-   
     default:
-      return state;  
+      return state;
   }
 };

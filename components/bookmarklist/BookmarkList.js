@@ -11,7 +11,7 @@ const style = {
   cursor: "move",
 };
 
-const BookmarkList = ({ listCategory, listId}) => {
+const BookmarkList = ({ listCategory, listId , listIndex}) => {
 
   const { uiData } = useUiContext();
   const {listsData} = useDataContext()
@@ -22,16 +22,16 @@ const BookmarkList = ({ listCategory, listId}) => {
       <div
         style={{ backgroundColor: uiData.bookmarkHeaderColor }}
         className="flex justify-between content-center px-2 py-1 relative "
-      >
-     
+        > 
+        
         <LIstHeader  setCollapse={setCollapse} collapse={collapse}  listCategory ={listCategory}/>
         <OptionsMenu />
       </div>
-
+        
       {collapse && (
-        <>
+          <>
           <ul className="flex flex-col gap-2 py-2 px-2  ">
-          <ListItems items={items}  listId={listId} />
+          <ListItems items={items}  listId={listId}  listIndex={listIndex}/>
           </ul>
       </>
       )}

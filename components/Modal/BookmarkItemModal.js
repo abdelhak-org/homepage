@@ -3,23 +3,23 @@ import { useEffect, useState } from "react";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { useDataContext } from "@/context/data/DataContext";
 function BookmarkItemModal({ listId ,id, setToggle }) {
-
+  
   const { dataActions , listsData } = useDataContext();
   const [bookmark, setbookmark] = useState({id :"" , name:"" , url:"" });
-
+  const [isPending , setIsPending] = useState(false)
   const [newBookmark, setNewBookmark] = useState({id:"" , name:"" , url:""});
 
   
   const handleSave = (e) => {
     e.preventDefault()
-    dataActions.updateBookmark(listId,newBookmark);
+    setIsPending(true)
     setToggle(false);
+    dataActions.updateBookmark(listId,newBookmark);
   };
   const handleDelete = (e) => {
     e.preventDefault()
     dataActions.deleteBookmark(listId ,  id);
     setToggle(false)  ;   
-
 
   };
   useEffect(()=>{
@@ -30,6 +30,10 @@ function BookmarkItemModal({ listId ,id, setToggle }) {
     }
    rerenderItem()
   },[])
+
+  if (isPending){
+    return(<p> isLoading ........</p>)
+  }
   return (
     <div className="fixed  top-0 left-0 w-full h-full z-30 flex items-center justify-center bg-black">
       <div className="flex relative flex-col bg-x  gap-3 px-4 pt-2 pb-4 z-40 rounded-md">

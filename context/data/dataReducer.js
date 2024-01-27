@@ -1,61 +1,104 @@
-import {listsData } from "@/data/db";
+import { listsData } from "@/data/db";
 import { dataActionTypes } from "./actionsTypes";
 
 export const dataReducer = (state, action) => {
-
   switch (action.type) {
 
+    // ADDING NEW BOOKMARK 
     case dataActionTypes.ADD_BOOKMARK:
-          
-      return {
-        ...state,
+        try {
+          const newBookmarkList = state.listsData.map((list )=>{
+            if(list.listId === action.payload.selectedListId) {
+              return {
+                ...list, 
+                items:
+                [...list.items, action.payload.newItem]
+              }
+            }
+            return list
+         })
+         return {
+          ...state ,
+          listsData:newBookmarkList ,
+        };
+        } catch (error) {
+          console.log(error.message)
+        }
     
-      };
 
     case dataActionTypes.DELETE_BOOKMARK:
-      const updateDeleteList = [...state.listsData] ;
-      
-      const filteredBookmarksList = updateDeleteList.find((list)=> list.listId === action.payload.listId);
-      console.log(filteredBookmarksList,"..............")
-      filteredBookmarksList.items = filteredBookmarksList.items.filter((item)=>item.id!==action.payload.id)
-      console.log(updateDeleteList,">>>>>>>>>>>>>>>>>>>>>")
-
-      return {
+      return {     
         ...state,
-        listsData:updateDeleteList,
+        listsData: state.listsData.map((list) => {
+          if (list.listId === action.payload.listId) {
+            return {
+              ...list,
+              items: list.items.filter((item) => item.id !== action.payload.id),
+            }
+
+
+            
+          }
+          return list;
+        }),
       };
 
-      // MOVE BOOKMARK
+    // MOVE BOOKMARK accepting{ item , listId}
+
     case dataActionTypes.MOVE_BOOKMARK:
-      const listIndex = listsData.findIndex(
-        (list) => list.listId === action.payload.listId
-      );
-     
-      const updatedListsData = [...state.listsData];
-      updatedListsData[listIndex].items = [...updatedListsData[listIndex].items , action.payload.newItem];
+      const newDataList = state.listsData.map((list) => {
+        if (list.listId === action.payload.listId) {
+          const itemIndex = action.payload.item.index;
+          const itemId = list.items[itemIndex].id;
+      
+          return {
+            ...list,
+            items: list.items.filter((item) => item.id !== itemId),
+          };
+        } else {
+          return list;
+        }
+      });
+      
+      // Now, newDataList contains the updated state
+      
+      //####
       return {
         ...state,
-        listsData: updatedListsData    ,
+        listsData: state.listsData.map((list) =>
+        list.listId === action.payload.listId
+          ? { ...list, items: [...list.items, action.payload.item.item] }
+          : list
+      ),
       };
 
-    
-     // update bookmark
-     case dataActionTypes.UPDATE_BOOKMARK:
-        const updateList = [...state.listsData]
-      const newList= 
-        updateList.find((list)=> list.listId === action.payload.listId).items.
-        map((item)=> item.id === action.payload.newBookmark.id ? action.payload.newBookmark:item)
-     
+    // update bookmark done
+    case dataActionTypes.UPDATE_BOOKMARK:
+      const updatedLists = state.listsData.map((list) => {
+        if (list.listId === action.payload.listId) {
+          return {
+            ...list,
+            items: list.items.map((item) =>
+              item.id === action.payload.newBookmark.id
+                ? action.payload.newBookmark
+                : item
+            ),
+          };
+        } 
+          return list;
+        
+      });
+
       return {
         ...state,
-        listsData: newList,
+        listsData: updatedLists,
       };
-    
-      // adding a new list
+
+    // adding a new list done
     case dataActionTypes.ADD_NEW_LIST:
       return { ...state, listsData: [...state.listsData, action.payload] };
-  
-    // delete a list
+
+    // delete a list done
     case dataActionTypes.DELETE_LIST:
       return {
         ...state,
@@ -63,21 +106,19 @@ export const dataReducer = (state, action) => {
           (item) => item.listId !== action.payload
         ),
       };
-    
-    ///
+
+    ///  
     case dataActionTypes.MOVE_LIST:
       return {
         ...state,
         listsData: state.listsData.map((list) => {
-          console.log("[data reducer map] => ", list.listId, action.payload);
           return list.listId === action.payload.listId
             ? { ...list, top: action.payload.top, left: action.payload.left }
             : list;
         }),
       };
-
+   
     default:
-      return state;
+      return state;  
   }
 };
-

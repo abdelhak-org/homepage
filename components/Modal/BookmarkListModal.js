@@ -5,6 +5,7 @@ import { useDataContext } from "@/context/data/DataContext";
 const BookmarkListModal = ({ setShowModal }) => {
   const { dataActions, listsData  } = useDataContext();
   const [selectedListId, setSelectedListId] = useState("");
+  const [newBookmark, setNewBookmark] = useState({id:"", name:"", url:""});
   // handle bookmark List  
 
   
@@ -17,19 +18,21 @@ const BookmarkListModal = ({ setShowModal }) => {
   
   const handleSave = (e) => {
     e.preventDefault();
-    dataActions.addNewList(newBookmarkList);
+  
+   /// dataActions.addNewList(newBookmarkList);
+    dataActions.addBookmark(newBookmark , selectedListId)
     setNewBookmarkList({
       listId: "",
       listName: "",
       items:[] ,
     });
-
+  
     setShowModal(false);
   };
 
  const deleteHandle = () => {
     if (!selectedListId) return;
-    const item = listsData.find((item) => +item.listId === +selectedListId);
+    const item = listsData.find((item) => item.listId === selectedListId);
   
     dataActions.deleteList(item.listId);
     setShowModal(false);
@@ -47,7 +50,7 @@ const BookmarkListModal = ({ setShowModal }) => {
 
         <select
           className="p-2 rounded-md bg-white outline-0 capitalize"
-          onChange={(e) => setSelectedListId(e.target.value)}
+          onChange={(e) => setSelectedListId(+e.target.value)}
           value={selectedListId}
         >
           <option
@@ -87,6 +90,8 @@ const BookmarkListModal = ({ setShowModal }) => {
           (
             <input
             type="text"
+            value={newBookmark.name}
+            onChange={(e) => setNewBookmark({ ...newBookmark, name: e.target.value })}
             placeholder="New BookmarkItem"
             className="rounded-md px-2 py-1 outline-0"
           />

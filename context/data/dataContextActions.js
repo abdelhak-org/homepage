@@ -1,9 +1,9 @@
 import { dataActionTypes } from "./actionsTypes";
 
 export const dataActions = (dispatch) => ({
-  addBookmark: (item ,categoryIndex ) => {
+  addBookmark: (newItem ,selectedListId ) => {
     //if (item.name === "" || item.url === "") return;
-    dispatch({ type: dataActionTypes.ADD_BOOKMARK, payload: { item ,categoryIndex } });
+    dispatch({ type: dataActionTypes.ADD_BOOKMARK, payload: { newItem ,selectedListId } });
   },
 
   deleteBookmark: (listId ,id) => {

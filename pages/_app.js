@@ -18,7 +18,6 @@ export default function App({ Component, pageProps }) {
       <NavBar/>
       <AboutMe/>
       <Component {...pageProps} />
-       
       <Footer/>
 
     </Layout>

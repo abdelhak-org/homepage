@@ -6,8 +6,7 @@ import { useDataContext } from "@/context/data/DataContext";
 
 export default function Home() {
   const { uiData } = useUiContext();
-  const { listsData, dataActions } = useDataContext();
-  
+  const { listsData  } = useDataContext();
   return (
     <>
       <div
@@ -15,14 +14,14 @@ export default function Home() {
           background: uiData.bgColor,
         }}
         className={`main_container w-screen  grid grid-cols-4 relative gap-5   md:max-w-[1534px]  min-h-screen mx-auto 
-           `}
-      >
+           `}       
+      >  
         {
-        listsData?.map((box, index) => {
-          const { listName, listId, items } = box;
+        listsData.map((box, index) => {
+         const  {  listId, listName } = box;
           return (
             <BookmarkList
-              listItems={items}
+            //  listItems={items}
               listCategory={listName}
               listId={listId}
               key={index}
@@ -36,4 +35,4 @@ export default function Home() {
   );
 }
 
-//        {//{!true && <BookmarkItemModal />}}
+

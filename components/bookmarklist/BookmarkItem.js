@@ -8,7 +8,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 
 const BookmarkItem = ({ item, index, moveCard, listId }) => {
-  const { dataActions } = useDataContext();
+  const { dataActions  } = useDataContext();
 
   const [toggle, setToggle] = useState(false);
 
@@ -26,7 +26,7 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
   /// handle drag drop
   const [{ isDragging }, drag] = useDrag({
     type: dropItemTypes.BOOKMARK,
-    item: { item, index },
+    item: { item , index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -91,11 +91,11 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
             className="w-8 h-8"
           />
         </button>
-        <p>{item.name}</p>
+        <p>{item.name }</p>
         <TbPencil
           onClick={toggleHandler}
           className="w-4 h-4 cursor-pointer"
-          color="#333"
+           color="#333"  
         />
       </li>
       {toggle && (

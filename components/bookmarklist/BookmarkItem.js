@@ -2,12 +2,13 @@
 import { useUiContext } from "@/context/ui/UiContext";
 import { TbPencil } from "react-icons/tb";
 import BookmarkItemModal from "@/components/Modal/BookmarkItemModal";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
 import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 
 const BookmarkItem = ({ item, index, moveCard, listId }) => {
+  const [currentItem , setCurrentItem ]  = useState({})
   const { dataActions } = useDataContext();
 
   const [toggle, setToggle] = useState(false);
@@ -52,13 +53,14 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
   
-      // Only perform the move when the mouse has crossed half of the item's height
       const isMovingDown = dragIndex < hoverIndex && hoverClientY < hoverMiddleY;
       const isMovingUp = dragIndex > hoverIndex && hoverClientY > hoverMiddleY;
   
       if (isMovingDown || isMovingUp) {
+
         moveCard(dragIndex, hoverIndex);
         item.index = hoverIndex;
+
       }
     },
   });
@@ -70,11 +72,13 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
     opacity: isDragging ? 0.5 : 1,
     backgroundColor: isOver ? "green" : "white",
   };
+   useEffect(()=>{
 
+  }, [item])
   return (
     <>
       <li
-        ref={drag(drop(ref))}
+        ref={ drag(drop(ref))}
         data-testid="bookmark-item-test"
         style={style}
         className="relative flex justify-between my-1 items-center p-2 text-sm rounded-md border border-solid border-gray font-roboto"

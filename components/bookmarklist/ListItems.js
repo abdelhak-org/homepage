@@ -10,15 +10,7 @@ const ListItems = ({items, listId  ,listIndex   }) => {
   const { dataActions, listsData } = useDataContext();
   const [isPending , setIsPending] = useState(false)
   const [cards, setCards] = useState(items);
-  // HANDLE DRAG 
-  /*
-  const moveItem = useCallback( (fromIndex, toIndex) => {
-    const newItems = [...cards];
-    const movedItem = newItems.splice(fromIndex, 1);
-    newItems.splice(toIndex, 0, movedItem);
-    setCards(newItems);
-  },[cards]);
-*/
+
 const moveCard = useCallback((dragIndex, hoverIndex) => {
   setCards((prevCards) =>
     update(prevCards, {

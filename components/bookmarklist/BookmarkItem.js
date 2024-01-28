@@ -2,13 +2,13 @@
 import { useUiContext } from "@/context/ui/UiContext";
 import { TbPencil } from "react-icons/tb";
 import BookmarkItemModal from "@/components/Modal/BookmarkItemModal";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
 import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 
 const BookmarkItem = ({ item, index, moveCard, listId }) => {
-  const { dataActions  } = useDataContext();
+  const { dataActions } = useDataContext();
 
   const [toggle, setToggle] = useState(false);
 
@@ -19,7 +19,6 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
     setToggle(!toggle);
   };
 
-  0
   const handleOpenModal = () => {
     uiActions.openModal(item.id);
   };
@@ -27,61 +26,50 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
   /// handle drag drop
   const [{ isDragging }, drag] = useDrag({
     type: dropItemTypes.BOOKMARK,
-    item: { item , index  , sourcelistId:listId },
+    item: { item, index, sourcelistId: listId },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
-  ///////
-  const [{  isOver  }, drop] = useDrop({
+  const [{ isOver }, drop] = useDrop({
     accept: dropItemTypes.BOOKMARK,
-    collect(monitor) {
-      return {
-        isOver: monitor.isOver(),
-      };
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+    drop: (item, monitor) => {
+      const droppedItem = monitor.getItem();
+      dataActions.moveBookmark(droppedItem, listId, index);
     },
-    drop: (item , monitor) => {
-      console.log(monitor )
-    dataActions.moveBookmark(item ,listId , index)
-  },
-   /* hover:(item, monitor)=> {
-      if (!ref.current) {
-          return;
-      }
+    hover: (item, monitor) => {
+      if (!ref.current) return;
+  
       const dragIndex = item.index;
       const hoverIndex = index;
-      // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      
+      if (dragIndex === hoverIndex) return;
+  
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-   
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
+  
+      // Only perform the move when the mouse has crossed half of the item's height
+      const isMovingDown = dragIndex < hoverIndex && hoverClientY < hoverMiddleY;
+      const isMovingUp = dragIndex > hoverIndex && hoverClientY > hoverMiddleY;
+  
+      if (isMovingDown || isMovingUp) {
+        moveCard(dragIndex, hoverIndex);
+        item.index = hoverIndex;
       }
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-      moveCard(dragIndex, hoverIndex);
-   
-      item.index = hoverIndex;
     },
-    */
   });
-
+  
+    
   const style = {
     cursor: "move",
     fontSize: uiData.fontS,
     opacity: isDragging ? 0.5 : 1,
-    backgroundColor:  isOver  ? "green" : "white",
+    backgroundColor: isOver ? "green" : "white",
   };
-  drag(drop(ref));
 
   return (
     <>
@@ -98,11 +86,11 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
             className="w-8 h-8"
           />
         </button>
-        <p>{item.name }</p>
+        <p>{item.name}</p>
         <TbPencil
           onClick={toggleHandler}
           className="w-4 h-4 cursor-pointer"
-           color="#333"  
+          color="#333"
         />
       </li>
       {toggle && (

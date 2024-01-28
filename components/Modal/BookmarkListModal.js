@@ -4,7 +4,7 @@ import { useDataContext } from "@/context/data/DataContext";
 
 const BookmarkListModal = ({ setShowModal }) => {
   const { dataActions, listsData  } = useDataContext();
-  const [selectedListId, setSelectedListId] = useState("");
+  const [selectedListId, setSelectedListId] = useState(null);
   const [newBookmark, setNewBookmark] = useState({id:"", name:"", url:""});
   // handle bookmark List  
 
@@ -19,7 +19,7 @@ const BookmarkListModal = ({ setShowModal }) => {
   const handleSave = (e) => {
     e.preventDefault();
   
-     dataActions.addNewList(newBookmarkList);
+    dataActions.addNewList(newBookmarkList);
     dataActions.addBookmark(newBookmark , selectedListId)
     setNewBookmarkList({
       listId: "",
@@ -32,7 +32,7 @@ const BookmarkListModal = ({ setShowModal }) => {
 
  const deleteHandle = () => {
     if (!selectedListId) return;
-    const item = listsData.find((item) => item.listId === selectedListId);
+    const item = listsData.find((list) => list.listId === selectedListId);
   
     dataActions.deleteList(item.listId);
     setShowModal(false);
@@ -54,7 +54,6 @@ const BookmarkListModal = ({ setShowModal }) => {
           value={selectedListId}
         >
           <option
-            value={""}
             className="px-2 py-1 bg-white rounded-md hover:bg-yellow"
           >
             Choose --

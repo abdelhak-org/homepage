@@ -7,7 +7,7 @@ import { useDataContext } from "@/context/data/DataContext";
 import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 
-const BookmarkItem = ({ item, index, moveCard, listId }) => {
+const BookmarkItem = ({ item, index,  listId }) => {
   const [currentItem , setCurrentItem ]  = useState({})
   const { dataActions } = useDataContext();
 
@@ -42,7 +42,7 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
       dataActions.moveBookmark(droppedItem, listId, index);
     },
     hover: (item, monitor) => {
-      if (!ref.current) return;
+     /* if (!ref.current) return;
   
       const dragIndex = item.index;
       const hoverIndex = index;
@@ -58,10 +58,10 @@ const BookmarkItem = ({ item, index, moveCard, listId }) => {
   
       if (isMovingDown || isMovingUp) {
 
-        moveCard(dragIndex, hoverIndex);
-        item.index = hoverIndex;
-
+        //moveCard(dragIndex, hoverIndex);
       }
+      */
+
     },
   });
   

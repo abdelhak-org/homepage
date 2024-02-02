@@ -11,18 +11,7 @@ const ListItems = ({items, listId  ,listIndex   }) => {
   const [isPending , setIsPending] = useState(false)
   const [cards, setCards] = useState(items);
 
-const moveCard = useCallback((dragIndex, hoverIndex) => {
-  setCards((prevCards) =>
-    update(prevCards, {
-      $splice: [
-        [dragIndex, 1],
-        [hoverIndex, 0, prevCards[dragIndex]],
-      ],
-    }),
-  )
-  
-}, [cards])
-console.log(cards)
+
   useEffect(()=>{
     setIsPending(true)
   ///  const list = listsData.find((list) => list.listId === listId).items;
@@ -42,7 +31,7 @@ console.log(cards)
           index={index}
           key={index}
           listId={listId}
-          moveCard={moveCard}
+      
         />
       ))}
     </div>

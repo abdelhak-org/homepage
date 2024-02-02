@@ -40,34 +40,52 @@ export const dataReducer = (state, action) => {
     // MOVE BOOKMARK accepting{ item , listId} {item:{index , item} , listId
 
     case dataActionTypes.MOVE_BOOKMARK:
-          const sourceListId = action.payload.item.sourcelistId ;
-          const targetListId = action.payload.targetListId ;
-          const item = action.payload.item.item ;
-          const targetIndex = action.payload.targetIndex ;
-          const sourceIndex = action.payload.item.index ;
-      // newDataList contains the updated state 
-      const newListData = state.listsData.map((list) => {
-        if (list.listId === sourceListId && sourceListId === targetListId) {
-          return list;
-        } else if (list.listId === sourceListId && sourceListId !== targetListId) {
-          const updatedItems = list.items.filter((ele) => ele.id !== item.id);
+      const sourceListId = action.payload.item.sourcelistId;
+      const targetListId = action.payload.targetListId;
+      const item = action.payload.item.item;
+      const targetIndex = action.payload.targetIndex;
+      const sourceIndex = action.payload.item.index;
+      // newDataList contains the updated state
+
+      const newList = state.listsData.map((list) => {
+        if (sourceListId === targetListId && list.listId === sourceListId) {
+          if (sourceIndex === targetIndex) return list;
+          const newItems = [...list.items];
+          const x = newItems[targetIndex];
+          newItems.splice(targetIndex, 1, item);
+          newItems.splice(sourceIndex, 1, x);
           return {
             ...list,
-            items: updatedItems,
+            items: newItems,
           };
-        } else if (list.listId === targetListId) {
-          return {
-            ...list,
-            items: [...list.items, { ...item }],
-          };
-        } else {
-          return list;
-        }
+        } /// end first case
+        if (sourceListId !== targetListId) {
+          // one
+          if (list.listId === sourceListId)
+            return {
+              ...list,
+              items: list.items.filter((ele) => ele.id !== item.id),
+            };
+          // two
+          if (list.listId !== sourceListId && list.listId === targetListId) {
+            const newItemList = [...list.items];
+            console.log(newItemList);
+            const targetItem = newItemList[targetIndex];
+            newItemList.splice(targetIndex, 0, item);
+            console.log(newItemList);
+            //newItemList.splice(sourceIndex, 1, targetItem);
+            return {
+              ...list,
+              items: newItemList,
+            };
+          }
+        } /// end second case
+        return list; // default case
       });
-      
-        return {
+
+      return {
         ...state,
-        listsData:newListData,
+        listsData: newList,
       };
 
     // update bookmark done

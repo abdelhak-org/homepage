@@ -5,7 +5,7 @@ import { useDataContext } from "@/context/data/DataContext";
 const BookmarkListModal = ({ setShowModal }) => {
   const { dataActions, listsData  } = useDataContext();
   const [selectedListId, setSelectedListId] = useState(null);
-  const [newBookmark, setNewBookmark] = useState({id:"", name:"", url:""});
+ // const [newBookmark, setNewBookmark] = useState({id:"", name:"", url:""});
   // handle bookmark List  
 
   
@@ -20,11 +20,11 @@ const BookmarkListModal = ({ setShowModal }) => {
     e.preventDefault();
   
     dataActions.addNewList(newBookmarkList);
-    dataActions.addBookmark(newBookmark , selectedListId)
+//dataActions.addBookmark(newBookmark , selectedListId)
     setNewBookmarkList({
-      listId: "",
+      listId:listsData.length + 1,
       listName: "",
-      items:[] ,
+      items:[ ]
     });
   
     setShowModal(false);

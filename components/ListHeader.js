@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LIstHeader = ({setCollapse ,collapse , listCategory }) => {
+const ListHeader = ({setCollapse ,collapse , listCategory }) => {
   return (
     <h6
     onClick={() => setCollapse(!collapse)}
@@ -11,4 +11,4 @@ const LIstHeader = ({setCollapse ,collapse , listCategory }) => {
   )
 }
 
-export default LIstHeader
+export default ListHeader

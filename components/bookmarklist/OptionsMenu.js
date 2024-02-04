@@ -6,9 +6,6 @@ import { TbDotsVertical } from "react-icons/tb";
 
 export default function OptionsMenu() {
   const [showOptions, setShowOptions] = useState(false);
-  const [selectedColor, setSelectedColor] = useState("");
-  // const [isOpen, setIsOpen] = useState(true);
-
   const { actions, uiData } = useUiContext();
   const optionsSize = ["14px", "18px", "22px"];
 
@@ -17,7 +14,7 @@ export default function OptionsMenu() {
       style={{ backgroundColor: option }}
       key={index}
       value={option}
-      className={` w-4 h-2 p-2 my-1 border-none cursor-pointer text-sm`}
+      className="w-4 h-2 p-2 my-1 border-none cursor-pointer text-sm"
     >
       {option}
     </option>
@@ -34,7 +31,6 @@ export default function OptionsMenu() {
       <button
         data-testid="settingIcon"
         onClick={() => setShowOptions(!showOptions)}
-        className=""
       >
         <TbDotsVertical className="text-xl my-2" />
       </button>
@@ -42,7 +38,7 @@ export default function OptionsMenu() {
       {showOptions && (
         <div className="absolute flex flex-col gap-2 bg-gray px-3 py-2 w-32 rounded-md top-[52px] right-1 z-10">
           <div className="flex justify-between items-center gap-2 py-1 text-xs">
-            <label className="">Color:</label>
+            <label>Color:</label>
             <input
               value={uiData.bookmarkHeaderColor}
               onChange={onColorInputChange}
@@ -51,7 +47,7 @@ export default function OptionsMenu() {
             />
           </div>
           <div className="flex flex-col gap-1 text-xs">
-            <label className="">Font size:</label>
+            <label>Font size:</label>
             <select
               onChange={onSelectChange}
               className="w-full rounded-md px-2 py-1 text-xs cursor-pointer outline-none"

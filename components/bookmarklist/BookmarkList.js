@@ -1,40 +1,39 @@
-"use client";
-import { useState , useEffect } from "react";
+import React, { useState } from "react";
 import { useUiContext } from "@/context/ui/UiContext";
-import  {useDataContext}  from "@/context/data/DataContext";
+import { useDataContext } from "@/context/data/DataContext";
 import OptionsMenu from "./OptionsMenu";
-import ListItems from "./ListItems"
-import LIstHeader from "../LIstHeader";
-const style = {
-  position: "absolute",
-  padding: "0.5rem 1rem",
-  cursor: "move",
-};
+import ListItems from "./ListItems";
+import ListHeader from "../ListHeader";
+import { MdAddLink } from "react-icons/md";
 
-const BookmarkList = ({ listCategory, listId , listIndex}) => {
-
+const BookmarkList = ({ listCategory, listId, listIndex, items }) => {
   const { uiData } = useUiContext();
-  const {listsData} = useDataContext()
+  const { listsData } = useDataContext();
   const [collapse, setCollapse] = useState(true);
-  const items = listsData.find((list)=> list.listId === listId).items
+
   return (
-    <div className="min-w-[260px] bookmarklist_container h-fit border m-8 border-gray  rounded-md   ">
+    <div className="w-full  h-fit border m-4 border-gray-light rounded-md md:w-[45%] lg:w-[30%]">
       <div
         style={{ backgroundColor: uiData.bookmarkHeaderColor }}
-        className="flex justify-between content-center px-2 py-1 relative "
-        > 
-        
-        <LIstHeader  setCollapse={setCollapse} collapse={collapse}  listCategory ={listCategory}/>
+        className="flex justify-between content-center px-2 py-1 relative"
+      >
+        <ListHeader
+          setCollapse={setCollapse}
+          collapse={collapse}
+          listCategory={listCategory}
+        />
         <OptionsMenu />
       </div>
-        
+
       {collapse && (
-          <>
-          <ul className="flex flex-col gap-2 py-2 px-2  ">
-          <ListItems items={items}  listId={listId}  listIndex={listIndex}/>
-          </ul>
-      </>
+        <ul className="flex flex-col gap-2 py-2 px-2">
+          <ListItems items={items} listId={listId} listIndex={listIndex} />
+        </ul>
       )}
+
+      <div className="flex justify-end content-center px-2 py-1">
+        <MdAddLink className="bg-white text-gray text-lg" />
+      </div>
     </div>
   );
 };

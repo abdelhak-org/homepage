@@ -5,7 +5,6 @@ import Layout from "../components/Layout"
 import NavBar from '@/components/NavBar'
 import { DataContextProvider } from '@/context/data/DataContext' 
 import { UiProvider } from '@/context/ui/UiContext'
-import AboutMe from '@/components/AboutMe'
 import Footer from '@/components/Footer';
 export default function App({ Component, pageProps }) {
   return(
@@ -16,7 +15,6 @@ export default function App({ Component, pageProps }) {
       <DataContextProvider>
       <Layout>
       <NavBar/>
-      <AboutMe/>
       <Component {...pageProps} />
       <Footer/>
 

@@ -5,6 +5,8 @@ import { useDataContext } from "@/context/data/DataContext";
 import { MdPostAdd, MdDelete } from "react-icons/md";
 import useOnClickOutside from "@/hooks/useClickOutside";
 import { RiCloseCircleLine } from "react-icons/ri";
+import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
 
 export default function NewListModal({ setShowModal }) {
   const { listsData, dataActions } = useDataContext();
@@ -114,12 +116,13 @@ export default function NewListModal({ setShowModal }) {
             </Transition>
           </div>
 
-          <div className="text-md text-gray-dark rounded-md my-2 flex justify-center items-center space-x-2">
-            <button onClick={deleteHandle} className="px-2 py-1 rounded-md bg-white text-md">
-              <MdDelete />
-            </button>
-            <button onClick={handleSave} className="px-2 py-1 rounded-md bg-white text-md">
-              <MdPostAdd />
+          <div className="text-md text-gray-dark rounded-md my-3 flex justify-center items-center space-x-2">
+            <button onClick={deleteHandle} className="px-4 py-2 rounded-l-md bg-white ">
+              <MdDelete size={22} />
+              </button>
+          
+           <button onClick={handleSave} className="px-4 py-2 rounded-r-md bg-white">
+              <MdPostAdd  size={22}/>
             </button>
           </div>
         </div>

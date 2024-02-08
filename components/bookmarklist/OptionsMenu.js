@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { useUiContext } from "@/context/ui/UiContext";
 import { TbDotsVertical } from "react-icons/tb";
+import { RiFontSize } from "react-icons/ri";
+import { IoIosColorPalette } from "react-icons/io";
 
 export default function OptionsMenu() {
   const [showOptions, setShowOptions] = useState(false);
@@ -36,21 +38,25 @@ export default function OptionsMenu() {
       </button>
 
       {showOptions && (
-        <div className="absolute flex flex-col gap-2 bg-gray px-3 py-2 w-32 rounded-md top-[52px] right-1 z-10">
-          <div className="flex justify-between items-center gap-2 py-1 text-xs">
-            <label>Color:</label>
+        <div className="absolute bg-gray-100  flex flex-col gap-2 bg-gray px-3 py-2 w-32 rounded-md top-[52px] right-1 z-10">
+          <div className="flex  gap-2 py-1 text-xs items-center">
+            <label>
+              <IoIosColorPalette  size={22} color="pink"/>
+            </label>
             <input
               value={uiData.bookmarkHeaderColor}
               onChange={onColorInputChange}
-              className="h-6 text-sm p-1"
+              className="h-6 text-sm p-1 flex-grow"
               type="color"
             />
           </div>
-          <div className="flex flex-col gap-1 text-xs">
-            <label>Font size:</label>
+          <div className="flex  gap-1 text-xs">
+            <label>
+              <RiFontSize size={18} />
+            </label>
             <select
               onChange={onSelectChange}
-              className="w-full rounded-md px-2 py-1 text-xs cursor-pointer outline-none"
+              className="flex-grow rounded-md px-2 py-1 text-xs cursor-pointer outline-none"
             >
               {selectElements}
             </select>

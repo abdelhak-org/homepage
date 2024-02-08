@@ -7,7 +7,7 @@ import { useDataContext } from "@/context/data/DataContext";
 import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 import { FcBookmark } from "react-icons/fc";
-
+import Link from "next/link";
 const BookmarkItem = ({ item, index, listId }) => {
   const [currentItem, setCurrentItem] = useState({});
   const { dataActions } = useDataContext();
@@ -58,13 +58,16 @@ const BookmarkItem = ({ item, index, listId }) => {
         ref={drag(drop(ref))}
         data-testid="bookmark-item-test"
         style={style}
-        className="relative flex justify-between my-1 items-center p-2 text-sm shadow-md hover:drop-shadow-lg tracking-wide
+        className="relative flex justify-between my-1 items-center p-2 text-sm 
+        shadow-md hover:drop-shadow-lg tracking-wide
         rounded-md border border-solid border-gray-light font-roboto text-gray "
       >
         <button className="p-2 text-lg">
-          <FcBookmark/>
+          <FcBookmark />
         </button>
-        <p>{item.name}</p> 
+        <p>
+          <Link href={item.url} target="_blanck">{item.name}</Link>
+        </p>
         <TbPencil
           onClick={toggleHandler}
           className="w-4 h-4    cursor-pointer  text-gray "

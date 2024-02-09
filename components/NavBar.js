@@ -6,7 +6,6 @@ import Link from "next/link";
 
 const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
-  const { uiData } = useUiContext();
 
   const toggleModal = () => {
     setShowModal(!showModal);

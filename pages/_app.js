@@ -6,6 +6,7 @@ import NavBar from '@/components/NavBar'
 import { DataContextProvider } from '@/context/data/DataContext' 
 import { UiProvider } from '@/context/ui/UiContext'
 import Footer from '@/components/Footer';
+import SearchBar from '@/components/SearchBar';
 export default function App({ Component, pageProps }) {
   return(
     <DndProvider backend={HTML5Backend}>
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }) {
       <DataContextProvider>
       <Layout>
       <NavBar/>
+      <SearchBar/>
       <Component {...pageProps} />
       <Footer/>
 

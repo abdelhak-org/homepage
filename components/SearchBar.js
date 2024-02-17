@@ -1,27 +1,19 @@
 import React, { useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
+import { dataActions } from "@/context/data/dataContextActions";
 
 
 const SearchBar = () => {
-  const { listsData } = useDataContext();
+  const {  dataActions} = useDataContext();
   const [searchValue, setSearchValue] = useState("");
-  const [searchList, setSearchList] = useState([]);
-  console.log("Lists Data:", listsData);
   const handleChange = (e) => {
     setSearchValue(e.target.value);
   
-    setSearchList(searchList);
   };
 
   const handleClick = () => {
     if (searchValue === "") return;
-    const searchList = listsData.map((list) =>
-      list.items.filter((item) =>
-        item.name.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    );
-    console.log("Search List:", searchList);
-    setSearchList(searchList);
+    dataActions.findBookmark(searchValue);
     setSearchValue("");
   };
   return (
@@ -105,19 +97,7 @@ const SearchBar = () => {
           </svg>
         </button>
       </div>
-    {/*
-    <div className="w-60 z-50 mx-auto my-1 bg-slate-50">
-        {searchList.map((list, index) => (
-            <div key={index}>
-                {list.map((item, index) => (
-                    <div key={index}>
-                        <p>{item.name}</p>
-                    </div>
-                ))}
-            </div>
-        ))}
-    </div>
-                */}
+  
     </div>
   );
 };

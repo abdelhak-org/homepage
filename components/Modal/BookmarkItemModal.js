@@ -6,7 +6,6 @@ import { FaSave } from "react-icons/fa";
 
 function BookmarkItemModal({ listId, id, setToggle }) {
   const { dataActions, listsData } = useDataContext();
-  const [bookmark, setBookmark] = useState({ id: "", name: "", url: "" });
   const [isPending, setIsPending] = useState(false);
   const [newBookmark, setNewBookmark] = useState({ id: "", name: "", url: "" });
 
@@ -16,7 +15,7 @@ function BookmarkItemModal({ listId, id, setToggle }) {
     setToggle(false);
     dataActions.updateBookmark(listId, newBookmark);
   };
-
+  
   const handleDelete = (e) => {
     e.preventDefault();
     dataActions.deleteBookmark(listId, id);
@@ -38,31 +37,44 @@ function BookmarkItemModal({ listId, id, setToggle }) {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-[#33333360]">
-      <div className="w-[670px] h-[460px] transition duration-75 bg-gradient-to-r from-amber-300 to-amber-500 rounded-md flex justify-center items-center relative">
+      <div className="w-[670px] h-[460px] transition duration-75 bg-gradient-to-r from-amber-300
+       to-amber-500 rounded-md flex justify-center items-center relative">
         <div className="absolute top-1 right-1 my-1 cursor-pointer text-gray-700">
           <RiCloseCircleLine onClick={() => setToggle(false)} size={24} />
         </div>
-        <div className="w-72 rounded-md p-2">
+        <div className="w-72 rounded-md p-2 space-y-1">
           <input
             value={newBookmark.name}
-            onChange={(e) => setNewBookmark({ ...newBookmark, name: e.target.value })}
+            onChange={(e) =>
+              setNewBookmark((prevBookmark) => ({ ...prevBookmark, name: e.target.value }))
+            }
             type="text"
             placeholder="Name"
-            className="w-full h-full bg-gray-100 rounded-md p-2 text-md capitalize outline-0 my-1 focus:outline-blue-100 focus:shadow-md"
+            className="w-full h-full bg-gray-100 rounded-md p-2 text-md  outline-0
+            focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 sm:text-sm tracking-wide"
           />
           <input
             value={newBookmark.url}
-            onChange={(e) => setNewBookmark({ ...newBookmark, url: e.target.value })}
+            onChange={(e) =>
+              setNewBookmark((prevBookmark) => ({ ...prevBookmark, url: e.target.value }))
+            }
             type="text"
             placeholder="Url"
-            className="w-full bg-gray-100 rounded-md p-2 text-md capitalize outline-0 focus:outline-blue-100"
+            className="w-full h-full bg-gray-100 rounded-md p-2 text-md  outline-0
+            focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 sm:text-sm tracking-wide"
           />
           <div className="flex justify-center my-1 gap-2">
-            <button onClick={handleDelete} className="text-gray-900 text-lg p-1 rounded-md bg-white">
-              <MdDelete />
+            <button
+              onClick={handleDelete}
+              className="text-gray-900 text-lg px-2 py-1  rounded-l-md bg-white"
+            >
+              <MdDelete size={22} />
             </button>
-            <button onClick={handleSave} className="text-gray-900 text-lg p-1 rounded-md bg-white">
-              <FaSave />
+            <button
+              onClick={handleSave}
+              className="text-gray-700 text-lg px-2 py-1  rounded-r-md  bg-white"
+            >
+              <FaSave size={22} />
             </button>
           </div>
         </div>

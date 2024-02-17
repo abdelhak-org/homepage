@@ -102,14 +102,14 @@ const BookmarkListModal = ({ setShowModal }) => {
           {selectedListId && (
             <button
               onClick={deleteHandle}
-              className="grow bg-pink text-white text-sm p-2 rounded-md"
+              className="grow bg-pink text-white text-sm px-2 py-1  rounded-l-md"
             >
               Delete
             </button>
           )}
           <button
             onClick={handleSave}
-            className="grow bg-green text-white text-sm p-2 rounded-md"
+            className="grow  text-white text-sm px-2 py-1  rounded-r-md"
           >
             Save
           </button>

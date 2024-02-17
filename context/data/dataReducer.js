@@ -1,106 +1,24 @@
-import { listsData } from "@/data/db";
 import { dataActionTypes } from "./actionsTypes";
+import { addBookmark, deleteBookmark, moveBookmark, updateBookmark } from "../utils/reducer-util";
 
+
+/// Reducer
 export const dataReducer = (state, action) => {
   switch (action.type) {
     case dataActionTypes.ADD_BOOKMARK:
-      const newBookmarkList = state.listsData.map((list) => {
-        if (list.listId === action.payload.selectedListId) {
-          return {
-            ...list,
-            items: [...list.items, action.payload.newItem],
-          };
-        }
-        return list;
-      });
-      return {
-        ...state,
-        listsData: newBookmarkList,
-      };
+      return addBookmark(state, action);
 
     case dataActionTypes.DELETE_BOOKMARK:
-      return {
-        ...state,
-        listsData: state.listsData.map((list) => {
-          if (list.listId === action.payload.listId) {
-            return {
-              ...list,
-              items: list.items.filter((item) => item.id !== action.payload.id),
-            };
-          }
-          return list;
-        }),
-      };
+      return deleteBookmark(state, action);
 
     case dataActionTypes.MOVE_BOOKMARK:
-      const sourceListId = action.payload.item.sourcelistId;
-      const targetListId = action.payload.targetListId;
-      const item = action.payload.item.item;
-      const targetIndex = action.payload.targetIndex;
-      const sourceIndex = action.payload.item.index;
-
-      const newList = state.listsData.map((list) => {
-        if (sourceListId === targetListId && list.listId === sourceListId) {
-          if (sourceIndex === targetIndex) return list;
-          const newItems = [...list.items];
-          const x = newItems[targetIndex];
-          newItems.splice(targetIndex, 1, item);
-          newItems.splice(sourceIndex, 1, x);
-          return {
-            ...list,
-            items: newItems,
-          };
-        }
-        if (sourceListId !== targetListId) {
-          if (list.listId === sourceListId) {
-            return {
-              ...list,
-              items: list.items.filter((ele) => ele.id !== item.id),
-            };
-          }
-          if (list.listId !== sourceListId && list.listId === targetListId) {
-            const newItemList = [...list.items];
-            const targetItem = newItemList[targetIndex];
-            newItemList.splice(targetIndex, 0, item);
-            return {
-              ...list,
-              items: newItemList,
-            };
-          }
-        }
-        return list;
-      });
-
-      return {
-        ...state,
-        listsData: newList,
-      };
+      return moveBookmark(state, action);
 
     case dataActionTypes.UPDATE_BOOKMARK:
-      const updatedLists = state.listsData.map((list) => {
-        if (list.listId === action.payload.listId) {
-          return {
-            ...list,
-            items: list.items.map((item) =>
-              item.id === action.payload.newBookmark.id
-                ? action.payload.newBookmark
-                : item
-            ),
-          };
-        }
-        return list;
-      });
-
-      return {
-        ...state,
-        listsData: updatedLists,
-      };
+      return updateBookmark(state, action);
 
     case dataActionTypes.ADD_NEW_LIST:
-      return {
-        ...state,
-        listsData: [...state.listsData, action.payload],
-      };
+      return addNewList(state, action);
 
     case dataActionTypes.DELETE_LIST:
       return {
@@ -110,6 +28,26 @@ export const dataReducer = (state, action) => {
         ),
       };
 
+    case dataActionTypes.SEARCH_BOOKMARK:
+      const searchValue = action.payload;
+      console.log("searchValue", searchValue);
+      const newListData = state.listsData.map((list) => {
+        const newBookmarks = list.items.filter((bookmark) => {
+          return (
+            bookmark.name.toLowerCase().includes(searchValue.toLowerCase())
+            
+          );
+        });
+        return {
+          ...list,
+          items: newBookmarks,
+        };
+      }
+      );
+      return {
+        ...state,
+        listsData: newListData.filter((list) => list.items.length > 0),
+      };
     default:
       return state;
   }

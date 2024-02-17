@@ -1,19 +1,19 @@
 import { dataActionTypes } from "./actionsTypes";
 
 export const dataActions = (dispatch) => ({
-  addBookmark: (newItem ,selectedListId ) => {
-    //if (item.name === "" || item.url === "") return;
-    dispatch({ type: dataActionTypes.ADD_BOOKMARK, payload: { newItem ,selectedListId } });
+  addBookmark: (selectedListId  ,newItem ) => {
+   // if (item.name === "" || item.url === "") return;
+    dispatch({ type: dataActionTypes.ADD_BOOKMARK, payload: { selectedListId , newItem  } });
   },
-
+  
   deleteBookmark: (listId ,id) => {
     dispatch({ type: dataActionTypes.DELETE_BOOKMARK, payload: {listId ,id} });
   },
-
+  
   updateBookmark: (listId,newBookmark) => {
     dispatch({ type: dataActionTypes.UPDATE_BOOKMARK, payload: {listId , newBookmark} });
   },
-
+  
   moveBookmark: (item , targetListId , targetIndex) => {
     dispatch({ type: dataActionTypes.MOVE_BOOKMARK, payload: {item, targetListId , targetIndex } });
   },
@@ -32,16 +32,17 @@ export const dataActions = (dispatch) => ({
   
   moveItem:(dragIndex , hoverIndex)=>{
     dispatch({ type: dataActionTypes.MOVE_ITEM ,payload:{dragIndex , hoverIndex} });
-
+  
   }
   ,
-  moveList: (listId, left, top) => {
+  findBookmark: (searchValue) => {
     dispatch({
-      type: dataActionTypes.MOVE_LIST,
-      payload: { listId, top, left },
+      type: dataActionTypes.SEARCH_BOOKMARK,
+      payload: searchValue,
     });
   },
 });
+
 
 export const deleteAction = (id) => {
   dispatch({

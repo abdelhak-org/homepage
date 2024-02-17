@@ -1,5 +1,5 @@
 import { listsData } from "@/data/db";
-import { createContext, useReducer, useContext, useCallback, useMemo, memo } from "react";
+import { createContext, useReducer, useContext, useMemo } from "react";
 import { dataActions } from "./dataContextActions";
 import { dataReducer } from "./dataReducer";
 

@@ -42,7 +42,7 @@ export let listsData = [
       {
         id: 17,
         name: "TIKTOK",
-        url: "https://www.tiktok.com/explore",
+        url: "https://www.tiktok.com/",
       },
       {
         id: 18,
@@ -58,7 +58,7 @@ export let listsData = [
       {
         id: 19,
         name: "GMAIL",
-        url: "https://mail.google.com/",
+        url: "https://google.com/",
       },
       {
         id: 20,

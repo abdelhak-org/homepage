@@ -16,10 +16,10 @@ const BookmarkItem = ({ item, index, listId }) => {
   const [toggle, setToggle] = useState(false);
   const { uiData, actions: uiActions } = useUiContext();
   const ref = useRef(null);
+
   const toggleHandler = () => {
     setToggle(!toggle);
   };
-;
 
   const handleOpenModal = () => {
     uiActions.openModal(item.id);
@@ -52,7 +52,7 @@ const BookmarkItem = ({ item, index, listId }) => {
     backgroundColor: isOver ? "green" : "white",
   };
 
-   console.log(item.url.slice(8), 'item.url')
+  console.log(item.url.slice(8), 'item.url');
 
   return (
     <>
@@ -64,7 +64,7 @@ const BookmarkItem = ({ item, index, listId }) => {
         shadow-md hover:drop-shadow-lg tracking-wide
         rounded-md border border-solid border-gray-light font-roboto text-gray "
       >
-        <button className="p-2 text-lg">
+        <button className="p-1 text-lg">
            <img height="24" width="24" src={`https://api.statvoo.com/favicon/${item.url.slice(8 , -1)}`} /> 
         </button>
         <p>
@@ -83,4 +83,3 @@ const BookmarkItem = ({ item, index, listId }) => {
 };
 
 export default BookmarkItem;
-

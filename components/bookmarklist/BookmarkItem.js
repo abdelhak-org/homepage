@@ -8,16 +8,18 @@ import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
 import { FcBookmark } from "react-icons/fc";
 import Link from "next/link";
+import axios from 'axios';
+
 const BookmarkItem = ({ item, index, listId }) => {
   const [currentItem, setCurrentItem] = useState({});
   const { dataActions } = useDataContext();
   const [toggle, setToggle] = useState(false);
   const { uiData, actions: uiActions } = useUiContext();
   const ref = useRef(null);
-
   const toggleHandler = () => {
     setToggle(!toggle);
   };
+;
 
   const handleOpenModal = () => {
     uiActions.openModal(item.id);
@@ -50,7 +52,7 @@ const BookmarkItem = ({ item, index, listId }) => {
     backgroundColor: isOver ? "green" : "white",
   };
 
-  useEffect(() => {}, [item]);
+   console.log(item.url.slice(8), 'item.url')
 
   return (
     <>
@@ -63,14 +65,14 @@ const BookmarkItem = ({ item, index, listId }) => {
         rounded-md border border-solid border-gray-light font-roboto text-gray "
       >
         <button className="p-2 text-lg">
-          <FcBookmark />
+           <img height="24" width="24" src={`https://api.statvoo.com/favicon/${item.url.slice(8 , -1)}`} /> 
         </button>
         <p>
-          <Link href={item.url} target="_blanck">{item.name}</Link>
+          <Link href={item.url} target="_blank">{item.name}</Link>
         </p>
         <TbPencil
           onClick={toggleHandler}
-          className="w-4 h-4    cursor-pointer  text-gray "
+          className="w-4 h-4 cursor-pointer text-gray"
         />
       </li>
       {toggle && (
@@ -81,3 +83,4 @@ const BookmarkItem = ({ item, index, listId }) => {
 };
 
 export default BookmarkItem;
+

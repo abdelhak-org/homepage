@@ -1,67 +1,68 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import { useUiContext } from "@/context/ui/UiContext";
-import { FiSettings } from "react-icons/fi";
+import { TbDotsVertical } from "react-icons/tb";
+import { RiFontSize } from "react-icons/ri";
+import { IoIosColorPalette } from "react-icons/io";
 
 export default function OptionsMenu() {
   const [showOptions, setShowOptions] = useState(false);
-  // const [isOpen, setIsOpen] = useState(true);
+  const { actions, uiData } = useUiContext();
+  const optionsSize = ["14px", "18px", "22px"];
 
-  const { actions } = useUiContext();
-  const optionsColor = [ "#fff"  ,"#7ED7C1", "#93BFCF" ,"#E5D4FF","#87C4FF"]
-  const optionsSize = ["14px" ,"18px" , "22px"]
+  const selectElements = optionsSize.map((option, index) => (
+    <option
+      style={{ backgroundColor: option }}
+      key={index}
+      value={option}
+      className="w-4 h-2 p-2 my-1 border-none cursor-pointer text-sm"
+    >
+      {option}
+    </option>
+  ));
+
+  const onSelectChange = (e) => actions.ChangeBookFontSize(e.target.value);
+
+  const onColorInputChange = (e) => {
+    actions.ChangeBookmarkColor(e.target.value);
+  };
+
   return (
-    <div className=" absolute w-16 h-full top-0 pt-8  right-0  ">
+    <>
       <button
         data-testid="settingIcon"
         onClick={() => setShowOptions(!showOptions)}
-        className="absolute top-0 right-0 pr-2 text-2xl  z-50 cursor-pointer"
       >
-        <FiSettings className="text-xl my-2" />
+        <TbDotsVertical className="text-xl my-2" />
       </button>
 
-
       {showOptions && (
-        <>
-          <label>
-            <span>Color</span>
+        <div className="absolute bg-gray-100  flex flex-col gap-2 bg-gray px-3 py-2 w-32 rounded-md top-[52px] right-1 z-10">
+          <div className="flex  gap-2 py-1 text-xs items-center">
+            <label>
+              <IoIosColorPalette  size={22} color="pink"/>
+            </label>
+            <input
+              value={uiData.bookmarkHeaderColor}
+              onChange={onColorInputChange}
+              className="h-6 text-sm p-1 flex-grow"
+              type="color"
+            />
+          </div>
+          <div className="flex  gap-1 text-xs">
+            <label>
+              <RiFontSize size={18} />
+            </label>
             <select
-              onChange={(e) => actions.ChangeBookmarkColor(e.target.value)}
-              className="w-full cursor-pointer outline-none"
+              onChange={onSelectChange}
+              className="flex-grow rounded-md px-2 py-1 text-xs cursor-pointer outline-none"
             >
-             {
-              optionsColor.map((option , index)=> <option style={{
-                backgroundColor:option,
-              }} key={index} value={option} className={` w-4 h-2 my-1 border-none cursor-pointer`}>
-              </option>)
-             }
-            
-                
-              
-            
-          
+              {selectElements}
             </select>
-          </label>
-
-          <label>
-            <span>Size</span>
-            <select
-              onChange={(e) => actions.ChangeBookFontSize(e.target.value)}
-              className="w-full cursor-pointer outline-none"
-            >
-              {
-                 optionsSize.map((option , index)=> <option style={{
-                  backgroundColor:option,
-                }} key={index} value={option} className={` w-4 h-2 p-2 my-1 border-none cursor-pointer text-sm`}>
-                  {option}
-                </option>)
-              }
-            
-            </select>
-          </label>
-        </>
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 }

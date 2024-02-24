@@ -1,35 +1,33 @@
-import { customRender, render, screen } from "@/test_utils/Test-utils";
+import { customRender, screen } from "@/test_utils/Test-utils";
 import BookmarkList from "@/components/bookmarklist/BookmarkList";
 import userEvent from "@testing-library/user-event";
-import BookmarkItem from "@/components/bookmarklist/BookmarkItem";
-jest.mock("react-dnd", () => {
-  return {
-    useDrag: () => [{ isDrgging: true }, null],
-    useDrop: () => [{ isDroping: true }, null],
-  };
-});
+
+jest.mock("react-dnd", () => ({
+  useDrag: () => [{ isDrgging: true }, null],
+  useDrop: () => [{ isDroping: true }, null],
+}));
 
 describe("BookmarkList", () => {
-  test("it render a Button  with test add  ", () => {
+  beforeEach(() => {
     customRender(<BookmarkList listId={100} listCategory="social media" />);
+  });
+
+  test("renders a Button with text 'add'", () => {
     const buttonElement = screen.getByRole("button", { name: "add" });
     expect(buttonElement).toBeInTheDocument();
   });
 
-  test("it render a header   with text listCategory  ", () => {
-    customRender(<BookmarkList listId={100} listCategory="social media" />);
+  test("renders a header with text 'listCategory'", () => {
     const headerElement = screen.getByRole("heading", { name: "social media" });
     expect(headerElement).toBeInTheDocument();
   });
 
-  test("it render a bookmarkform after click on add button ", async () => {
+  test("renders a bookmark form after clicking on the add button", async () => {
     userEvent.setup();
-    customRender(<BookmarkList listId={100} listCategory="social media" />);
     const buttonElement = screen.getByRole("button", { name: "add" });
     await userEvent.click(buttonElement);
     const formElement = screen.getByTestId("bookmark-form-test");
 
     expect(formElement).toBeInTheDocument();
   });
-
 });

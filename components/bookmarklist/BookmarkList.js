@@ -1,11 +1,8 @@
-"use client";
-import { useState } from "react";
-import BookmarkItem from "./BookmarkItem";
-import BookmarkForm from "../BookmarkForm";
-import { useDrop , useDrag} from "react-dnd";
-import { dropItemTypes } from "@/dropItemTypes";
-import { useDataContext } from "@/context/data/DataContext";
+import React, { useState } from "react";
+import { useUiContext } from "@/context/ui/UiContext";
+//import { useDataContext } from "@/context/data/DataContext";
 import OptionsMenu from "./OptionsMenu";
+<<<<<<< HEAD
 import { motion } from "framer-motion";
 const container = { 
   hidden: { opacity: 0.5, scale: 0 },
@@ -20,28 +17,18 @@ const container = {
     },
   },
 };
+=======
+import ListItems from "./ListItems";
+import ListHeader from "../ListHeader";
+import { MdAddLink } from "react-icons/md";
+import NewItemModal from "../Modal/NewItemModal";
+>>>>>>> change/ui
 
-const item = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-};
-
-const style = {
-  position: 'absolute',
-  
-  padding: '0.5rem 1rem',
-  cursor: 'move',
-}
-
-
-
-const BookmarkList = ({ listCategory, listId , id , top , left }) => {
-  const { dataActions, bookmarksData } = useDataContext();
-  const [showForm, setShowForm] = useState(false);
+const BookmarkList = ({ listCategory, listId, listIndex, items }) => {
+  const { uiData } = useUiContext();
+  //const { listsData } = useDataContext();
   const [collapse, setCollapse] = useState(true);
+<<<<<<< HEAD
 
   const [isOver, drop] = useDrop(() => ({
     accept: dropItemTypes.BOOKMARK,
@@ -65,59 +52,45 @@ const BookmarkList = ({ listCategory, listId , id , top , left }) => {
   )
  
   
+=======
+  const [showItemModal, setShowItemModal] = useState(false);
+>>>>>>> change/ui
 
   return (
-    <div
-    //ref={drag}
-      ref = {(node)=> drag(drop(node))}
-      className="min-w-[260px] bookmarklist_container  h-fit border m-8 border-blue-200 bg-slate-50 rounded-md absolute  "
-      style={{
-     
-      top,
-      left
-    
-      }}
-    >
-      <h6
-        data-testid="header_6"
-        onClick={() => setCollapse(!collapse)}
-        className="w-full my-2 text-center shadow-md capitalize font-script font-bold text-xl cursor-pointer"
+    <div className="w-full  h-fit border m-4 border-gray-light
+     rounded-md md:w-[45%] lg:w-[30%]">
+      <div
+        style={{ backgroundColor: uiData.bookmarkHeaderColor }}
+        className="flex justify-between content-center px-2 py-1 relative"
       >
-        {listCategory}
-      </h6>
+        <ListHeader
+          setCollapse={setCollapse}
+          collapse={collapse}
+          listCategory={listCategory}
+        />
+        <OptionsMenu />
+      </div>
 
       {collapse && (
-        <>
-          <motion.ul className="" variants={container} initial="hidden" animate="visible">
-            {bookmarksData
-              .filter((item) => item.listId === listId)
-              .map((item) => {
-                return (
-                  <BookmarkItem
-                    id={item.id}
-                    key={item.id}
-                    name={item.name}
-                    listId={item.listId}
-                    url={item.url}
-                    itemsVariants={item}
-                  />
-                );
-              })}
-          </motion.ul>
-          <button
-            onClick={() => setShowForm(true)}
-            className="px-4 py-2 border block mx-auto border-dashed "
-          >
-            add
-          </button>
-          {showForm ? (
-            <BookmarkForm setShowForm={setShowForm} listId={listId} />
-          ) : (
-            ""
-          )}
-          <OptionsMenu />
-        </>
+        <ul className="flex flex-col gap-2 py-2 px-2">
+          <ListItems items={items} listId={listId} listIndex={listIndex} />
+        </ul>
       )}
+
+      <div
+      
+      className="flex justify-end content-center px-2 py-1">
+        <MdAddLink 
+        onClick={ ()=>setShowItemModal(true) }
+        className="bg-white text-gray text-lg" />
+      </div>
+      {
+      showItemModal && 
+      <NewItemModal 
+      setShowItemModal = {setShowItemModal} 
+      selectedListId = {listId}
+      showItemModal={showItemModal} />
+      }
     </div>
   );
 };

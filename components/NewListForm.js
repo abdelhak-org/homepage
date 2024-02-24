@@ -1,28 +1,27 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
-const NewListForm = ({ showListForm, setShowListForm }) => {
+
+const NewListForm = ({ setShowListForm }) => {
   const { dataActions } = useDataContext();
   const [newList, setNewList] = useState({
     listName: "",
     listId: Math.random(),
-    top:null, 
-    left :null
+    top: 0,
+    left: 0,
   });
 
   const submitHandle = (e) => {
     e.preventDefault();
     dataActions.addNewList(newList);
-    setShowListForm(!showListForm);
+    setShowListForm(false);
   };
-  useEffect(()=>{
-
-  }, [submitHandle])
+  useEffect(() => {}, [submitHandle]);
   return (
     <form
-      data-testid='formlist-testid'  
+      data-testid="formlist-testid"
       onSubmit={submitHandle}
-      className="w-80 h-60 mt-16 p-2 text-center  border border-dashed rounded "
+      className="w-80 h-60 mt-16 p-2 text-center  border border-dashed rounded bg-pink "
     >
       <label role="label" htmlFor="name_input">
         Name
@@ -38,7 +37,7 @@ const NewListForm = ({ showListForm, setShowListForm }) => {
 
       <button
         type="submit"
-        className="p-1 mx-auto block text-green font-bold tracking-wide"
+        className="p-1 mx-auto block text-white bg-blue font-bold tracking-wide"
       >
         Confirm
       </button>

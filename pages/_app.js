@@ -5,25 +5,23 @@ import Layout from "../components/Layout"
 import NavBar from '@/components/NavBar'
 import { DataContextProvider } from '@/context/data/DataContext' 
 import { UiProvider } from '@/context/ui/UiContext'
-import Mode from '@/components/Mode'
-import AboutMe from '@/components/AboutMe'
 import Footer from '@/components/Footer';
+import SearchBar from '@/components/SearchBar';
 export default function App({ Component, pageProps }) {
   return(
     <DndProvider backend={HTML5Backend}>
 
 
       <UiProvider>
+      <DataContextProvider>
       <Layout>
       <NavBar/>
-      <AboutMe/>
-      <DataContextProvider>
+      <SearchBar/>
       <Component {...pageProps} />
-       
-      </DataContextProvider>
       <Footer/>
 
     </Layout>
+      </DataContextProvider>
       </UiProvider>
     </DndProvider>
      )

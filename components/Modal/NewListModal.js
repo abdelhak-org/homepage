@@ -2,9 +2,8 @@ import { Fragment, useState, useRef } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useDataContext } from "@/context/data/DataContext";
-import { MdPostAdd, MdDelete } from "react-icons/md";
+import { MdPostAdd, MdDelete, MdOutlineClose } from "react-icons/md";
 import useOnClickOutside from "@/hooks/useClickOutside";
-import { RiCloseCircleLine } from "react-icons/ri";
 
 export default function NewListModal({ setShowModal }) {
   const { listsData, dataActions } = useDataContext();
@@ -36,15 +35,27 @@ export default function NewListModal({ setShowModal }) {
   };
 
   return (
-    <div className="w-screen h-screen fixed top-0 right-0 flex justify-center items-center  bg-[#37415175] rounded-md z-50">
-      <div className="w-[670px] h-[460px] transition duration-75 bg-gradient-to-r from-amber-300 to-amber-500 rounded-md flex justify-center items-center relative">
-        <div className="absolute top-1 right-1 my-1 cursor-pointer text-gray-700"> 
-          <RiCloseCircleLine onClick={() => setShowModal(false)} size={24} /> 
+    <div
+      className="w-screen h-screen fixed top-0 right-0 flex justify-center items-center 
+     bg-[#333333bf]  z-50"
+    >
+      <div  className="w-[660px]  bg-white  rounded-md flex flex-col justify-between p-4 ">
+        <div className="flex justify-between     text-gray-900 ">
+          <h6 className="text-md">Add a List </h6>
+          <MdOutlineClose
+            onClick={() => setShowModal(false)}
+            className="cursor-pointer "
+            size={22}
+          />
         </div>
-        <div ref={ref} className="w-72 p-1 capitalize">
-          <Listbox value={selected} onChange={setSelected}>
-            <div className="relative mt-1">
-              <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-md">
+        <div ref={ref} className="">
+          <Listbox
+            value={selected}
+            onChange={setSelected}
+            className="border rounded-md border-gray-200  "
+          >
+            <div className="relative mt-4 ">
+              <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 px-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-md">
                 <span className="block truncate capitalize">
                   {listsData[0]?.listName}
                 </span>
@@ -61,8 +72,10 @@ export default function NewListModal({ setShowModal }) {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md 
-                 bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                <Listbox.Options
+                  className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md 
+                 bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
+                >
                   {listsData.map((list, listIndex) => (
                     <Listbox.Option
                       key={listIndex}
@@ -100,7 +113,7 @@ export default function NewListModal({ setShowModal }) {
               </Transition>
             </div>
           </Listbox>
-          <div className="w-full h-8 bg-white mt-1 rounded-md">
+          <div className="w-full  bg-white mt-1 rounded-md">
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
@@ -118,30 +131,35 @@ export default function NewListModal({ setShowModal }) {
                 placeholder="add new list"
                 value={newBookmarkList.listName}
                 type="text"
-                className="w-full h-full bg-gray-100 rounded-md p-2 text-md capitalize outline-0 my-1 
-                focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2
-                 focus-visible:ring-white/75 focus-visible:ring-offset-2 sm:text-sm tracking-wide"
+                className="w-full   rounded-md px-2 text-md py-2   capitalize outline-0 my-2
+                border border-spacing-2 border-gray-200 
+                "
               />
             </Transition>
           </div>
 
-          <div className="text-md text-gray-700 rounded-md my-3 flex justify-center
-           items-center space-x-2">
+          
+        </div>
+        <div
+            className="flex justify-end space-x-2   py-2 my-0    "
+          >
             <button
               onClick={deleteHandle}
-              className="px-4 py-2 rounded-l-md bg-white "
-            >
-              <MdDelete size={22} />
+              className="px-4 py-2 rounded-l-md bg-gray-100  text-gray-900  text-sm "
+            > 
+              Delete 
             </button>
             <button
               onClick={handleSave}
-              className="px-4 py-2 rounded-r-md bg-white"
+              className="px-4 py-2 rounded-l-md bg-gray-100  text-gray-900  text-sm"
             >
-              <MdPostAdd size={22} />
+              Save
             </button>
           </div>
-        </div>
+
+
       </div>
+     
     </div>
   );
 }

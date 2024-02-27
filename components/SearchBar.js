@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState , useRef, useEffect } from "react";
 import { useDataContext } from "@/context/data/DataContext";
-import { dataActions } from "@/context/data/dataContextActions";
 
 
 const SearchBar = () => {
   const {  dataActions} = useDataContext();
   const [searchValue, setSearchValue] = useState("");
+  const searchRef = useRef(null);
   const handleChange = (e) => {
     setSearchValue(e.target.value);
+    if(searchValue.length >= 3){
+    dataActions.findBookmark(searchValue);
+    }
   
   };
 
@@ -16,10 +19,13 @@ const SearchBar = () => {
     dataActions.findBookmark(searchValue);
     setSearchValue("");
   };
+  useEffect(() => {
+    searchRef.current.focus();
+  }, []);
   return (
     <div className=" flex items-center justify-center flex-col  my-8">
-      <div className="flex rounded-3xl bg-slate-200 px-2 w-full max-w-[600px]">
-        <button className="self-center flex p-1 cursor-pointer bg-slate-200">
+      <div className="flex rounded-3xl bg-gray-200 px-2 w-full max-w-[600px]">
+        <button className="self-center flex p-1 cursor-pointer bg-gray-200">
           <svg
             width="30px"
             height="30px"
@@ -62,6 +68,7 @@ const SearchBar = () => {
 
         <input
           type="text"
+          ref={searchRef}
           className="w-full bg-slate-200 flex bg-transparent pl-2 text-gray-700 outline-0"
           placeholder="Search name movie or select options"
           value={searchValue}

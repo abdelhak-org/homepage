@@ -2,9 +2,9 @@ import { Fragment, useState, useRef } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useDataContext } from "@/context/data/DataContext";
-import { MdPostAdd, MdDelete, MdOutlineClose } from "react-icons/md";
+import {  MdOutlineClose } from "react-icons/md";
 import useOnClickOutside from "@/hooks/useClickOutside";
-
+import ModalWrapper from "@/components/layout/ModalWrapper";
 export default function NewListModal({ setShowModal }) {
   const { listsData, dataActions } = useDataContext();
   const [selected, setSelected] = useState(listsData[0]?.listId);
@@ -35,11 +35,7 @@ export default function NewListModal({ setShowModal }) {
   };
 
   return (
-    <div
-      className="w-screen h-screen fixed top-0 right-0 flex justify-center items-center 
-     bg-[#333333bf]  z-50"
-    >
-      <div  className="w-[660px]  bg-white  rounded-md flex flex-col justify-between p-4 ">
+  <ModalWrapper>
         <div className="flex justify-between     text-gray-900 ">
           <h6 className="text-md">Add a List </h6>
           <MdOutlineClose
@@ -151,15 +147,13 @@ export default function NewListModal({ setShowModal }) {
             </button>
             <button
               onClick={handleSave}
-              className="px-4 py-2 rounded-l-md bg-gray-100  text-gray-900  text-sm"
+              className="px-4 py-2 rounded-r-md bg-gray-100  text-gray-900  text-sm"
             >
               Save
             </button>
           </div>
 
 
-      </div>
-     
-    </div>
+          </ModalWrapper>
   );
 }

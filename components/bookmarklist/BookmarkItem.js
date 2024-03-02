@@ -2,13 +2,11 @@
 import { useUiContext } from "@/context/ui/UiContext";
 import { TbPencil } from "react-icons/tb";
 import BookmarkItemModal from "@/components/Modal/BookmarkItemModal";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
 import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
-import { FcBookmark } from "react-icons/fc";
 import Link from "next/link";
-import axios from 'axios';
 
 const BookmarkItem = ({ item, index, listId }) => {
   const [currentItem, setCurrentItem] = useState({});
@@ -42,9 +40,8 @@ const BookmarkItem = ({ item, index, listId }) => {
       const droppedItem = monitor.getItem();
       dataActions.moveBookmark(droppedItem, listId, index);
     },
-    hover: (item, monitor) => {},
   });
-
+  
   const style = {
     cursor: "move",
     fontSize: uiData.fontS,

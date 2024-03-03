@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef } from "react";
 import { useDataContext } from "@/context/data/DataContext";
 import {  MdOutlineClose } from "react-icons/md";
 import ModalWrapper from "../layout/ModalWrapper";
+import useOnClickOutside from "@/hooks/useClickOutside";
+
 function BookmarkItemModal({ listId, id, setToggle }) {
   const { dataActions, listsData } = useDataContext();
   const [isPending, setIsPending] = useState(false);
   const [newBookmark, setNewBookmark] = useState({ id: "", name: "", url: "" });
-
+  const ref = useRef();
+  useOnClickOutside(ref, () => setToggle(false));
+  
+  
   const handleSave = (e) => {
     e.preventDefault();
     setIsPending(true);
@@ -35,7 +40,9 @@ function BookmarkItemModal({ listId, id, setToggle }) {
 
   return (
     <ModalWrapper>
-      <div className="flex justify-between text-gray-900 px-2">
+      <div 
+      ref={ref}
+      className="flex justify-between text-gray-900 px-2">
         <h6 className="text-md">Update a Bookmark </h6>
         <MdOutlineClose
           onClick={() => setToggle(false)}

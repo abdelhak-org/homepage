@@ -8,9 +8,9 @@ const SearchBar = () => {
   const searchRef = useRef(null);
   const handleChange = (e) => {
     setSearchValue(e.target.value);
-    if(searchValue.length >= 3){
+   
     dataActions.findBookmark(searchValue);
-    }
+    
   
   };
 
@@ -22,6 +22,7 @@ const SearchBar = () => {
   useEffect(() => {
     searchRef.current.focus();
   }, []);
+  
   return (
     <div className=" flex items-center justify-center flex-col  my-8">
       <div className="flex rounded-3xl bg-gray-200 px-2 w-full max-w-[600px]">

@@ -9,4 +9,5 @@ export const dataActionTypes = {
     MOVE_ITEM : "MOVE_ITEM",
     MOVE_CARD :"MOVE_CARD" , 
     SEARCH_BOOKMARK : "SEARCH_BOOKMARK",
+    RESET_UI : "RESET_UI"
 }

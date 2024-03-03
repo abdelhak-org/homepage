@@ -1,11 +1,12 @@
 import { customRender, screen } from "../../test_utils/Test-utils";
 import BookmarkItem from "@/components/bookmarklist/BookmarkItem";
-import userEvent from "@testing-library/user-event";
+//import userEvent from "@testing-library/user-event";
 
 jest.mock("react-dnd", () => ({
   useDrag: () => [{ isDrgging: true }, null],
 }));
 
+///
 describe("BookmarkItem", () => {
   test("renders item with props.name", () => {
     customRender(

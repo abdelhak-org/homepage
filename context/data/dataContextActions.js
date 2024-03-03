@@ -41,6 +41,13 @@ export const dataActions = (dispatch) => ({
       payload: searchValue,
     });
   },
+
+  resetUi : ()=>{
+    dispatch({
+      type: dataActionTypes.RESET_UI,
+      payload:"",
+    });
+  }
 });
 
 

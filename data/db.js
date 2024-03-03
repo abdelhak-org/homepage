@@ -1,32 +1,7 @@
 export let listsData = [
+
   {
     listId: 1,
-    listName: "browsers",
-    items: [
-      {
-        id: 11,
-        name: "CHROME",
-        url: "https://www.google.de/",
-      },
-      {
-        id: 12,
-        name: "FIREFOX",
-        url: "https://www.google.de/",
-      },
-      {
-        id: 13,
-        name: "EXPLORER",
-        url: "https://www.google.de/",
-      },
-      {
-        id: 14,
-        name: "EDGE",
-        url: "https://www.google.de/",
-      },
-    ],
-  },
-  {
-    listId: 2,
     listName: "social Media",
     items: [
       {
@@ -52,7 +27,7 @@ export let listsData = [
     ],
   },
   {
-    listId: 3,
+    listId: 2,
     listName: "Contact",
     items: [
       {
@@ -79,7 +54,7 @@ export let listsData = [
   },
   // Additional lists
   {
-    listId: 4,
+    listId: 3,
     listName: "News",
     items: [
       {
@@ -105,7 +80,7 @@ export let listsData = [
     ],
   },
   {
-    listId: 5,
+    listId:4,
     listName: "Shopping",
     items: [
       {
@@ -132,7 +107,7 @@ export let listsData = [
   },
   // New lists
   {
-    listId: 6,
+    listId: 5,
     listName: "Entertainment",
     items: [
       {
@@ -158,7 +133,7 @@ export let listsData = [
     ],
   },
   {
-    listId: 7,
+    listId: 6,
     listName: "Sports",
     items: [
       {
@@ -184,7 +159,7 @@ export let listsData = [
     ],
   },
   {
-    listId: 8,
+    listId: 7,
     listName: "Education",
     items: [
       {

@@ -102,3 +102,27 @@ export const updateBookmark = (state, action) => {
         listsData: updatedLists,
     };
 };
+
+
+export const searBookmark = (state, action)=>{
+    const searchValue = action.payload;
+    const newListData = state.listsData.map((list) => {
+        const newBookmarks = list.items.filter((bookmark) => {
+          return (
+            bookmark.name.toLowerCase().includes(searchValue.toLowerCase())
+            
+          );
+        });
+        return {
+          ...list,
+          items: newBookmarks,
+        };
+      }
+      );
+  
+    return {
+      ...state,
+      listsData: newListData.filter((list) => list.items.length > 0),
+    }; 
+    
+  }

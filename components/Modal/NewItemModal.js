@@ -1,17 +1,25 @@
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { useDataContext } from "@/context/data/DataContext";
 import { FaSave } from "react-icons/fa";
+import ModalWrapper from "../layout/ModalWrapper";
+import { MdOutlineClose } from "react-icons/md";
+import useOnClickOutside from "@/hooks/useClickOutside";
 
-function NewItemModal({ selectedListId,showItemModal ,  setShowItemModal }) {
+function NewItemModal({ selectedListId, showItemModal, setShowItemModal }) {
   const { dataActions } = useDataContext();
-  const [newBookmark, setNewBookmark] = useState({ id:Math.random() * 100, name: "", url: "" });
-
+  const [newBookmark, setNewBookmark] = useState({
+    id: Math.random() * 100,
+    name: "",
+    url: "",
+  });
+  const ref = useRef();
+  useOnClickOutside(ref, () => setShowItemModal(false));
   const handleSave = (e) => {
     e.preventDefault();
-    console.log(newBookmark , selectedListId)
+    console.log(newBookmark, selectedListId);
     dataActions.addBookmark(selectedListId, newBookmark);
-    setShowItemModal(false);  
+    setShowItemModal(false);
   };
 
   const handleChange = (e, field) => {
@@ -22,42 +30,44 @@ function NewItemModal({ selectedListId,showItemModal ,  setShowItemModal }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-[#33333360]">
-      <div className="w-[670px] h-[460px] transition duration-75 bg-gradient-to-r from-amber-300
-            to-amber-500 rounded-md flex justify-center items-center relative">
-        <div className="absolute top-1 right-1 my-1 cursor-pointer text-gray-700">
-          <RiCloseCircleLine onClick={()=>setShowItemModal(!showItemModal)} size={24} />
-        </div>
-        <div className="w-72 rounded-md p-2 space-y-1">
-          <input
-            value={newBookmark.name}
-            onChange={(e) => handleChange(e, "name")}
-            type="text"
-            placeholder="Name"
-            className="w-full h-full bg-gray-100 rounded-md p-2 text-md outline-0
-                        focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2
-                         focus-visible:ring-white/75 focus-visible:ring-offset-2 sm:text-sm tracking-wide"
-          />
-          <input
-            value={newBookmark.url}
-            onChange={(e) => handleChange(e, "url")}
-            type="text"
-            placeholder="Url"
-            className="w-full h-full bg-gray-100 rounded-md p-2 text-md outline-0
-                        focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 
-                      focus-visible:ring-white/75 focus-visible:ring-offset-2 sm:text-sm tracking-wide"
-          />
-          <div className="flex justify-center my-1 gap-2">
-            <button
-              onClick={handleSave}
-              className="text-gray-700 text-lg px-2 py-1 rounded-r-md bg-white"
+    <ModalWrapper>
+      <div className="flex justify-between text-gray-900 px-2">
+        <h6 className="text-md">Add a Bookmark </h6>
+        <MdOutlineClose
+          onClick={() => setShowItemModal(!showItemModal)}
+          className="cursor-pointer"
+          size={22}
+        />
+      </div>
+      <div ref={ref} className="w-full  rounded-md p-2 space-y-1">
+        <input
+          value={newBookmark.name}
+          onChange={(e) => handleChange(e, "name")}
+          type="text"
+          placeholder="Name"
+          className="w-full   rounded-md px-2 text-md py-2   capitalize outline-0 my-2
+          border border-spacing-2 border-gray-200 
+          "
+        />
+        <input
+          value={newBookmark.url}
+          onChange={(e) => handleChange(e, "url")}
+          type="text"
+          placeholder="Url"
+          className="w-full   rounded-md px-2 text-md py-2   capitalize outline-0 my-2
+          border border-spacing-2 border-gray-200 
+          "
+        />
+        <div className="flex justify-center my-1 gap-2">
+          <button
+            onClick={handleSave}
+            className="px-4 py-2 rounded-md bg-gray-100 mt-2  text-gray-900  text-sm"
             >
-              <FaSave size={22} />
-            </button>
-          </div>
+            Save 
+          </button>
         </div>
       </div>
-    </div>
+    </ModalWrapper>
   );
 }
 

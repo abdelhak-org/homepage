@@ -2,13 +2,11 @@
 import { useUiContext } from "@/context/ui/UiContext";
 import { TbPencil } from "react-icons/tb";
 import BookmarkItemModal from "@/components/Modal/BookmarkItemModal";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
 import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
-import { FcBookmark } from "react-icons/fc";
 import Link from "next/link";
-import axios from 'axios';
 
 const BookmarkItem = ({ item, index, listId }) => {
   const [currentItem, setCurrentItem] = useState({});
@@ -42,9 +40,8 @@ const BookmarkItem = ({ item, index, listId }) => {
       const droppedItem = monitor.getItem();
       dataActions.moveBookmark(droppedItem, listId, index);
     },
-    hover: (item, monitor) => {},
   });
-
+  
   const style = {
     cursor: "move",
     fontSize: uiData.fontS,
@@ -56,24 +53,9 @@ const BookmarkItem = ({ item, index, listId }) => {
 
   return (
     <>
-<<<<<<< HEAD
-      <motion.li
-        data-testid = "bookmark-item-test"
-        ref={drag}
-         variants={itemVariants}
-         initial="hidden"
-         animate="visible"
-         whileHover={{
-          scale:[1, 0.8 ,1],
-           transition:{
-            duration:0.2
-           }
-         }}
-=======
       <li
         ref={drag(drop(ref))}
         data-testid="bookmark-item-test"
->>>>>>> change/ui
         style={style}
         className="relative flex justify-between my-1 items-center p-2 text-sm 
         shadow-md hover:drop-shadow-lg tracking-wide

@@ -1,21 +1,24 @@
-import { useEffect, useState } from "react";
-import { RiCloseCircleLine } from "react-icons/ri";
+import { useEffect, useState , useRef } from "react";
 import { useDataContext } from "@/context/data/DataContext";
-import { MdDelete } from "react-icons/md";
-import { FaSave } from "react-icons/fa";
+import {  MdOutlineClose } from "react-icons/md";
+import ModalWrapper from "../layout/ModalWrapper";
+import useOnClickOutside from "@/hooks/useClickOutside";
 
 function BookmarkItemModal({ listId, id, setToggle }) {
   const { dataActions, listsData } = useDataContext();
   const [isPending, setIsPending] = useState(false);
   const [newBookmark, setNewBookmark] = useState({ id: "", name: "", url: "" });
-
+  const ref = useRef();
+  useOnClickOutside(ref, () => setToggle(false));
+  
+  
   const handleSave = (e) => {
     e.preventDefault();
     setIsPending(true);
     setToggle(false);
     dataActions.updateBookmark(listId, newBookmark);
   };
-  
+
   const handleDelete = (e) => {
     e.preventDefault();
     dataActions.deleteBookmark(listId, id);
@@ -36,50 +39,61 @@ function BookmarkItemModal({ listId, id, setToggle }) {
   }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-[#33333360]">
-      <div className="w-[670px] h-[460px] transition duration-75 bg-gradient-to-r from-amber-300
-       to-amber-500 rounded-md flex justify-center items-center relative">
-        <div className="absolute top-1 right-1 my-1 cursor-pointer text-gray-700">
-          <RiCloseCircleLine onClick={() => setToggle(false)} size={24} />
-        </div>
-        <div className="w-72 rounded-md p-2 space-y-1">
-          <input
-            value={newBookmark.name}
-            onChange={(e) =>
-              setNewBookmark((prevBookmark) => ({ ...prevBookmark, name: e.target.value }))
-            }
-            type="text"
-            placeholder="Name"
-            className="w-full h-full bg-gray-100 rounded-md p-2 text-md  outline-0
-            focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 sm:text-sm tracking-wide"
-          />
-          <input
-            value={newBookmark.url}
-            onChange={(e) =>
-              setNewBookmark((prevBookmark) => ({ ...prevBookmark, url: e.target.value }))
-            }
-            type="text"
-            placeholder="Url"
-            className="w-full h-full bg-gray-100 rounded-md p-2 text-md  outline-0
-            focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 sm:text-sm tracking-wide"
-          />
-          <div className="flex justify-center my-1 gap-2">
-            <button
-              onClick={handleDelete}
-              className="text-gray-900 text-lg px-2 py-1  rounded-l-md bg-white"
+    <ModalWrapper>
+      <div 
+      ref={ref}
+      className="flex justify-between text-gray-900 px-2">
+        <h6 className="text-md">Update a Bookmark </h6>
+        <MdOutlineClose
+          onClick={() => setToggle(false)}
+          className="cursor-pointer"
+          size={22}
+        />
+      </div>
+      <div className="w-full rounded-md p-2 space-y-1">
+        <input
+          value={newBookmark.name}
+          onChange={(e) =>
+            setNewBookmark((prevBookmark) => ({
+              ...prevBookmark,
+              name: e.target.value,
+            }))
+          }
+          type="text"
+          placeholder="Name"
+          className="w-full   rounded-md px-2 text-md py-2    outline-0 my-2
+            border border-spacing-2 border-gray-200 
+            "
+        />
+        <input
+          value={newBookmark.url}
+          onChange={(e) =>
+            setNewBookmark((prevBookmark) => ({
+              ...prevBookmark,
+              url: e.target.value,
+            }))
+          }
+          type="text"
+          placeholder="Url"
+          className="w-full  rounded-md px-2 text-md py-2   outline-0 my-2
+          border border-spacing-2 border-gray-200 "
+        />
+        <div className="flex justify-center my-1 gap-2">
+          <button
+            onClick={handleDelete}
+            className="px-4 py-2 rounded-l-md bg-gray-100  text-gray-900  text-sm"
             >
-              <MdDelete size={22} />
-            </button>
-            <button
-              onClick={handleSave}
-              className="text-gray-700 text-lg px-2 py-1  rounded-r-md  bg-white"
+              Delete
+          </button>
+          <button
+            onClick={handleSave}
+            className="px-4 py-2 rounded-r-md bg-gray-100  text-gray-900  text-sm"
             >
-              <FaSave size={22} />
-            </button>
-          </div>
+              Save 
+          </button>
         </div>
       </div>
-    </div>
+    </ModalWrapper>
   );
 }
 

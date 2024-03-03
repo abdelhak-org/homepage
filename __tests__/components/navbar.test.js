@@ -3,7 +3,7 @@ import NavBar from "@/components/NavBar";
 
 describe("Navbar", () => {
   afterEach(() => cleanup());
-
+  
   test("header renders correctly", () => { 
       render(<NavBar />);
       const navbarHeading = screen.getByText("HomePage");

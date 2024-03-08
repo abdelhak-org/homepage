@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import BookmarkItem from "./BookmarkItem";
-import { useDataContext } from "@/context/data/DataContext";
 
 const ListItems = ({ items, listId }) => {
-  const { dataActions } = useDataContext();
-  const [isPending, setIsPending] = useState(false);
 
   return (
     <div>

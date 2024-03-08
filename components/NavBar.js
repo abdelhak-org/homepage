@@ -1,9 +1,7 @@
-import {  useState } from "react";
 import NewListModal from "./Modal/NewListModal";
 import Link from "next/link";
 import { useDataContext } from "@/context/data/DataContext";
 const NavBar = () => {
-  const [showModal, setShowModal] = useState(false);
   const {dataActions} = useDataContext()
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -12,27 +10,31 @@ const NavBar = () => {
 
 
   return (
+    <>
+    <nav className="w-full  bg-neutral-100 border  border-b-neutral-300/50">
+
+
     <div
-      className="w-screen h-screen  bg-gray-100 border  border-b-gray-300/50 mx-auto flex flex-col justify-center font-roboto text-lg font-light items-center px-4
-      md:max-w-[1534px] md:justify-between  md:flex-row md:h-[55px] md:flex-wrap"
-    >
+      className="max-w-[1534px]    mx-auto
+      flex flex-col justify-center font-roboto text-lg font-light items-center px-8 
+      md:justify-between  md:flex-row md:h-[55px] md:flex-wrap"
+      >
+      <Link href="/">
       <h3 
       className="font-script text-8xl mb-8 md:text-4xl md:m-0 text-[#333] font-bold">
-        <Link href="/">HomePage</Link>
+          
+          HomePage
+          
       </h3>
+          </Link>
 
-      {!showModal ? (
-        <button
-          onClick={toggleModal}
-          className="py-2 px-4 capitalize  rounded-md bg-blue-600 text-white text-center text-sm font-semibold font-josefin
-          cursor-pointer"
-        >
-          add new list
-        </button>
-      ) : (
-        <NewListModal setShowModal={setShowModal} />
-      )}
-    </div>
+  
+        
+        <NewListModal />
+      
+       </div>
+      </nav>
+      </>
   );
 };
 

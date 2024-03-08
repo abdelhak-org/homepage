@@ -1,5 +1,6 @@
 import { dataActionTypes } from "./actionsTypes";
-import { addBookmark, deleteBookmark, moveBookmark, updateBookmark , searBookmark } from "../utils/reducer-util";
+import { addBookmark, deleteBookmark, moveBookmark, updateBookmark ,
+    searchBookmark , addNewList } from "../utils/reducer-util";
 
 
 /// Reducer
@@ -29,13 +30,28 @@ export const dataReducer = (state, action) => {
       };
 
     case dataActionTypes.SEARCH_BOOKMARK:
-      return searBookmark(state , action)
+      return searchBookmark(state , action)
 
      case dataActionTypes.RESET_UI :
-      return state
+      return {
+        ...state,
+        searchValue: action.payload ,
+       
+        
+      }
     default:
       return state;
   }
 };
 
 
+/*
+ state.listsData.map((list)=> {
+        return {
+          ...list, 
+          items: list.items.filter((item)=> item.name.toLowerCase().includes(state.searchValue.toLowerCase()))
+        }
+      
+      } ),
+
+*/ 

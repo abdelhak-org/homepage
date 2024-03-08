@@ -1,12 +1,16 @@
+'use client'
+
 import { useEffect, useState , useRef } from "react";
 import { useDataContext } from "@/context/data/DataContext";
 import {  MdOutlineClose } from "react-icons/md";
 import ModalWrapper from "../layout/ModalWrapper";
 import useOnClickOutside from "@/hooks/useClickOutside";
+import { TbPencil } from "react-icons/tb";
 
-function BookmarkItemModal({ listId, id, setToggle }) {
+function BookmarkItemModal({ listId, id }) {
+  const [toggle, setToggle] = useState(false);
+
   const { dataActions, listsData } = useDataContext();
-  const [isPending, setIsPending] = useState(false);
   const [newBookmark, setNewBookmark] = useState({ id: "", name: "", url: "" });
   const ref = useRef();
   useOnClickOutside(ref, () => setToggle(false));
@@ -25,21 +29,21 @@ function BookmarkItemModal({ listId, id, setToggle }) {
     setToggle(false);
   };
 
-  useEffect(() => {
-    const rerenderItem = () => {
-      const list = listsData.find((list) => list.listId === listId);
-      const targetBookmark = list.items.find((item) => item.id === id);
-      setNewBookmark(targetBookmark);
-    };
-    rerenderItem();
-  }, []);
 
-  if (isPending) {
-    return <p>isLoading........</p>;
-  }
+
+if(!toggle){
+  return(
+    <TbPencil
+    onClick={()=> setToggle(true)}
+    className="w-4 h-4 cursor-pointer text-neural-800"
+  />
+
+  )
+}
+
 
   return (
-    <ModalWrapper>
+    <ModalWrapper >
       <div 
       ref={ref}
       className="flex justify-between text-gray-900 px-2">

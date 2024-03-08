@@ -104,25 +104,20 @@ export const updateBookmark = (state, action) => {
 };
 
 
-export const searBookmark = (state, action)=>{
-    const searchValue = action.payload;
-    const newListData = state.listsData.map((list) => {
-        const newBookmarks = list.items.filter((bookmark) => {
-          return (
-            bookmark.name.toLowerCase().includes(searchValue.toLowerCase())
-            
-          );
-        });
+export const searchBookmark = (state, action)=>{
+    
+    const newListData = state.listsData.map((list)=> {
         return {
-          ...list,
-          items: newBookmarks,
-        };
-      }
-      );
+          ...list, 
+          items: list.items.filter((item)=> item.name.toLowerCase().includes(action.payload.toLowerCase()))
+        }
+      
+      } )
   
     return {
       ...state,
-      listsData: newListData.filter((list) => list.items.length > 0),
-    }; 
+      searchValue :action.payload,
+      listsData: newListData,
+    }
     
   }

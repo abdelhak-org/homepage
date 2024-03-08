@@ -10,5 +10,8 @@
   margin: 0px;
   transition: 0.2s;
 }
-
+html {
+  width: 100vw;
+  scroll-behavior: smooth;
+}
    

@@ -5,10 +5,13 @@ import { useUiContext } from "@/context/ui/UiContext";
 import { TbDotsVertical } from "react-icons/tb";
 import { RiFontSize } from "react-icons/ri";
 import { IoIosColorPalette } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+import { useDataContext } from "@/context/data/DataContext";
 
-export default function OptionsMenu() {
+export default function OptionsMenu({ listId }) {
   const [showOptions, setShowOptions] = useState(false);
   const { actions, uiData } = useUiContext();
+  const { dataActions } = useDataContext();
   const optionsSize = ["14px", "18px", "22px"];
 
   const selectElements = optionsSize.map((option, index) => (
@@ -28,38 +31,52 @@ export default function OptionsMenu() {
     actions.ChangeBookmarkColor(e.target.value);
   };
 
+  const handleDeleteList = () => {
+    dataActions.deleteList(listId);
+    setShowOptions(false);
+  };
+
   return (
     <>
-      <button
-        data-testid="settingIcon"
-        onClick={() => setShowOptions(!showOptions)}
-      >
+      <button data-testid="settingIcon" onClick={() => setShowOptions(!showOptions)}>
         <TbDotsVertical className="text-xl my-2" />
       </button>
 
       {showOptions && (
-        <div className="absolute bg-gray-100  flex flex-col gap-2 bg-gray px-3 py-2 w-32 rounded-md top-[52px] right-1 z-10">
-          <div className="flex  gap-2 py-1 text-xs items-center">
-            <label>
-              <IoIosColorPalette  size={22} color="pink"/>
+        <div className="absolute w-52 bg-white border border-neutral-300 shadow-md flex flex-col gap-2 px-3 py-2 rounded-md top-[50px] right-0 z-10">
+          <div className="flex justify-between items-center overflow-hidden">
+            <label className="w-[30%]">
+              <IoIosColorPalette size={26} color="pink" />
             </label>
             <input
               value={uiData.bookmarkHeaderColor}
               onChange={onColorInputChange}
-              className="h-6 text-sm p-1 flex-grow"
+              className="flex-grow cursor-pointer outline-none bg-neutral-200 border border-neutral-300 shadow-md rounded-md p-0"
               type="color"
             />
           </div>
-          <div className="flex  gap-1 text-xs">
-            <label>
-              <RiFontSize size={18} />
+          <div className="flex gap-1 text-lg">
+            <label className="w-[30%]">
+              <RiFontSize size={22} />
             </label>
             <select
               onChange={onSelectChange}
-              className="flex-grow rounded-md px-2 py-1 text-xs cursor-pointer outline-none"
+              className="flex-grow rounded-md py-2 text-md cursor-pointer outline-none text-center bg-neutral-200"
             >
               {selectElements}
             </select>
+          </div>
+
+          <div className="flex text-lg items-center justify-between">
+            <label className="w-[30%]">
+              <MdDelete size={22} className="text-red-500" />
+            </label>
+            <button
+              onClick={handleDeleteList}
+              className="text-center bg-red-500 text-md px-2 font-bold font-roboto py-1 flex-grow rounded-md cursor-pointer outline-none text-red-100"
+            >
+              Delete
+            </button>
           </div>
         </div>
       )}

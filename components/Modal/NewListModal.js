@@ -1,13 +1,11 @@
 "use client ";
 import { Fragment, useState, useRef, useEffect } from "react";
-import { Transition } from "@headlessui/react";
 import { useDataContext } from "@/context/data/DataContext";
 import { MdOutlineClose } from "react-icons/md";
 import ModalWrapper from "@/components/layout/ModalWrapper";
 
 export default function NewListModal() {
   const [showModal, setShowModal] = useState(false);
-  // const [onClose, setOnClose] = useState(false);
   const { dataActions } = useDataContext();
   const [newBookmarkList, setNewBookmarkList] = useState({
     listId: Math.random() * 1000,
@@ -42,7 +40,7 @@ export default function NewListModal() {
   if (!showModal) {
     return (
       <button
-        className="py-2 px-4 capitalize rounded-md bg-blue-600 text-white text-center text-sm font-semibold font-josefin cursor-pointer"
+        className="py-3 px-6 capitalize rounded-md bg-blue-500 text-white text-center text-sm font-semibold font-josefin cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         add New List
@@ -52,7 +50,7 @@ export default function NewListModal() {
 
   return (
     <ModalWrapper isOpen={setShowModal} closeHandler={closeHandler} saveHandler={handleSave}>
-      <div className="flex justify-between text-gray-900">
+      <div className="flex justify-between text-neutral-900">
         <h6 className="text-md">Add a List</h6>
         <MdOutlineClose
           onClick={() => setShowModal(false)}
@@ -62,13 +60,7 @@ export default function NewListModal() {
       </div>
       <div className="">
         <div className="w-full bg-white mt-1 rounded-md">
-          <Transition
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-            show={true}
-          >
+       
             <input
               onChange={(e) =>
                 setNewBookmarkList({
@@ -80,15 +72,14 @@ export default function NewListModal() {
               placeholder="add new list"
               value={newBookmarkList.listName}
               type="text"
-              className="w-full rounded-md px-2 text-md py-2 capitalize outline-0 my-2 border border-spacing-2 border-gray-200"
+              className="w-full rounded-md px-4 text-md py-2 capitalize outline-0 my-2 border border-spacing-2 border-gray-300 bg-neutral-100  focus:ring-2 focus:ring-blue-500"
             />
-          </Transition>
         </div>
       </div>
       <div className="flex justify-end space-x-2 py-2 my-0">
         <button
-        onClick={closeHandler}
-          className="px-4 py-2 rounded-md bg-blue-500 font-bold tracking-wide text-gray-900 text-sm"
+        onClick={handleSave}
+          className="px-4 py-2 rounded-md bg-blue-500 font-bold tracking-wide text-neutral-100 text-sm"
         >
           Save
         </button>

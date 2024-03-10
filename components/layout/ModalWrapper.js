@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, {  useRef, useEffect } from "react";
 import useOnClickOutside from "@/hooks/useClickOutside";
 import { createPortal } from "react-dom";
 const ModalWrapper = ({ children, isOpen, closeHandler , saveHandler }) => {

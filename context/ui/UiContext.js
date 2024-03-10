@@ -6,7 +6,7 @@ const uiReducer = (state, action) => {
         case "CHANGE_BG_COLOR":
             return {...state, bgColor: action.payload};
         case "CHANGE_BOOKMARK_COLOR":
-            return {...state, bookmarkHeaderColor: action.payload};
+            return {...state, bookmarkHeaderColor: action.payload.color};
         case "CHANGE_BOOKMARK_FONTSIZE":
             return {...state, fontS: action.payload};
         case "OPEN_BOOKMARK_MODAL":

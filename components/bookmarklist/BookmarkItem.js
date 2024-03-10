@@ -1,17 +1,15 @@
 "use client";
+
 import { useUiContext } from "@/context/ui/UiContext";
-import BookmarkItemModal from "@/components/Modal/BookmarkItemModal";
-import {  useRef, useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
+import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { dropItemTypes } from "@/dropItemTypes";
-import Link from "next/link";
-
+import UpdateBookmarkModal from "../Modal/UpdateBookmarkModal.js";
 const BookmarkItem = ({ item, index, listId }) => {
   const { dataActions } = useDataContext();
   const { uiData, actions: uiActions } = useUiContext();
-  const ref = useRef(null);
-
+  const  ref = useRef(null);
 
 
   const handleOpenModal = () => {
@@ -48,7 +46,7 @@ const BookmarkItem = ({ item, index, listId }) => {
 
   return (
     <>
-       <li
+       <div
        //  href={item.url} target="_blank"
         ref={drag(drop(ref))}
         data-testid="bookmark-item-test"
@@ -63,9 +61,8 @@ const BookmarkItem = ({ item, index, listId }) => {
         <span>
           {item.name}
         </span>
-       
-        <BookmarkItemModal id={item.id}  listId={listId} />
-      </li>
+        <UpdateBookmarkModal id={item.id}  listId={listId} />
+      </div>
       
     
     </>

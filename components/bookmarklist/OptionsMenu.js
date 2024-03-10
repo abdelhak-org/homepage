@@ -28,7 +28,7 @@ export default function OptionsMenu({ listId }) {
   const onSelectChange = (e) => actions.ChangeBookFontSize(e.target.value);
 
   const onColorInputChange = (e) => {
-    actions.ChangeBookmarkColor(e.target.value);
+    actions.ChangeBookmarkColor(e.target.value, listId);
   };
 
   const handleDeleteList = () => {
@@ -49,19 +49,20 @@ export default function OptionsMenu({ listId }) {
               <IoIosColorPalette size={26} color="pink" />
             </label>
             <input
-              value={uiData.bookmarkHeaderColor}
+              //value={uiData.bookmarkHeaderColor}
               onChange={onColorInputChange}
-              className="flex-grow cursor-pointer outline-none bg-neutral-200 border border-neutral-300 shadow-md rounded-md p-0"
+              className="w-full rounded-md  cursor-pointer outline-none  shadow-md  "
               type="color"
+              value={uiData.bookmarkHeaderColor}
             />
           </div>
-          <div className="flex gap-1 text-lg">
+          <div className="flex gap-1 ">
             <label className="w-[30%]">
               <RiFontSize size={22} />
             </label>
             <select
               onChange={onSelectChange}
-              className="flex-grow rounded-md py-2 text-md cursor-pointer outline-none text-center bg-neutral-200"
+              className="w-full  rounded-md px-2 py-1  text-lg cursor-pointer font-bold outline-none text-center bg-neutral-200"
             >
               {selectElements}
             </select>
@@ -73,7 +74,7 @@ export default function OptionsMenu({ listId }) {
             </label>
             <button
               onClick={handleDeleteList}
-              className="text-center bg-red-500 text-md px-2 font-bold font-roboto py-1 flex-grow rounded-md cursor-pointer outline-none text-red-100"
+              className="text-center w-full bg-red-500 text-sm  font-bold font-roboto py-1  rounded-md cursor-pointer outline-none text-red-100"
             >
               Delete
             </button>

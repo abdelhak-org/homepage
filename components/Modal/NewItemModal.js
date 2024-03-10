@@ -1,71 +1,108 @@
-import React, { useRef, useState } from "react";
-import { RiCloseCircleLine } from "react-icons/ri";
+import React, {  useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
-import { FaSave } from "react-icons/fa";
 import ModalWrapper from "../layout/ModalWrapper";
 import { MdOutlineClose } from "react-icons/md";
-import useOnClickOutside from "@/hooks/useClickOutside";
 
-function NewItemModal({ selectedListId, showItemModal, setShowItemModal }) {
+function NewItemModal({ selectedListId}) {
+  const [showItemModal, setShowItemModal] = useState(false);
   const { dataActions } = useDataContext();
   const [newBookmark, setNewBookmark] = useState({
     id: Math.random() * 100,
     name: "",
     url: "",
   });
-  const ref = useRef();
-  useOnClickOutside(ref, () => setShowItemModal(false));
-  const handleSave = (e) => {
-    e.preventDefault();
-    console.log(newBookmark, selectedListId);
-    dataActions.addBookmark(selectedListId, newBookmark);
-    setShowItemModal(false);
-  };
-
   const handleChange = (e, field) => {
     setNewBookmark((prevBookmark) => ({
       ...prevBookmark,
       [field]: e.target.value,
     }));
   };
+  const handleSave = () => {
+    dataActions.addBookmark(selectedListId, newBookmark);
+    setNewBookmark({
+      id: Math.random() * 100,
+      name: "",
+      url: "",
+    });
+    setShowItemModal(false);
+  };
+  const closeHandler = () => {
+    setNewBookmark({
+      id: Math.random() * 100,
+      name: "",
+      url: "",
+    });
+    setShowItemModal(false);
+  };
+
+if(!showItemModal){
+   return(
+    
+    <button
+    onClick={() => setShowItemModal(true)}
+    className="text-lg float-right px-2  rounded-md bg-blue-500 font-bold tracking-wide mr-2 mb-2 text-white "
+    >+</button>
+   )
+}
+
+
 
   return (
-    <ModalWrapper>
-      <div className="flex justify-between text-gray-900 px-2">
-        <h6 className="text-md">Add a Bookmark </h6>
+    <ModalWrapper 
+    isOpen={setShowItemModal}
+    closeHandler={closeHandler}
+    saveHandler={handleSave}
+    >
+      <div className="flex justify-between text-neutral-900 px-0 ">
+        <h6 className="text-sm text-neutral-700">Add a Bookmark</h6>
         <MdOutlineClose
-          onClick={() => setShowItemModal(!showItemModal)}
-          className="cursor-pointer"
+          onClick={() => setShowItemModal(false)}
+          className="cursor-pointer text-neutral-900 font-normal
+        hover:bg-neutral-300  "
           size={22}
         />
-      </div>
-      <div ref={ref} className="w-full  rounded-md p-2 space-y-1">
+        </div>
+
+      <div className="w-full bg-white mt-1 rounded-md">
         <input
           value={newBookmark.name}
           onChange={(e) => handleChange(e, "name")}
           type="text"
           placeholder="Name"
-          className="w-full   rounded-md px-2 text-md py-2   capitalize outline-0 my-2
-          border border-spacing-2 border-gray-200 
-          "
+          className="w-full rounded-md px-4 text-md py-2  outline-0 my-2
+               border border-spacing-2 border-transparent border-b-neutral-700 bg-neutral-200 
+                 focus:ring-2 focus:ring-blue-500 focus:border-transparent
+               placeholder:text-neutral-500 "
         />
+      </div>
+      <div className="w-full bg-white mt-1 rounded-md">
         <input
           value={newBookmark.url}
           onChange={(e) => handleChange(e, "url")}
           type="text"
           placeholder="Url"
-          className="w-full   rounded-md px-2 text-md py-2   capitalize outline-0 my-2
-          border border-spacing-2 border-gray-200 
-          "
+          className="w-full rounded-md px-4 text-md py-2  outline-0 my-2
+          border border-spacing-2 border-transparent border-b-neutral-700 bg-neutral-200 
+            focus:ring-2 focus:ring-blue-500 focus:border-transparent
+          placeholder:text-neutral-500 "
         />
-        <div className="flex justify-center my-1 gap-2">
-          <button
-            onClick={handleSave}
-            className="px-4 py-2 rounded-md bg-gray-100 mt-2  text-gray-900  text-sm"
-            >
-            Save 
-          </button>
-        </div>
+      </div>
+
+      <div className="flex justify-between  items-center py-2">
+        <button
+        onClick={closeHandler}
+          className=" py-2 w-[50%]  rounded-md bg-neutral-500 font-bold tracking-wide
+           text-neutral-100 text-md"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleSave}
+          className="px-4 py-2 flex-grow rounded-md bg-blue-500 font-bold tracking-wide
+           text-neutral-100 text-md"
+        >
+          Save
+        </button>
       </div>
     </ModalWrapper>
   );

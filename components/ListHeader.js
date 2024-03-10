@@ -1,6 +1,7 @@
-import React from 'react'
+import React  , {useState} from 'react'
 
-const ListHeader = ({setCollapse ,collapse , listCategory }) => {
+const ListHeader = ({ listCategory , collapse , setCollapse }) => {
+
   return (
     <h6
     onClick={() => setCollapse(!collapse)}

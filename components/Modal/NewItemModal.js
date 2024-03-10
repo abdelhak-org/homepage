@@ -40,7 +40,7 @@ if(!showItemModal){
     
     <button
     onClick={() => setShowItemModal(true)}
-    className="text-lg float-right px-2  rounded-md bg-blue-500 font-bold tracking-wide mr-2 mb-2 text-white "
+    className="text-lg float-right px-2  rounded-md bg-blue-500 font-bold tracking-wide mr-2 my-2 text-white "
     >+</button>
    )
 }

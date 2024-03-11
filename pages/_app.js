@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import Layout from "../components/Layout"
 import NavBar from '@/components/NavBar'
 import { DataContextProvider } from '@/context/data/DataContext' 
 import { UiProvider } from '@/context/ui/UiContext'
@@ -14,13 +13,13 @@ export default function App({ Component, pageProps }) {
 
       <UiProvider>
       <DataContextProvider>
-      <Layout>
+      
       <NavBar/>
       <SearchBar/>
       <Component {...pageProps} />
       <Footer/>
 
-    </Layout>
+  
       </DataContextProvider>
       </UiProvider>
     </DndProvider>

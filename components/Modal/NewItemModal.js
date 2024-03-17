@@ -1,16 +1,16 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useDataContext } from "@/context/data/DataContext";
 import ModalWrapper from "../layout/ModalWrapper";
 import { MdOutlineClose } from "react-icons/md";
-
-function NewItemModal({ selectedListId}) {
+const initialBookmark = {
+  id: Math.random() * 100,
+  name: "",
+  url: "",
+};
+function NewItemModal({ selectedListId }) {
   const [showItemModal, setShowItemModal] = useState(false);
   const { dataActions } = useDataContext();
-  const [newBookmark, setNewBookmark] = useState({
-    id: Math.random() * 100,
-    name: "",
-    url: "",
-  });
+  const [newBookmark, setNewBookmark] = useState({ initialBookmark});
   const handleChange = (e, field) => {
     setNewBookmark((prevBookmark) => ({
       ...prevBookmark,
@@ -18,40 +18,32 @@ function NewItemModal({ selectedListId}) {
     }));
   };
   const handleSave = () => {
+    if(!newBookmark.name || !newBookmark.url) return;
     dataActions.addBookmark(selectedListId, newBookmark);
-    setNewBookmark({
-      id: Math.random() * 100,
-      name: "",
-      url: "",
-    });
+    setNewBookmark(initialBookmark);
     setShowItemModal(false);
   };
   const closeHandler = () => {
-    setNewBookmark({
-      id: Math.random() * 100,
-      name: "",
-      url: "",
-    });
+    setNewBookmark(initialBookmark);
     setShowItemModal(false);
   };
 
-if(!showItemModal){
-   return(
-    
-    <button
-    onClick={() => setShowItemModal(true)}
-    className="text-lg float-right px-2  rounded-md bg-blue-500 font-bold tracking-wide mr-2 my-2 text-white "
-    >+</button>
-   )
-}
-
-
+  if (!showItemModal) {
+    return (
+      <button
+        onClick={() => setShowItemModal(true)}
+        className="text-xl float-right px-3  rounded-md bg-blue-500 font-bold tracking-wide mr-2 my-2 text-white "
+      >
+        +
+      </button>
+    );
+  }
 
   return (
-    <ModalWrapper 
-    isOpen={setShowItemModal}
-    closeHandler={closeHandler}
-    saveHandler={handleSave}
+    <ModalWrapper
+      isOpen={setShowItemModal}
+      closeHandler={closeHandler}
+      saveHandler={handleSave}
     >
       <div className="flex justify-between text-neutral-900 px-0 ">
         <h6 className="text-sm text-neutral-700">Add a Bookmark</h6>
@@ -61,7 +53,7 @@ if(!showItemModal){
         hover:bg-neutral-300  "
           size={22}
         />
-        </div>
+      </div>
 
       <div className="w-full bg-white mt-1 rounded-md">
         <input
@@ -88,9 +80,9 @@ if(!showItemModal){
         />
       </div>
 
-      <div className="flex justify-between  items-center py-2">
+      <div className="flex justify-between  items-center py-4 space-x-4">
         <button
-        onClick={closeHandler}
+          onClick={closeHandler}
           className=" py-2 w-[50%]  rounded-md bg-neutral-500 font-bold tracking-wide
            text-neutral-100 text-md"
         >

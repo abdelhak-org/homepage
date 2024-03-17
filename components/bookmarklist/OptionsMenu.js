@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { useUiContext } from "@/context/ui/UiContext";
 import { TbDotsVertical } from "react-icons/tb";
 import { RiFontSize } from "react-icons/ri";
 import { IoIosColorPalette } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { useDataContext } from "@/context/data/DataContext";
-
+import useOnClickOutside from "@/hooks/useClickOutside";
 export default function OptionsMenu({ listId }) {
   const [showOptions, setShowOptions] = useState(false);
   const { actions, uiData } = useUiContext();
   const { dataActions } = useDataContext();
   const optionsSize = ["14px", "18px", "22px"];
-
+  const ref = useRef();
+  useOnClickOutside(ref, () => setShowOptions(false));
   const selectElements = optionsSize.map((option, index) => (
     <option
       style={{ backgroundColor: option }}
@@ -37,13 +38,13 @@ export default function OptionsMenu({ listId }) {
   };
 
   return (
-    <>
+    <Fragment >
       <button data-testid="settingIcon" onClick={() => setShowOptions(!showOptions)}>
         <TbDotsVertical className="text-xl my-2" />
       </button>
 
       {showOptions && (
-        <div className="absolute w-52 bg-white border border-neutral-300 shadow-md flex flex-col gap-2 px-3 py-2 rounded-md top-[50px] right-0 z-10">
+        <div ref={ref} className="absolute w-52 bg-white border border-neutral-300 shadow-md flex flex-col gap-2 px-3 py-2 rounded-md top-[50px] right-0 z-10">
           <div className="flex justify-between items-center overflow-hidden">
             <label className="w-[30%]">
               <IoIosColorPalette size={26} color="pink" />
@@ -81,6 +82,6 @@ export default function OptionsMenu({ listId }) {
           </div>
         </div>
       )}
-    </>
+    </Fragment>
   );
 }

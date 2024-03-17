@@ -13,12 +13,7 @@ export function DataContextProvider({ children }) {
   });   
   const value = {
        
-      listsData:state.listsData.map((list)=> {
-        return {
-          ...list, 
-          items : list.items.filter((item)=> item.name.toLowerCase().includes(state.searchValue.toLowerCase()))
-        }
-      }).filter((list)=> list.items.length > 0),
+      listsData:state.listsData,
       dispatch,   
       searchValue: state.searchValue, 
       dataActions: dataActions(dispatch)   

@@ -1,42 +1,43 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { useDataContext } from "@/context/data/DataContext";
 import { MdOutlineClose } from "react-icons/md";
 import ModalWrapper from "../layout/ModalWrapper";
 import { TbPencil } from "react-icons/tb";
-
-function UpdateBookmarkModal({ listId, id ,}) {
+const initialBookmark = {
+  id: "",
+  name: "",
+  url: "",
+};
+function UpdateBookmarkModal({ listId, id }) {
   const [toggle, setToggle] = useState(false);
   const { dataActions, listsData } = useDataContext();
-  const [updatedBookmark, setUpdatedBookmark] = useState({
-    id: "",
-    name: "",
-    url: "",
-  });
-  
+  const [updatedBookmark, setUpdatedBookmark] = useState(initialBookmark);
+
   const handleSave = () => {
     dataActions.updateBookmark(listId, updatedBookmark);
+    setUpdatedBookmark(initialBookmark);
     setToggle(false);
   };
-  
+
   const closeHandler = () => {
-    setUpdatedBookmark({ id: "", name: "", url: "" });
-    
+    setUpdatedBookmark(initialBookmark);
+
     setToggle(false);
   };
   const deleteHandler = () => {
     dataActions.deleteBookmark(listId, id);
     setToggle(false);
-   }
-  
+  };
+
   useEffect(() => {
     const bookmark = listsData
       .find((list) => list.listId === listId)
       ?.items.find((item) => item.id === id);
     setUpdatedBookmark(bookmark);
   }, [listsData, id, listId, toggle]);
-  
+
   if (!toggle) {
     return (
       <TbPencil
@@ -52,8 +53,7 @@ function UpdateBookmarkModal({ listId, id ,}) {
       closeHandler={closeHandler}
       saveHandler={handleSave}
     >
-
-<div className="flex justify-between text-neutral-900  ">
+      <div className="flex justify-between text-neutral-900  ">
         <h6 className="text-sm text-neutral-700">Update a Bookmark</h6>
         <MdOutlineClose
           onClick={closeHandler}
@@ -61,7 +61,6 @@ function UpdateBookmarkModal({ listId, id ,}) {
           size={22}
         />
       </div>
-
 
       <div className="w-full bg-white mt-1 rounded-md">
         <input
@@ -79,8 +78,8 @@ function UpdateBookmarkModal({ listId, id ,}) {
             focus:ring-2 focus:ring-blue-500 focus:border-transparent
             placeholder:text-neutral-500 "
         />
-        </div>
-        <div className="w-full bg-white mt-1 rounded-md">
+      </div>
+      <div className="w-full bg-white mt-1 rounded-md">
         <input
           value={updatedBookmark.url}
           onChange={(e) =>
@@ -96,9 +95,8 @@ function UpdateBookmarkModal({ listId, id ,}) {
             focus:ring-2 focus:ring-blue-500 focus:border-transparent
             placeholder:text-neutral-500 "
         />
-
-    </div>
-      <div className="flex justify-between  items-center py-2">
+      </div>
+      <div className="flex justify-between  items-center py-4  space-x-4">
         <button
           onClick={deleteHandler}
           className=" py-2 w-[50%]  rounded-md bg-red-500 font-bold tracking-wide
@@ -118,4 +116,4 @@ function UpdateBookmarkModal({ listId, id ,}) {
   );
 }
 
-export default  UpdateBookmarkModal;
+export default UpdateBookmarkModal;

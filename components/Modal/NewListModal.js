@@ -4,42 +4,25 @@ import { useDataContext } from "@/context/data/DataContext";
 import { MdOutlineClose } from "react-icons/md";
 import ModalWrapper from "@/components/layout/ModalWrapper";
 
+const initialBookmarkList = {
+  listId: Math.random() * 1000,
+    listName: "",
+    items: [  ],
+};
+
 export default function NewListModal() {
   const [showModal, setShowModal] = useState(false);
   const { dataActions } = useDataContext();
-  const [newBookmarkList, setNewBookmarkList] = useState({
-    listId: Math.random() * 1000,
-    listName: "",
-    items: [
-      {
-        id: Math.random() * 1000,
-        name: "google",
-        url: "https://www.google.com",
-      },
-    ],
-  });
+  const [newBookmarkList, setNewBookmarkList] = useState(initialBookmarkList);
 
-  const handleSave = () => {
+ 
+    const handleSave = () => {
     dataActions.addNewList(newBookmarkList);
-    setNewBookmarkList({
-      listId: Math.random() * 1000,
-      listName: "",
-      items: [
-        {
-          id: Math.random() * 1000,
-          name: "default",
-          url: "https://www.google.com",
-        },
-      ],
-    });
+    setNewBookmarkList(initialBookmarkList);
     setShowModal(false);
   };
   const closeHandler = () => {
-    setNewBookmarkList({
-      listId: Math.random() * 1000,
-      listName: "",
-      items: [],
-    });
+    setNewBookmarkList(initialBookmarkList);
     setShowModal(false);
   };
   if (!showModal) {
@@ -90,7 +73,7 @@ export default function NewListModal() {
           />
         </div>
 
-      <div className="flex justify-between  items-center py-2">
+      <div className="flex justify-between  items-center py-4 space-x-4">
         <button
           onClick={closeHandler}
           className=" py-2 w-[50%]  rounded-md bg-neutral-500 font-bold tracking-wide

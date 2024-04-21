@@ -56,7 +56,7 @@ const BookmarkItem = ({ item, index, listId }) => {
         rounded-md border border-solid border-gray-light font-roboto text-gray "
       >
         <div className="p-1 text-lg">
-           <img height="24" width="24" src={`https://api.statvoo.com/favicon/${item.url.slice(8 , -1)}`} /> 
+           <img height="24" width="24" src={`https://www.google.com/s2/favicons?sz=64&domain_url=${item.url}`} alt="logo" /> 
         </div>
         <span>
           {item.name}
